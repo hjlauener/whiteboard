@@ -17,6 +17,7 @@ vom Typ **„Udon Whiteboard“** hinzufügen lässt.
 Wie beim Udon Forum: Der Terminal-Befehl **`udw`** holt den neusten Stand von
 GitHub und lädt das Plugin im lokalen Docker-ILIAS neu.
 Einrichtung und alle Befehle: **[dev/README.md](dev/README.md)**.
+Technik, eingesetzte Bibliotheken und Lizenzen: **[TECHNIK.md](TECHNIK.md)**.
 
 Kurzfassung:
 

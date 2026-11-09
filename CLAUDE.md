@@ -31,6 +31,8 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   ```
 
 - **Nach jeder Änderung in `frontend/` neu bauen und `js/dist/` mitcommitten.**
+- `TECHNIK.md` (Bibliotheken, Versionen, Lizenzen, Abgleich, Datenbank,
+  Rechte) bei jeder Änderung daran nachführen.
 - Texte des Boards kommen aus den ILIAS-Sprachdateien (über `data-config`),
   nicht fest in TypeScript; die Excalidraw-Oberfläche hat eigene Übersetzungen.
 - Sprachen des Boards: nur Deutsch, Englisch, Französisch (je nach
