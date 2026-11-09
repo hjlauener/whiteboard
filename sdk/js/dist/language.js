@@ -390,6 +390,11 @@ export function reference() {
     }
     return out.join("\n");
 }
+/** End of the prompt when no task is given: the AI waits for it in the chat. */
+const WAIT_FOR_TASK = [
+    "The user gives the task in the next message, in any language. Reply to this message only with: OK – describe your task.",
+    "Then answer every task with a ```udon code block as described above. If the user sends error messages from the board, answer with the complete corrected script.",
+];
 /** The prompt that makes any AI answer with valid commands. */
 export function buildPrompt(options = {}) {
     const out = [];
@@ -414,6 +419,12 @@ export function buildPrompt(options = {}) {
         out.push("");
     }
     out.push("## Task");
-    out.push(options.task !== undefined && options.task.trim() !== "" ? options.task.trim() : "(Write your task here.)");
+    if (options.task !== undefined && options.task.trim() !== "") {
+        out.push(options.task.trim());
+    }
+    else {
+        // no task yet: the prompt is pasted into an AI chat and the task follows there
+        out.push(...WAIT_FOR_TASK);
+    }
     return out.join("\n");
 }

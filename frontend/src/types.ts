@@ -31,7 +31,9 @@ export interface BoardConfig {
     cmdDone: string;
     cmdCheck: string;
     cmdRun: string;
-    cmdCopyBoard: string;
+    cmdCopyForAi: string;
+    cmdCopyForAiDone: string;
+    cmdCopyForAiInfo: string;
     cmdAiStep1: string;
     cmdAiStep2: string;
     cmdAiStep3: string;

@@ -410,8 +410,16 @@ def build_prompt(task: str = "", board: str = "") -> str:
             "```",
             "",
         ]
-    out += ["## Task", task.strip() or "(Write your task here.)"]
+    out += ["## Task"]
+    # no task yet: the prompt is pasted into an AI chat and the task follows there
+    out += [task.strip()] if task.strip() else _WAIT_FOR_TASK
     return "\n".join(out)
+
+
+_WAIT_FOR_TASK = [
+    "The user gives the task in the next message, in any language. Reply to this message only with: OK – describe your task.",
+    "Then answer every task with a ```udon code block as described above. If the user sends error messages from the board, answer with the complete corrected script.",
+]
 
 
 # ----------------------------------------------------------------------

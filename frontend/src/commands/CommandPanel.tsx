@@ -128,8 +128,20 @@ export function CommandPanel({ api, config, onClose }: { api: ExcalidrawImperati
               <button type="button" onClick={check}>{t.cmdCheck}</button>
               <button type="button" className="primary" disabled={!config.canEdit || script.trim() === ""} onClick={run}>{t.cmdRun}</button>
               <span className="xudw-spacer" />
-              <button type="button" onClick={async () => (await copy(exportBoard(api.getSceneElements() as never))) && flash("board")}>
-                {copied === "board" ? t.cmdCopied : t.cmdCopyBoard}
+              {/* everything an AI needs: rules, reference, current board; the task follows in the AI chat */}
+              <button
+                type="button"
+                className="xudw-ai"
+                title={t.cmdCopyForAiInfo}
+                onClick={async () => {
+                  if (await copy(buildPrompt({ board: exportBoard(api.getSceneElements() as never) }))) {
+                    flash("ai");
+                    setProblems([]);
+                    setMessage(t.cmdCopyForAiDone);
+                  }
+                }}
+              >
+                {copied === "ai" ? t.cmdCopied : t.cmdCopyForAi}
               </button>
             </div>
           </div>

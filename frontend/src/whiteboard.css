@@ -227,3 +227,8 @@
   max-height: 24rem;
   overflow: auto;
 }
+.xudw-actions button.xudw-ai {
+  border-color: #e8590c;
+  color: #d9480f;
+  background: #fff4e6;
+}

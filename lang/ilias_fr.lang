@@ -57,7 +57,9 @@ cmd_checked#:#Aucune erreur trouvée. Nombre de commandes : %s.
 cmd_done#:#Exécuté. Nombre de commandes : %s.
 cmd_check#:#Vérifier
 cmd_run#:#Exécuter
-cmd_copy_board#:#Copier le tableau en commandes
+cmd_copy_for_ai#:#Copier pour une IA
+cmd_copy_for_ai_done#:#Copié. Collez le texte dans une IA de votre choix (p.ex. ChatGPT, Claude, Copilot, Gemini) et décrivez-y votre tâche. Collez la réponse de l’IA ci-dessus et cliquez sur « Exécuter ».
+cmd_copy_for_ai_info#:#Copie tout ce dont une IA a besoin : le langage de commandes et le contenu actuel du tableau.
 cmd_ai_step1#:#Décrivez ci-dessous, avec vos propres mots, ce que l’IA doit faire sur le tableau.
 cmd_ai_step2#:#Cliquez sur « Copier le prompt » et collez le texte dans une IA de votre choix, p.ex. ChatGPT, Claude, Copilot ou Gemini.
 cmd_ai_step3#:#Copiez la réponse de l’IA, c’est-à-dire le bloc contenant les commandes.

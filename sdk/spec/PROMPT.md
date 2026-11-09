@@ -429,4 +429,5 @@ redo
 ```
 
 ## Task
-(Write your task here.)
+The user gives the task in the next message, in any language. Reply to this message only with: OK – describe your task.
+Then answer every task with a ```udon code block as described above. If the user sends error messages from the board, answer with the complete corrected script.

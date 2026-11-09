@@ -57,7 +57,9 @@ cmd_checked#:#No errors found. Number of commands: %s.
 cmd_done#:#Done. Number of commands: %s.
 cmd_check#:#Check
 cmd_run#:#Run
-cmd_copy_board#:#Copy board as commands
+cmd_copy_for_ai#:#Copy for an AI
+cmd_copy_for_ai_done#:#Copied. Paste the text into an AI of your choice (e.g. ChatGPT, Claude, Copilot, Gemini) and describe your task there. Paste the answer of the AI above and click “Run”.
+cmd_copy_for_ai_info#:#Copies everything an AI needs: the command language and the current board content.
 cmd_ai_step1#:#Describe below, in your own words, what the AI should do on the board.
 cmd_ai_step2#:#Click “Copy prompt” and paste the text into an AI of your choice, e.g. ChatGPT, Claude, Copilot or Gemini.
 cmd_ai_step3#:#Copy the answer of the AI, i.e. the block with the commands.

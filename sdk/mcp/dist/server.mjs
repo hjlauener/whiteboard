@@ -37282,6 +37282,10 @@ function reference() {
   }
   return out.join("\n");
 }
+var WAIT_FOR_TASK = [
+  "The user gives the task in the next message, in any language. Reply to this message only with: OK \u2013 describe your task.",
+  "Then answer every task with a ```udon code block as described above. If the user sends error messages from the board, answer with the complete corrected script."
+];
 function buildPrompt(options = {}) {
   const out = [];
   out.push(`You control a shared whiteboard with the command language "${LANGUAGE_NAME}". Your answer is pasted into the board and executed.`);
@@ -37305,7 +37309,11 @@ function buildPrompt(options = {}) {
     out.push("");
   }
   out.push("## Task");
-  out.push(options.task !== void 0 && options.task.trim() !== "" ? options.task.trim() : "(Write your task here.)");
+  if (options.task !== void 0 && options.task.trim() !== "") {
+    out.push(options.task.trim());
+  } else {
+    out.push(...WAIT_FOR_TASK);
+  }
   return out.join("\n");
 }
 

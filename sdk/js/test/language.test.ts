@@ -46,5 +46,6 @@ let threw = false; try { (s as any).rect({ id: "a b" }); } catch { threw = true;
 ok(threw, "Builder wirft bei ungültiger id");
 ok(validate("view all").length === 0, "view all");
 ok(reference().includes("### arrow") && buildPrompt({ task: "Mindmap", board: "rect id=x" }).includes("## Current board"), "Referenz und Prompt");
+ok(buildPrompt({ board: "rect id=x" }).endsWith("answer with the complete corrected script.") && buildPrompt({ board: "rect id=x" }).includes("## Current board"), "ohne Aufgabe: KI wartet auf die Aufgabe");
 console.log(failed === 0 ? "ALLE OK" : failed + " FEHLGESCHLAGEN");
 process.exit(failed === 0 ? 0 : 1);

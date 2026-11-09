@@ -57,7 +57,9 @@ cmd_checked#:#Keine Fehler gefunden. Anzahl Befehle: %s.
 cmd_done#:#Ausgeführt. Anzahl Befehle: %s.
 cmd_check#:#Prüfen
 cmd_run#:#Ausführen
-cmd_copy_board#:#Board als Befehle kopieren
+cmd_copy_for_ai#:#Für eine KI kopieren
+cmd_copy_for_ai_done#:#Kopiert. Fügen Sie den Text in eine KI Ihrer Wahl ein (z.B. ChatGPT, Claude, Copilot, Gemini) und beschreiben Sie dort Ihre Aufgabe. Die Antwort der KI fügen Sie hier oben ein und klicken auf «Ausführen».
+cmd_copy_for_ai_info#:#Kopiert alles, was eine KI braucht: die Befehlssprache und den aktuellen Inhalt des Boards.
 cmd_ai_step1#:#Beschreiben Sie unten in Ihren eigenen Worten, was die KI auf dem Board tun soll.
 cmd_ai_step2#:#Klicken Sie auf «Prompt kopieren» und fügen Sie den Text in eine KI Ihrer Wahl ein, z.B. ChatGPT, Claude, Copilot oder Gemini.
 cmd_ai_step3#:#Kopieren Sie die Antwort der KI, also den Block mit den Befehlen.

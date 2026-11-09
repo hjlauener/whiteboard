@@ -60,6 +60,9 @@ class LanguageTest(unittest.TestCase):
         self.assertIn("## Current board", p)
         self.assertTrue(p.endswith("Mindmap"))
         self.assertEqual(validate("view all"), [])
+        waiting = build_prompt(board="rect id=x")
+        self.assertIn("OK – describe your task.", waiting)
+        self.assertTrue(waiting.endswith("answer with the complete corrected script."))
 
 
 if __name__ == "__main__":
