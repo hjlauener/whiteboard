@@ -232,3 +232,8 @@
   color: #d9480f;
   background: #fff4e6;
 }
+.xudw-prompt summary {
+  cursor: pointer;
+  color: #d9480f;
+  margin-bottom: 0.4rem;
+}

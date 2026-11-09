@@ -16,8 +16,8 @@ group leg exe id=gewalten
 ```
 
 Ausgeführt werden die Befehle **im Board**: Knopf **Befehle** oben rechts →
-„Befehle ausführen“ → einfügen → „Ausführen“. Unter „Mit einer KI arbeiten“
-erzeugt das Board den passenden Prompt für eine beliebige KI. Von aussen ist
+einfügen → „Ausführen“. „Für eine KI kopieren“ liefert den passenden Text für
+eine beliebige KI. Von aussen ist
 das Board nicht erreichbar; die Bibliotheken hier **schreiben und prüfen**
 Skripte, die dann im Board eingefügt werden.
 

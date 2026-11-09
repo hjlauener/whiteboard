@@ -59,10 +59,12 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   englisch (für KIs); Texte des Overlays kommen aus den Sprachdateien.
   Platzhalter in Sprachtexten: `%s`. Keine `{…}` in Texten, die in die
   Seite gehen: die ILIAS-Seitenvorlage entfernt sie.
-- Text für „Für eine KI kopieren“ (und Reiter „Mit einer KI arbeiten“):
+- Fenster „Befehle und KI“: nur Eingabefeld, Prüfen/Ausführen und „Für eine
+  KI kopieren“ (Wunsch des Auftraggebers, keine Reiter). Text dafür:
   `templates/ai_prompt_{de,en,fr}.txt` – vom Auftraggeber formuliert, je
-  Sprache gleich halten. Blöcke `[[BOARD … @@BOARD@@ … ]]` (nur mit
-  Board-Inhalt) und `[[TASK … @@TASK@@ … ]]` (nur mit Aufgabe). Die
+  Sprache gleich halten, im Fenster aufklappbar sichtbar. Blöcke
+  `[[BOARD … @@BOARD@@ … ]]` (nur mit Board-Inhalt) und
+  `[[TASK … @@TASK@@ … ]]` (nur mit Aufgabe, derzeit ungenutzt). Die
   Befehlsliste darin ist von Hand geschrieben: bei Änderungen an spec.ts
   nachführen. Die Bibliotheken (sdk/) nutzen weiter den erzeugten englischen
   Prompt.

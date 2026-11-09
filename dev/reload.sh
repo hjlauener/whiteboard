@@ -239,7 +239,9 @@ sync_code() {
         || die "Kopieren fehlgeschlagen."
     in_root chown -R "$CODE_USER" "$staging"
     in_root chmod -R a+rX "$staging"
-    in_root sh -c 'rm -rf "$1.alt" && { [ ! -e "$1" ] || mv "$1" "$1.alt"; } && mv "$2" "$1" && rm -rf "$1.alt"' sh "$target" "$staging" \
+    # mv --exchange vertauscht beide Ordner in einem Schritt (kein Moment ohne
+    # Plugin-Ordner); ältere Systeme ohne --exchange: zwei Umbenennungen
+    in_root sh -c 'if [ -e "$1" ] && mv -T --exchange "$2" "$1" 2>/dev/null; then rm -rf "$2"; else rm -rf "$1.alt" && { [ ! -e "$1" ] || mv "$1" "$1.alt"; } && mv "$2" "$1" && rm -rf "$1.alt"; fi' sh "$target" "$staging" \
         || die "Austauschen des Plugin-Ordners fehlgeschlagen."
     ok "Code kopiert."
 }
@@ -305,12 +307,34 @@ open_browser() {
     fi
 }
 
+# Merkmal der PHP-Klassen: Dateinamen und ilCtrl-Angaben. Nur wenn es sich
+# ändert, braucht es composer dump-autoload (Autoloader, ilCtrl-Struktur).
+# Dieser Schritt macht ILIAS für einen Moment unerreichbar; offene Boards
+# bekämen sonst bei jedem Neuladen eine Fehlermeldung.
+class_signature() {
+    (cd "$PLUGIN_DIR" && { ls classes/*.php; grep -h "@ilCtrl" classes/*.php; } 2>/dev/null) | cksum | cut -d' ' -f1
+}
+
+SIGNATURE_FILE="/tmp/udw-${PLUGIN_NAME}-classes"
+
+build_if_needed() {
+    local now before
+    now="$(class_signature)"
+    before="$(in_container cat "$SIGNATURE_FILE" 2>/dev/null || true)"
+    if [ "$now" = "$before" ]; then
+        ok "PHP-Klassen unverändert – Autoloader und Artifacts bleiben."
+        return
+    fi
+    build
+    printf '%s' "$now" | docker exec -i -u 0 "$CONTAINER" sh -c "cat > '$SIGNATURE_FILE'"
+}
+
 do_reload() {
     local started
     started="$(date +%s)"
     sync_code
     lint_php
-    build
+    build_if_needed
     update_plugin || true
     ok "Fertig in $(( $(date +%s) - started ))s – Seite im Browser neu laden."
 }
@@ -319,6 +343,7 @@ do_install() {
     sync_code
     lint_php
     build
+    printf '%s' "$(class_signature)" | docker exec -i -u 0 "$CONTAINER" sh -c "cat > '$SIGNATURE_FILE'"
     step "Installiere und aktiviere Plugin"
     if in_web php "$SETUP_PHP" install "$PLUGIN_OPT" "$PLUGIN_NAME" --yes; then
         ok "Plugin installiert und aktiviert."

@@ -20,10 +20,8 @@ export interface BoardConfig {
     cmdButton: string;
     cmdTitle: string;
     cmdClose: string;
-    cmdTabRun: string;
-    cmdTabAi: string;
-    cmdTabReference: string;
     cmdRunInfo: string;
+    cmdPlaceholder: string;
     cmdViewOnly: string;
     cmdErrors: string;
     cmdLine: string;
@@ -36,21 +34,8 @@ export interface BoardConfig {
     cmdCopyForAi: string;
     cmdCopyForAiDone: string;
     cmdCopyForAiInfo: string;
-    cmdAiStep1: string;
-    cmdAiStep2: string;
-    cmdAiStep3: string;
-    cmdAiStep4: string;
-    cmdAiTask: string;
-    cmdAiTaskPlaceholder: string;
-    cmdAiWithBoard: string;
-    cmdAiCopyPrompt: string;
-    cmdAiGoRun: string;
-    cmdAiTip: string;
     cmdAiPrivacy: string;
     cmdAiPreview: string;
-    cmdRefInfo: string;
-    cmdRefLibraries: string;
-    cmdRefCopy: string;
   };
 }
 
