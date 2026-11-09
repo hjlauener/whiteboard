@@ -26,6 +26,14 @@ content#:#Content
 properties#:#Settings
 edit#:#Edit
 
+# --- Rights of course/group members (creation and settings) ---
+members_mode#:#Rights in courses/groups
+members_mode_info#:#Sets the permission “Edit board” of the course or group members for this whiteboard, regardless of the role template. Can be changed later in the settings or in the “Permissions” tab.
+members_mode_present#:#Presentation only
+members_mode_present_info#:#Members see the board and the pointers live but do not draw. People with the permission “Edit board” or “Edit settings” (e.g. course administrators and tutors) can draw.
+members_mode_edit#:#Editing mode for everyone
+members_mode_edit_info#:#All members can draw on the board and edit its objects.
+
 # --- Whiteboard ---
 status_saved#:#Saved
 status_saving#:#Saving …

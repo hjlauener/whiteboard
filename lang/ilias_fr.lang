@@ -26,6 +26,14 @@ content#:#Contenu
 properties#:#Paramètres
 edit#:#Modifier
 
+# --- Droits des membres du cours ou du groupe (création et paramètres) ---
+members_mode#:#Droits dans les cours et groupes
+members_mode_info#:#Définit le droit « Modifier le tableau » des membres du cours ou du groupe pour ce tableau blanc, indépendamment du modèle de rôle. Modifiable plus tard dans les paramètres ou dans l’onglet « Droits ».
+members_mode_present#:#Présentation uniquement
+members_mode_present_info#:#Les membres voient le tableau et les pointeurs en direct, mais ne dessinent pas. Les personnes ayant le droit « Modifier le tableau » ou « Modifier les paramètres » (p.ex. administration et tutorat du cours) peuvent dessiner.
+members_mode_edit#:#Mode édition pour tous
+members_mode_edit_info#:#Tous les membres peuvent dessiner sur le tableau et modifier ses objets.
+
 # --- Tableau blanc ---
 status_saved#:#Enregistré
 status_saving#:#Enregistrement …

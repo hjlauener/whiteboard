@@ -26,6 +26,14 @@ content#:#Inhalt
 properties#:#Einstellungen
 edit#:#Bearbeiten
 
+# --- Rechte der Kurs-/Gruppenmitglieder (Erstellen und Einstellungen) ---
+members_mode#:#Rechte in Kursen/Gruppen
+members_mode_info#:#Setzt das Recht „Board bearbeiten“ der Kurs- bzw. Gruppenmitglieder für dieses Whiteboard, unabhängig von der Rollenvorlage. Später in den Einstellungen oder im Reiter „Rechte“ änderbar.
+members_mode_present#:#Nur Präsentation
+members_mode_present_info#:#Die Mitglieder sehen das Board und die Mauszeiger live, zeichnen aber nicht. Zeichnen können Personen mit dem Recht „Board bearbeiten“ oder „Einstellungen bearbeiten“ (z.B. Kursadministration und Kursbetreuung).
+members_mode_edit#:#Bearbeitungsmodus für alle
+members_mode_edit_info#:#Alle Mitglieder können auf dem Board zeichnen und Objekte bearbeiten.
+
 # --- Whiteboard ---
 status_saved#:#Gespeichert
 status_saving#:#Wird gespeichert …

@@ -78,6 +78,10 @@ diff <(cut -d'#' -f1 lang/ilias_de.lang) <(cut -d'#' -f1 lang/ilias_fr.lang)
   („Board bearbeiten“, eigene RBAC-Operation): zeichnen und Objekte
   bearbeiten, `write`: Einstellungen und ebenfalls bearbeiten. Der Server
   prüft das Recht bei jeder Änderung (`syncBoard`); Anonyme nur ansehen.
+- In Kursen/Gruppen: Auswahl „Nur Präsentation“ / „Bearbeitungsmodus für
+  alle“ beim Anlegen und in den Einstellungen (dort nur mit
+  `edit_permission`); setzt/entfernt `udw_edit` der Mitgliederrolle
+  (`ilParticipants::getDefaultMemberRole`) auf diesem Board.
 - Beim ersten Installieren setzt das Plugin Standardrechte nach dem Muster
   des ILIAS-Forums (`ensureDefaultPermissions()`): Rollenvorlagen und
   „Udon Whiteboard anlegen“ überall, wo „Forum anlegen“ erlaubt ist. Danach

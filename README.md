@@ -67,6 +67,11 @@ sind, werden noch gesendet). Die ILIAS-Rechte steuern den Zugriff:
 | Board bearbeiten | zeichnen, Objekte ändern und löschen |
 | Bearbeiten (write) | Einstellungen, und ebenfalls zeichnen |
 
+In Kursen und Gruppen wählt man beim Anlegen (und später in den
+Einstellungen) „Nur Präsentation“ oder „Bearbeitungsmodus für alle“: Damit
+wird „Board bearbeiten“ für die Mitgliederrolle dieses Boards gesetzt oder
+entfernt, unabhängig von der Rollenvorlage.
+
 Standardrechte wie beim ILIAS-Forum: Kursmitglieder dürfen zeichnen, Gäste
 nur sehen; wer ein Forum anlegen darf, darf auch ein Whiteboard anlegen.
 

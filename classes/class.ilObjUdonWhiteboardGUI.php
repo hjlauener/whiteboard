@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use ILIAS\UI\Component\Input\Container\Form\Standard as StandardForm;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -20,6 +21,11 @@ use Psr\Http\Message\ServerRequestInterface;
  * Anonymous users can only view. The server checks the permission for every
  * change; without it the board opens in view mode.
  *
+ * In courses and groups the creation form (and the settings, for people who
+ * may change permissions) offer "Nur Präsentation" / "Bearbeitungsmodus für
+ * alle": this sets or removes "Board bearbeiten" for the member role of the
+ * course/group on this board, whatever the role template says.
+ *
  * @ilCtrl_isCalledBy ilObjUdonWhiteboardGUI: ilRepositoryGUI, ilAdministrationGUI, ilObjPluginDispatchGUI
  * @ilCtrl_Calls      ilObjUdonWhiteboardGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
  */
@@ -32,6 +38,11 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
     private const WRITE_COMMANDS = ['editProperties', 'updateProperties'];
     /** commands that need the permission "read" */
     private const READ_COMMANDS = ['showContent', 'syncBoard'];
+
+    /** field of the creation and settings form: what members of the course/group may do */
+    private const FIELD_MEMBERS = 'members_mode';
+    private const MEMBERS_PRESENT = 'present';
+    private const MEMBERS_EDIT = 'edit';
 
     /** poll interval of the board in milliseconds */
     private const POLL_INTERVAL = 1000;
@@ -66,6 +77,134 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
     public function getAfterCreationCmd(): string
     {
         return 'showContent';
+    }
+
+    // ------------------------------------------------------------------
+    // Creation
+    // ------------------------------------------------------------------
+
+    /**
+     * Creation form: title and description (as in ILIAS); in a course or group
+     * also "Rechte in Kursen/Gruppen".
+     */
+    protected function initCreateForm(string $new_type): StandardForm|ilPropertyFormGUI|array
+    {
+        $field = $this->ui_factory->input()->field();
+
+        $fields = [];
+        $fields['title_and_description'] = (new ilObject())->getObjectProperties()
+            ->getPropertyTitleAndDescription()
+            ->toForm($this->lng, $field, $this->refinery);
+
+        $didactic_templates = $this->didacticTemplatesToForm();
+        if ($didactic_templates !== null) {
+            $fields['didactic_templates'] = $didactic_templates;
+        }
+
+        // at creation the requested ref_id is the container the board is created in
+        if ($this->getMembershipContainer($this->requested_ref_id) > 0) {
+            $fields[self::FIELD_MEMBERS] = $field->radio($this->txt('members_mode'), $this->txt('members_mode_info'))
+                ->withOption(self::MEMBERS_PRESENT, $this->txt('members_mode_present'), $this->txt('members_mode_present_info'))
+                ->withOption(self::MEMBERS_EDIT, $this->txt('members_mode_edit'), $this->txt('members_mode_edit_info'))
+                ->withValue(self::MEMBERS_EDIT)
+                ->withRequired(true);
+        }
+
+        return $this->ui_factory->input()->container()->form()->standard(
+            $this->ctrl->getFormAction($this, 'save'),
+            $fields
+        )->withSubmitLabel($this->txt(ilUdonWhiteboardPlugin::ID . '_add'));
+    }
+
+    /**
+     * After creating: rights of the members from the creation form.
+     */
+    protected function afterSave(ilObject $new_object): void
+    {
+        $data = $this->initCreateForm(ilUdonWhiteboardPlugin::ID)->withRequest($this->xudw_request)->getData();
+        $mode = is_array($data) ? ($data[self::FIELD_MEMBERS] ?? null) : null;
+        if ($mode === self::MEMBERS_PRESENT || $mode === self::MEMBERS_EDIT) {
+            $this->setMembersCanEdit($new_object->getRefId(), $mode === self::MEMBERS_EDIT);
+        }
+        parent::afterSave($new_object);
+    }
+
+    // ------------------------------------------------------------------
+    // Rights of the members of the course/group
+    // ------------------------------------------------------------------
+
+    /**
+     * Nearest course or group above (or at) the given node, 0 if none.
+     */
+    private function getMembershipContainer(int $ref_id): int
+    {
+        global $DIC;
+        if ($ref_id <= 0) {
+            return 0;
+        }
+        $path = $DIC->repositoryTree()->getPathId($ref_id);
+        foreach (array_reverse($path) as $node) {
+            if (in_array(ilObject::_lookupType((int) $node, true), ['crs', 'grp'], true)) {
+                return (int) $node;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Member role of the course/group the board is in, 0 if none.
+     */
+    private function getMemberRole(int $board_ref_id): int
+    {
+        $container = $this->getMembershipContainer($board_ref_id);
+        return $container > 0 ? ilParticipants::getDefaultMemberRole($container) : 0;
+    }
+
+    /**
+     * Whether the members may edit the board, null if the board is not in a course/group.
+     */
+    private function membersCanEdit(int $board_ref_id): ?bool
+    {
+        $role = $this->getMemberRole($board_ref_id);
+        if ($role === 0) {
+            return null;
+        }
+        $edit = ilRbacReview::_getOperationIdByName(ilUdonWhiteboardPlugin::OP_EDIT);
+        $ops = array_map('intval', $this->rbac_review->getActiveOperationsOfRole($board_ref_id, $role));
+        return in_array($edit, $ops, true);
+    }
+
+    /**
+     * "Nur Präsentation" (false) or "Bearbeitungsmodus für alle" (true): sets or
+     * removes "Board bearbeiten" for the member role on this board. Members can
+     * always see and open the board.
+     */
+    private function setMembersCanEdit(int $board_ref_id, bool $can_edit): void
+    {
+        $role = $this->getMemberRole($board_ref_id);
+        if ($role === 0) {
+            return;
+        }
+        $ops = array_map('intval', $this->rbac_review->getActiveOperationsOfRole($board_ref_id, $role));
+        $ops[] = ilRbacReview::_getOperationIdByName('visible');
+        $ops[] = ilRbacReview::_getOperationIdByName('read');
+        $edit = ilRbacReview::_getOperationIdByName(ilUdonWhiteboardPlugin::OP_EDIT);
+        $ops = array_values(array_diff(array_unique($ops), [$edit]));
+        if ($can_edit) {
+            $ops[] = $edit;
+        }
+        $this->rbac_admin->grantPermission($role, $ops, $board_ref_id);
+    }
+
+    /**
+     * The members' rights can be changed in the settings by people who may
+     * change permissions.
+     */
+    private function canChangeMembersMode(): bool
+    {
+        $ref_id = $this->object->getRefId();
+        return $this->membersCanEdit($ref_id) !== null
+            && $this->access->checkAccess('edit_permission', '', $ref_id);
     }
 
     public function getStandardCmd(): string
@@ -329,10 +468,15 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
 
         if ($form === null) {
             $form = $this->initPropertiesForm();
-            $form->setValuesByArray([
+            $values = [
                 'title' => $this->object->getTitle(),
                 'desc' => $this->object->getLongDescription(),
-            ]);
+            ];
+            if ($this->canChangeMembersMode()) {
+                $values[self::FIELD_MEMBERS] = $this->membersCanEdit($this->object->getRefId())
+                    ? self::MEMBERS_EDIT : self::MEMBERS_PRESENT;
+            }
+            $form->setValuesByArray($values);
         }
 
         $this->tpl->setContent($form->getHTML());
@@ -350,6 +494,13 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         $this->object->setTitle((string) $form->getInput('title'));
         $this->object->setDescription((string) $form->getInput('desc'));
         $this->object->update();
+
+        if ($this->canChangeMembersMode()) {
+            $mode = (string) $form->getInput(self::FIELD_MEMBERS);
+            if ($mode === self::MEMBERS_PRESENT || $mode === self::MEMBERS_EDIT) {
+                $this->setMembersCanEdit($this->object->getRefId(), $mode === self::MEMBERS_EDIT);
+            }
+        }
 
         $this->tpl->setOnScreenMessage('success', $this->lng->txt('msg_obj_modified'), true);
         $this->ctrl->redirect($this, 'editProperties');
@@ -369,6 +520,18 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         $desc = new ilTextAreaInputGUI($this->lng->txt('description'), 'desc');
         $desc->setRows(2);
         $form->addItem($desc);
+
+        if ($this->canChangeMembersMode()) {
+            $members = new ilRadioGroupInputGUI($this->txt('members_mode'), self::FIELD_MEMBERS);
+            $members->setInfo($this->txt('members_mode_info'));
+            $present = new ilRadioOption($this->txt('members_mode_present'), self::MEMBERS_PRESENT);
+            $present->setInfo($this->txt('members_mode_present_info'));
+            $members->addOption($present);
+            $edit = new ilRadioOption($this->txt('members_mode_edit'), self::MEMBERS_EDIT);
+            $edit->setInfo($this->txt('members_mode_edit_info'));
+            $members->addOption($edit);
+            $form->addItem($members);
+        }
 
         $form->addCommandButton('updateProperties', $this->lng->txt('save'));
 
