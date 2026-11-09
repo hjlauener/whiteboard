@@ -71,12 +71,71 @@ function excalidrawLocales(): Plugin {
   };
 }
 
+/**
+ * Adds the serif font "Source Serif" (Source Serif 4, Adobe, OFL) to the fonts
+ * of Excalidraw. Excalidraw has a fixed list of fonts (number, metrics, font
+ * files); the font is added to these three places in its code. The metrics are
+ * those of Source Serif 4 (measured in the browser). If a new Excalidraw
+ * version changes the code, the build stops with an error.
+ */
+export const SERIF_FONT = { name: "Source Serif", id: 10 };
+const SERIF_METRICS = "unitsPerEm:1e3,ascender:1036,descender:-335,lineHeight:1.35";
+
+function serifFont(): Plugin {
+  const chunk = /[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]chunk-[A-Z0-9]+\.js$/;
+  return {
+    name: "xudw-serif-font",
+    transform(code, id) {
+      // font picker: names without quotes ("Lilita One" -> Lilita One)
+      const picker = /text:(\w+)\[0\]\?\.fontFace\?\.family\?\?"Unknown"/;
+      if (/[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]/.test(id) && picker.test(code)) {
+        code = code.replace(picker, (_m, faces) => `text:(${faces}[0]?.fontFace?.family??"Unknown").replace(/"/g,"")`);
+        if (!chunk.test(id) || !code.includes('"Liberation Sans":9}')) {
+          return { code, map: null };
+        }
+      }
+      if (!chunk.test(id) || !code.includes('"Liberation Sans":9}')) {
+        return null;
+      }
+      const replaceOnce = (out: string, pattern: RegExp, replacer: (...m: string[]) => string, what: string): string => {
+        const matches = out.match(new RegExp(pattern.source, "g")) ?? [];
+        if (matches.length !== 1) {
+          this.error(`Serif font: ${what} found ${matches.length} times instead of once`);
+        }
+        return out.replace(pattern, replacer as never);
+      };
+      const ranges = /(\w+)=\{LATIN:"U\+0000-00FF/.exec(code);
+      if (ranges === null) {
+        this.error("Serif font: unicode ranges not found");
+      }
+      const name = JSON.stringify(SERIF_FONT.name);
+      let out = replaceOnce(code, /"Liberation Sans":9\}/, () => `"Liberation Sans":9,${name}:${SERIF_FONT.id}}`, "font list");
+      out = replaceOnce(
+        out,
+        /\[(\w+)\.Nunito\]:\{metrics:\{[^}]*\},icon:(\w+)\}/,
+        (m, fonts, icon) => `${m},[${fonts}[${name}]]:{metrics:{${SERIF_METRICS}},icon:${icon}}`,
+        "font metrics",
+      );
+      out = replaceOnce(
+        out,
+        /(\w+)\("Nunito",\.\.\.(\w+)\)/,
+        (m, register) =>
+          `${m},${register}(${name},` +
+          `{uri:"./fonts/SourceSerif/source-serif-4-latin-ext-400-normal.woff2",descriptors:{unicodeRange:${ranges![1]}.LATIN_EXT}},` +
+          `{uri:"./fonts/SourceSerif/source-serif-4-latin-400-normal.woff2",descriptors:{unicodeRange:${ranges![1]}.LATIN}})`,
+        "font registration",
+      );
+      return { code: out, map: null };
+    },
+  };
+}
+
 // Builds the whiteboard as ES module into ../js/dist:
 //   whiteboard.js   entry, loaded by ILIAS with <script type="module">
 //   whiteboard.css  styles of Excalidraw
 //   chunks/         parts loaded on demand (languages, export, ...)
 export default defineConfig({
-  plugins: [excalidrawLocales(), react()],
+  plugins: [excalidrawLocales(), serifFont(), react()],
   base: "./",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),

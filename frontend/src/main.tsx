@@ -21,8 +21,15 @@ function StatusBadge({ sync, config }: { sync: BoardSync; config: BoardConfig })
   return <div className={`xudw-status xudw-status-${status}`}>{text}</div>;
 }
 
+/**
+ * Serif font added to Excalidraw when building (see vite.config.ts), default
+ * for new texts. Falls back to Nunito if it is missing.
+ */
+const SERIF_FONT_ID = ((FONT_FAMILY as Record<string, number>)["Source Serif"] ??
+  FONT_FAMILY.Nunito) as typeof FONT_FAMILY.Nunito;
+
 /** fonts of Excalidraw that should be ready before the first text is written */
-const FONTS = ["Nunito", "Excalifont", '"Comic Shanns"', '"Lilita One"', '"Liberation Sans"'];
+const FONTS = ['"Source Serif"', "Nunito", "Excalifont", '"Comic Shanns"', '"Lilita One"', '"Liberation Sans"'];
 const FONT_SAMPLE = "AaZz09ÄäÖöÜüÉéÈèÀàÇç";
 
 /**
@@ -41,6 +48,17 @@ async function preloadFonts(attempt = 0): Promise<void> {
   }
 }
 
+/** With localStorage.xudwDebug = "1" the board is reachable in the browser console (window.xudw). */
+function exposeForDebugging(api: ExcalidrawImperativeAPI, sync: BoardSync): void {
+  try {
+    if (window.localStorage.getItem("xudwDebug") === "1") {
+      (window as unknown as { xudw: unknown }).xudw = { api, sync };
+    }
+  } catch {
+    // no storage (private mode): no debugging
+  }
+}
+
 function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync; initial: OrderedExcalidrawElement[] }) {
   return (
     <Excalidraw
@@ -48,16 +66,17 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
       initialData={{
         elements: initial,
         scrollToContent: true,
-        // sober defaults for teaching: clear font, clean lines (each person can change them)
-        appState: { currentItemFontFamily: FONT_FAMILY.Nunito, currentItemRoughness: 0 },
+        // sober defaults for teaching: serif font, clean lines (each person can change them)
+        appState: { currentItemFontFamily: SERIF_FONT_ID, currentItemRoughness: 0 },
       }}
       isCollaborating={true}
       viewModeEnabled={!config.canEdit}
       excalidrawAPI={(api: ExcalidrawImperativeAPI) => {
         sync.attach(api);
+        exposeForDebugging(api, sync);
         void preloadFonts();
       }}
-      onChange={(elements) => sync.handleChange(elements)}
+      onChange={(elements, appState) => sync.handleChange(elements, appState)}
       onPointerUpdate={({ pointer }) => sync.handlePointer(pointer)}
       renderTopRightUI={() => <StatusBadge sync={sync} config={config} />}
       UIOptions={{

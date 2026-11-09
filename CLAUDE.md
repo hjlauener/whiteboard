@@ -37,8 +37,17 @@ Abgleich per Polling, Mauszeiger der anderen; Reiter „Info“, „Einstellunge
   `fr-FR.json` ergänzen Excalidraws Übersetzungen (fehlende Texte, Deutsch mit
   „Sie“); der Build fügt sie ein und schreibt Deutsch mit ss statt ß. Neue
   Excalidraw-Version: fehlende Texte erneut prüfen.
-- Standard für neue Elemente: Schrift Nunito, saubere Linien (jede Person kann
-  es im Board ändern). Menü ohne Links zu Excalidraw und ohne „Zeichenfläche
+- Standard für neue Elemente: Serifenschrift „Source Serif“ (Source Serif 4,
+  OFL, aus `@fontsource/source-serif-4`), saubere Linien (jede Person kann es
+  im Board ändern). Die Schrift wird im Build in Excalidraws feste
+  Schriftliste eingefügt (`serifFont()` in `vite.config.ts`, Nummer 10,
+  Metriken im Browser gemessen); bei einer neuen Excalidraw-Version bricht
+  der Build ab, falls die Stellen nicht mehr passen.
+- Abgleich: Texte erst senden, wenn sie fertig geschrieben sind (leere Texte
+  würden von anderen Boards entfernt); gleiche Version mit anderer
+  `versionNonce` wird abgeglichen (kleinere gewinnt, wie auf dem Server).
+- Fehlersuche im Browser: `localStorage.xudwDebug = "1"`, neu laden, dann
+  `window.xudw.api` / `window.xudw.sync` in der Konsole. Menü ohne Links zu Excalidraw und ohne „Zeichenfläche
   löschen“ (würde das Board für alle leeren).
 
 ## Sprachdateien

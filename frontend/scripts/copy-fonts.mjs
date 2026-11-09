@@ -2,7 +2,7 @@
 // from ILIAS itself and not from a CDN. "Xiaolai" (Chinese, Japanese,
 // Korean characters, 12 MB) is left out; for such characters Excalidraw falls
 // back to its CDN.
-import { cpSync, readdirSync } from "node:fs";
+import { cpSync, mkdirSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const src = "node_modules/@excalidraw/excalidraw/dist/prod/fonts";
@@ -12,3 +12,12 @@ for (const name of readdirSync(src)) {
   cpSync(join(src, name), join(dst, name), { recursive: true });
 }
 console.log("fonts copied to", dst);
+
+// serif font Source Serif 4 (OFL), see vite.config.ts
+const serif = "node_modules/@fontsource/source-serif-4";
+mkdirSync(join(dst, "SourceSerif"), { recursive: true });
+for (const file of ["source-serif-4-latin-400-normal.woff2", "source-serif-4-latin-ext-400-normal.woff2"]) {
+  cpSync(join(serif, "files", file), join(dst, "SourceSerif", file));
+}
+cpSync(join(serif, "LICENSE"), join(dst, "SourceSerif", "LICENSE.txt"));
+console.log("Source Serif copied");

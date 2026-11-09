@@ -94,12 +94,18 @@ export class BoardSync {
   }
 
   /** Called by Excalidraw for every change of the scene. */
-  handleChange(elements: readonly OrderedExcalidrawElement[]): void {
+  handleChange(elements: readonly OrderedExcalidrawElement[], appState: AppState): void {
     if (!this.config.canEdit) {
       return;
     }
+    // A text is sent once it is written: while it is being edited it is empty,
+    // and other boards would remove it as an empty element.
+    const editing = appState.editingTextElement?.id ?? null;
     let changed = false;
     for (const el of elements) {
+      if (el.type === "text" && (el.id === editing || (!el.isDeleted && el.text === ""))) {
+        continue;
+      }
       if ((this.known.get(el.id) ?? -1) < el.version) {
         this.pending.set(el.id, el);
         changed = true;
@@ -178,8 +184,13 @@ export class BoardSync {
     if (this.api === null || remote.length === 0) {
       return;
     }
-    // only elements that are newer than what we already have from the server
-    const fresh = remote.filter((el) => (this.known.get(el.id) ?? -1) < el.version || this.pending.has(el.id));
+    // only elements that differ from the local ones (same version with another
+    // nonce too: then the lower nonce wins, on the server and in reconcileElements)
+    const local = new Map(this.api.getSceneElementsIncludingDeleted().map((el) => [el.id, el] as const));
+    const fresh = remote.filter((el) => {
+      const mine = local.get(el.id);
+      return mine === undefined || el.version > mine.version || (el.version === mine.version && el.versionNonce !== mine.versionNonce);
+    });
     for (const el of remote) {
       this.known.set(el.id, Math.max(this.known.get(el.id) ?? -1, el.version));
     }
@@ -187,14 +198,13 @@ export class BoardSync {
       return;
     }
     const restored = restoreElements(fresh, null) as unknown as RemoteElements;
-    const local = this.api.getSceneElementsIncludingDeleted();
     const appState = this.api.getAppState() as AppState;
-    const merged = reconcileElements(local, restored, appState);
+    const merged = reconcileElements(this.api.getSceneElementsIncludingDeleted(), restored, appState);
 
     // a remote version that won replaces a pending local change
     for (const el of restored) {
       const pending = this.pending.get(el.id);
-      if (pending !== undefined && pending.version <= el.version) {
+      if (pending !== undefined && (pending.version < el.version || (pending.version === el.version && el.versionNonce <= pending.versionNonce))) {
         this.pending.delete(el.id);
       }
     }
