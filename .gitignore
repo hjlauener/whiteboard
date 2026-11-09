@@ -4,3 +4,4 @@
 /dev/config.env
 .mount-check-*
 /dev/logs/
+/frontend/node_modules/

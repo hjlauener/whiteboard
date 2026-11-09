@@ -14,7 +14,7 @@ grp_create_xudw#:#Create Udon Whiteboard in group
 cat_create_xudw#:#Create Udon Whiteboard in category
 fold_create_xudw#:#Create Udon Whiteboard in folder
 xudw_visible#:#Udon Whiteboard is visible
-xudw_read#:#Open Udon Whiteboard
+xudw_read#:#Open Udon Whiteboard and draw on it
 xudw_write#:#Edit settings
 xudw_delete#:#Delete or move Udon Whiteboard
 xudw_edit_permission#:#Change permission settings
@@ -24,5 +24,7 @@ content#:#Content
 properties#:#Settings
 edit#:#Edit
 
-# --- Content ---
-whiteboard_empty#:#The whiteboard is still empty. The drawing area will follow.
+# --- Whiteboard ---
+status_saved#:#Saved
+status_saving#:#Saving …
+status_offline#:#No connection – changes will be saved as soon as the connection is back.

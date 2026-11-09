@@ -5,8 +5,8 @@ declare(strict_types=1);
 /**
  * Application class of the Udon Whiteboard repository object.
  *
- * For now the object only consists of the standard ILIAS object data
- * (title, description). Whiteboard specific data will follow.
+ * Title and description are standard ILIAS object data; the content of the
+ * board is stored by ilUdwRepository.
  */
 class ilObjUdonWhiteboard extends ilObjectPlugin
 {
@@ -17,6 +17,7 @@ class ilObjUdonWhiteboard extends ilObjectPlugin
 
     protected function doCreate(bool $clone_mode = false): void
     {
+        $this->getRepository()->createBoard($this->getId());
     }
 
     protected function doRead(): void
@@ -29,5 +30,12 @@ class ilObjUdonWhiteboard extends ilObjectPlugin
 
     protected function doDelete(): void
     {
+        $this->getRepository()->deleteBoard($this->getId());
+    }
+
+    private function getRepository(): ilUdwRepository
+    {
+        global $DIC;
+        return new ilUdwRepository($DIC->database());
     }
 }

@@ -8,9 +8,30 @@ Gruppenmanagement-Plugin. GitHub: `hjlauener/whiteboard`.
 
 ## Stand
 
-Gerüst (Version 0.1.0): Objekt anlegen, Reiter „Inhalt“ (Platzhalter),
-„Info“, „Einstellungen“ (Titel, Beschreibung) und „Rechte“. Das eigentliche
-Whiteboard folgt.
+Version 0.2.0: gemeinsames Whiteboard (Excalidraw) im Reiter „Inhalt“,
+Abgleich per Polling, Mauszeiger der anderen; Reiter „Info“, „Einstellungen“
+(Titel, Beschreibung) und „Rechte“. Noch keine Bilder.
+
+## Aufbau
+
+- **PHP (`classes/`)**: ILIAS-Einbindung, Rechte, Speichern.
+  `ilObjUdonWhiteboardGUI::syncBoard` ist der Endpunkt des Boards (POST, JSON),
+  `ilUdwRepository` speichert die Elemente (eine Zeile pro Excalidraw-Element,
+  Revision pro Board, Schreiben unter Tabellensperre; höhere Version gewinnt,
+  bei gleicher Version die kleinere `versionNonce`).
+- **TypeScript (`frontend/`)**: React + Excalidraw, gebaut mit Vite nach
+  `js/dist/` (wird committet, damit `udw` ohne Node funktioniert).
+  `src/sync.ts` = Abgleich mit dem Server.
+- Bauen (Node läuft im Docker-Image von ILIAS Slim, auf dem Mac nicht nötig):
+
+  ```bash
+  ./dev/npm.sh install
+  ./dev/npm.sh run build
+  ```
+
+- **Nach jeder Änderung in `frontend/` neu bauen und `js/dist/` mitcommitten.**
+- Texte des Boards kommen aus den ILIAS-Sprachdateien (über `data-config`),
+  nicht fest in TypeScript; die Excalidraw-Oberfläche hat eigene Übersetzungen.
 
 ## Sprachdateien
 
@@ -51,4 +72,6 @@ diff <(cut -d'#' -f1 lang/ilias_de.lang) <(cut -d'#' -f1 lang/ilias_fr.lang)
 
 - Der Auftraggeber testet mit `udw` (holt den Branch und lädt das Plugin im
   lokalen Docker-ILIAS neu), siehe `dev/README.md`.
-- Vor jedem Push: `php -l` auf alle PHP-Dateien und den Sprachdatei-Check oben.
+- Vor jedem Push: `php -l` auf alle PHP-Dateien (z.B. im Container:
+  `docker exec -i ilias-slim-ilias-1 php -l < datei.php`), den
+  Sprachdatei-Check oben und `./dev/npm.sh run build` (prüft auch die Typen).

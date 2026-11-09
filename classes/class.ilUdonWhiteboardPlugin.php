@@ -33,7 +33,14 @@ class ilUdonWhiteboardPlugin extends ilRepositoryObjectPlugin
 
     protected function uninstallCustom(): void
     {
-        // Tables created in sql/dbupdate.php are removed here once they exist.
+        global $DIC;
+        $db = $DIC->database();
+
+        foreach (ilUdwRepository::TABLES as $table) {
+            if ($db->tableExists($table)) {
+                $db->dropTable($table, false);
+            }
+        }
     }
 
     public function allowCopy(): bool

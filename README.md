@@ -46,6 +46,11 @@ udw
 
 ## Aktueller Stand
 
-Gerüst (Version 0.1.0): Ein Udon Whiteboard lässt sich anlegen; es hat die
-Reiter „Inhalt“ (noch Platzhalter), „Info“, „Einstellungen“ (Titel,
-Beschreibung) und „Rechte“. Die Zeichenfläche folgt.
+Version 0.2.0: Mehrere Personen zeichnen gleichzeitig auf demselben Board
+(Formen, Pfeile, Text, Freihand, Rahmen). Änderungen der anderen erscheinen
+nach etwa einer Sekunde, ihre Mauszeiger werden mit Namen angezeigt. Bilder
+einfügen folgt später.
+
+Technik: PHP für die Einbindung in ILIAS, TypeScript mit
+[Excalidraw](https://github.com/excalidraw/excalidraw) (MIT-Lizenz) für die
+Zeichenfläche (Quellcode in `frontend/`, gebaut nach `js/dist/`).

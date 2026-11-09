@@ -1,0 +1,43 @@
+/* Board inside the ILIAS page */
+.xudw-board {
+  position: relative;
+  height: calc(100vh - 260px);
+  min-height: 480px;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.xudw-board.xudw-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a61e4d;
+}
+
+/* ILIAS (Bootstrap) styles must not change the board */
+.xudw-board .excalidraw,
+.xudw-board .excalidraw * {
+  box-sizing: border-box;
+}
+.xudw-board .excalidraw label {
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+.xudw-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 1rem;
+  background: #ebfbee;
+  color: #2b8a3e;
+  white-space: nowrap;
+}
+.xudw-status-saving {
+  background: #fff4e6;
+  color: #d9480f;
+}
+.xudw-status-offline {
+  background: #fff0f6;
+  color: #a61e4d;
+}
