@@ -276,6 +276,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'userId' => $this->xudw_user->getId(),
             'canEdit' => $this->canEdit(),
             'pollInterval' => self::POLL_INTERVAL,
+            'aiPrompt' => $this->getAiPrompt(),
             'texts' => [
                 'offline' => $this->txt('status_offline'),
                 'saving' => $this->txt('status_saving'),
@@ -292,6 +293,18 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             . '"></script>';
 
         $this->tpl->setContent($html);
+    }
+
+    /**
+     * Text for "Für eine KI kopieren" in the language of the user
+     * (templates/ai_prompt_<de|en|fr>.txt). It contains the markers
+     * [[BOARD … @@BOARD@@ … ]] and [[TASK … @@TASK@@ … ]] (no {…}: the ILIAS page template removes it), filled in the board.
+     */
+    private function getAiPrompt(): string
+    {
+        $lang = in_array($this->lng->getLangKey(), ['de', 'fr'], true) ? $this->lng->getLangKey() : 'en';
+        $file = $this->getPlugin()->getDirectory() . '/templates/ai_prompt_' . $lang . '.txt';
+        return is_file($file) ? (string) file_get_contents($file) : '';
     }
 
     /**

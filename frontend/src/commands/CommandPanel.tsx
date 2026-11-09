@@ -20,6 +20,23 @@ rect id=b right=a text="Second point"
 arrow from=topic to=a
 arrow from=topic to=b`;
 
+/**
+ * The text for an AI from the plugin (templates/ai_prompt_*.txt): the block
+ * [[BOARD … @@BOARD@@ … ]] only with board content, [[TASK … @@TASK@@ … ]]
+ * only with a task. (No {…} placeholders: ILIAS removes them from the page.) Without a template from ILIAS the generated English
+ * prompt of the language library is used.
+ */
+function aiPrompt(template: string, board: string, task: string): string {
+  if (template.trim() === "") {
+    return buildPrompt({ board, task });
+  }
+  const block = (text: string, name: string, value: string) =>
+    text.replace(new RegExp(`\\[\\[${name}\\n([\\s\\S]*?)\\n\\]\\]\\n?`), (_m, inner: string) =>
+      value.trim() === "" ? "" : inner.replace(`@@${name}@@`, () => value.trim()) + "\n",
+    );
+  return block(block(template, "BOARD", board), "TASK", task).trimEnd();
+}
+
 /** "%s" in a text from ILIAS is replaced by the value (ILIAS removes {…} from language texts). */
 function fill(template: string, value: string | number): string {
   return template.replace("%s", String(value));
@@ -53,9 +70,14 @@ export function CommandPanel({ api, config, onClose }: { api: ExcalidrawImperati
   const [withBoard, setWithBoard] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
 
+  const boardScript = () => {
+    const elements = api.getSceneElements();
+    return elements.length === 0 ? "" : exportBoard(elements as never);
+  };
   const prompt = useMemo(
-    () => buildPrompt({ task, board: withBoard ? exportBoard(api.getSceneElements() as never) : undefined }),
-    [task, withBoard, api, tab],
+    () => aiPrompt(config.aiPrompt ?? "", withBoard ? boardScript() : "", task),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [task, withBoard, api, tab, config.aiPrompt],
   );
   const referenceText = useMemo(() => reference(), []);
 
@@ -134,7 +156,7 @@ export function CommandPanel({ api, config, onClose }: { api: ExcalidrawImperati
                 className="xudw-ai"
                 title={t.cmdCopyForAiInfo}
                 onClick={async () => {
-                  if (await copy(buildPrompt({ board: exportBoard(api.getSceneElements() as never) }))) {
+                  if (await copy(aiPrompt(config.aiPrompt ?? "", boardScript(), ""))) {
                     flash("ai");
                     setProblems([]);
                     setMessage(t.cmdCopyForAiDone);

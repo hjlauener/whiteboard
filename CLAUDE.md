@@ -57,7 +57,15 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   Python-Prüfregeln in `_check_combinations` falls nötig, Tests
   (`sdk/js/test`, `sdk/python/tests`). Sprache, Referenz und Prompt sind
   englisch (für KIs); Texte des Overlays kommen aus den Sprachdateien.
-  Platzhalter in Sprachtexten: `%s` (ILIAS entfernt `{…}`).
+  Platzhalter in Sprachtexten: `%s`. Keine `{…}` in Texten, die in die
+  Seite gehen: die ILIAS-Seitenvorlage entfernt sie.
+- Text für „Für eine KI kopieren“ (und Reiter „Mit einer KI arbeiten“):
+  `templates/ai_prompt_{de,en,fr}.txt` – vom Auftraggeber formuliert, je
+  Sprache gleich halten. Blöcke `[[BOARD … @@BOARD@@ … ]]` (nur mit
+  Board-Inhalt) und `[[TASK … @@TASK@@ … ]]` (nur mit Aufgabe). Die
+  Befehlsliste darin ist von Hand geschrieben: bei Änderungen an spec.ts
+  nachführen. Die Bibliotheken (sdk/) nutzen weiter den erzeugten englischen
+  Prompt.
 - Tests der Befehlssprache:
   `docker run --rm -v "$PWD:/plugin" -w /plugin --entrypoint node ilias-slim-web:latest sdk/js/test/language.test.ts`
   und `python3 -m unittest discover -s sdk/python/tests`.

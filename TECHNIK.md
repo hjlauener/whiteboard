@@ -96,7 +96,7 @@ Update nicht mehr, bricht der Build mit einer Meldung ab.
 Für jede Aktion auf dem Board gibt es einen Befehl (29 Befehle: erstellen,
 ändern, anordnen, Ansicht/Rückgängig), ein Befehl pro Zeile oder als JSON.
 Ausgeführt wird **nur im Board** (Knopf „Befehle“): ein Overlay mit drei
-Reitern – Befehle ausführen (mit Knopf „Für eine KI kopieren“: Befehlssprache und Board-Inhalt in einem Text, die KI wartet dann im Chat auf die Aufgabe), Mit einer KI arbeiten (Anleitung und Prompt für
+Reitern – Befehle ausführen (mit Knopf „Für eine KI kopieren“: der Text aus `templates/ai_prompt_<de|en|fr>.txt` mit dem Board-Inhalt; die KI fragt nach dem Wunsch, stellt Rückfragen und liefert dann das Skript), Mit einer KI arbeiten (Anleitung und Prompt für
 eine beliebige KI, auf Wunsch mit dem Inhalt des Boards), Befehlsreferenz.
 
 | Teil | Datei | Aufgabe |

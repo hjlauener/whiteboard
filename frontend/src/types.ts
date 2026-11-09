@@ -8,6 +8,8 @@ export interface BoardConfig {
   langCode: string;
   userId: number;
   canEdit: boolean;
+  /** text for an AI (templates/ai_prompt_*.txt) with [[BOARD …]] and [[TASK …]] blocks */
+  aiPrompt: string;
   /** poll interval in milliseconds */
   pollInterval: number;
   texts: {
