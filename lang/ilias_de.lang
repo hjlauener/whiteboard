@@ -39,3 +39,37 @@ status_saved#:#Gespeichert
 status_saving#:#Wird gespeichert …
 status_offline#:#Keine Verbindung – Änderungen werden gespeichert, sobald die Verbindung wieder da ist.
 status_view_only#:#Nur ansehen
+
+# --- Befehle und KI (Overlay im Board) ---
+cmd_button#:#Befehle
+cmd_title#:#Befehle und KI
+cmd_close#:#Schliessen
+cmd_tab_run#:#Befehle ausführen
+cmd_tab_ai#:#Mit einer KI arbeiten
+cmd_tab_reference#:#Befehlsreferenz
+cmd_run_info#:#Fügen Sie hier Befehle ein, z.B. die Antwort einer KI, und führen Sie sie aus. Alle Befehle zusammen lassen sich mit Rückgängig wieder zurücknehmen.
+cmd_view_only#:#Sie dürfen dieses Board nur ansehen. Befehle können Sie prüfen, aber nicht ausführen.
+cmd_errors#:#Es wurde nichts geändert. Bitte korrigieren:
+cmd_line#:#Zeile
+cmd_copy_errors#:#Fehler für die KI kopieren
+cmd_copied#:#Kopiert
+cmd_checked#:#Keine Fehler gefunden. Anzahl Befehle: %s.
+cmd_done#:#Ausgeführt. Anzahl Befehle: %s.
+cmd_check#:#Prüfen
+cmd_run#:#Ausführen
+cmd_copy_board#:#Board als Befehle kopieren
+cmd_ai_step1#:#Beschreiben Sie unten in Ihren eigenen Worten, was die KI auf dem Board tun soll.
+cmd_ai_step2#:#Klicken Sie auf «Prompt kopieren» und fügen Sie den Text in eine KI Ihrer Wahl ein, z.B. ChatGPT, Claude, Copilot oder Gemini.
+cmd_ai_step3#:#Kopieren Sie die Antwort der KI, also den Block mit den Befehlen.
+cmd_ai_step4#:#Fügen Sie die Antwort unter «Befehle ausführen» ein und klicken Sie auf «Ausführen».
+cmd_ai_task#:#Ihre Aufgabe für die KI
+cmd_ai_task_placeholder#:#z.B. Erstelle eine Mindmap zur Gewaltenteilung mit drei Ästen und je zwei Beispielen.
+cmd_ai_with_board#:#Aktuellen Inhalt des Boards mitschicken, damit die KI Bestehendes ändern kann
+cmd_ai_copy_prompt#:#Prompt kopieren
+cmd_ai_go_run#:#Zu «Befehle ausführen»
+cmd_ai_tip#:#Tipp: Meldet das Board Fehler, kopieren Sie diese mit «Fehler für die KI kopieren» in dieselbe Unterhaltung und bitten Sie die KI um eine korrigierte Fassung.
+cmd_ai_privacy#:#Datenschutz: Mit dem Inhalt des Boards gehen dessen Texte an die KI. Geben Sie keine vertraulichen oder personenbezogenen Daten an externe KI-Dienste weiter.
+cmd_ai_preview#:#Prompt ansehen
+cmd_ref_info#:#Die Befehlssprache «Udon Whiteboard Script» ist auf Englisch, damit jede KI sie versteht: ein Befehl pro Zeile, Namen (ids) verbinden die Befehle.
+cmd_ref_libraries#:#Für die Entwicklung: Bibliotheken für JavaScript/TypeScript und Python, ein MCP-Server und ein JSON-Schema liegen im Ordner sdk/ des Plugins.
+cmd_ref_copy#:#Referenz kopieren

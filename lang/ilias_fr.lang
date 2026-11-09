@@ -39,3 +39,37 @@ status_saved#:#Enregistré
 status_saving#:#Enregistrement …
 status_offline#:#Pas de connexion – les modifications seront enregistrées dès que la connexion sera rétablie.
 status_view_only#:#Lecture seule
+
+# --- Commandes et IA (fenêtre dans le tableau) ---
+cmd_button#:#Commandes
+cmd_title#:#Commandes et IA
+cmd_close#:#Fermer
+cmd_tab_run#:#Exécuter des commandes
+cmd_tab_ai#:#Travailler avec une IA
+cmd_tab_reference#:#Référence des commandes
+cmd_run_info#:#Collez ici des commandes, p.ex. la réponse d’une IA, et exécutez-les. L’ensemble des commandes peut être annulé avec Annuler.
+cmd_view_only#:#Vous pouvez seulement consulter ce tableau. Vous pouvez vérifier des commandes, mais pas les exécuter.
+cmd_errors#:#Rien n’a été modifié. Veuillez corriger :
+cmd_line#:#Ligne
+cmd_copy_errors#:#Copier les erreurs pour l’IA
+cmd_copied#:#Copié
+cmd_checked#:#Aucune erreur trouvée. Nombre de commandes : %s.
+cmd_done#:#Exécuté. Nombre de commandes : %s.
+cmd_check#:#Vérifier
+cmd_run#:#Exécuter
+cmd_copy_board#:#Copier le tableau en commandes
+cmd_ai_step1#:#Décrivez ci-dessous, avec vos propres mots, ce que l’IA doit faire sur le tableau.
+cmd_ai_step2#:#Cliquez sur « Copier le prompt » et collez le texte dans une IA de votre choix, p.ex. ChatGPT, Claude, Copilot ou Gemini.
+cmd_ai_step3#:#Copiez la réponse de l’IA, c’est-à-dire le bloc contenant les commandes.
+cmd_ai_step4#:#Collez la réponse sous « Exécuter des commandes » et cliquez sur « Exécuter ».
+cmd_ai_task#:#Votre tâche pour l’IA
+cmd_ai_task_placeholder#:#p.ex. Crée une carte mentale sur la séparation des pouvoirs avec trois branches et deux exemples chacune.
+cmd_ai_with_board#:#Inclure le contenu actuel du tableau pour que l’IA puisse modifier les éléments existants
+cmd_ai_copy_prompt#:#Copier le prompt
+cmd_ai_go_run#:#Aller à « Exécuter des commandes »
+cmd_ai_tip#:#Astuce : si le tableau signale des erreurs, copiez-les avec « Copier les erreurs pour l’IA » dans la même conversation et demandez une version corrigée à l’IA.
+cmd_ai_privacy#:#Protection des données : avec le contenu du tableau, ses textes sont transmis à l’IA. Ne transmettez pas de données confidentielles ou personnelles à des services d’IA externes.
+cmd_ai_preview#:#Afficher le prompt
+cmd_ref_info#:#Le langage de commandes « Udon Whiteboard Script » est en anglais afin que toute IA le comprenne : une commande par ligne, des noms (ids) relient les commandes.
+cmd_ref_libraries#:#Pour le développement : des bibliothèques JavaScript/TypeScript et Python, un serveur MCP et un schéma JSON se trouvent dans le dossier sdk/ du plugin.
+cmd_ref_copy#:#Copier la référence

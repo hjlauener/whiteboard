@@ -76,6 +76,13 @@ entfernt, unabhängig von der Rollenvorlage.
 Standardrechte wie beim ILIAS-Forum: Kursmitglieder dürfen zeichnen, Gäste
 nur sehen; wer ein Forum anlegen darf, darf auch ein Whiteboard anlegen.
 
+**Befehle und KI:** Für jede Aktion gibt es einen Befehl (Udon Whiteboard
+Script). Im Board öffnet der Knopf **Befehle** ein Fenster, in dem man Befehle
+einfügt und ausführt, mit einer Anleitung und einem fertigen Prompt für eine
+beliebige KI (ChatGPT, Claude, Copilot, Gemini …). Bibliotheken für
+JavaScript/TypeScript und Python, ein MCP-Server und ein JSON-Schema liegen in
+[sdk/](sdk/README.md).
+
 Das Board erscheint auf Deutsch, Englisch oder Französisch (je nach
 ILIAS-Sprache). Neue Texte sind in der Serifenschrift Source Serif, Formen
 haben saubere Linien.

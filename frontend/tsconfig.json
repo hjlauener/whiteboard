@@ -10,7 +10,8 @@
     "noUnusedParameters": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "types": []
+    "types": [],
+    "allowImportingTsExtensions": true
   },
-  "include": ["src"]
+  "include": ["src", "../sdk/js/src"]
 }

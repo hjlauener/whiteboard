@@ -39,3 +39,37 @@ status_saved#:#Saved
 status_saving#:#Saving …
 status_offline#:#No connection – changes will be saved as soon as the connection is back.
 status_view_only#:#View only
+
+# --- Commands and AI (overlay in the board) ---
+cmd_button#:#Commands
+cmd_title#:#Commands and AI
+cmd_close#:#Close
+cmd_tab_run#:#Run commands
+cmd_tab_ai#:#Work with an AI
+cmd_tab_reference#:#Command reference
+cmd_run_info#:#Paste commands here, e.g. the answer of an AI, and run them. All commands together can be undone with Undo.
+cmd_view_only#:#You may only view this board. You can check commands but not run them.
+cmd_errors#:#Nothing was changed. Please correct:
+cmd_line#:#Line
+cmd_copy_errors#:#Copy errors for the AI
+cmd_copied#:#Copied
+cmd_checked#:#No errors found. Number of commands: %s.
+cmd_done#:#Done. Number of commands: %s.
+cmd_check#:#Check
+cmd_run#:#Run
+cmd_copy_board#:#Copy board as commands
+cmd_ai_step1#:#Describe below, in your own words, what the AI should do on the board.
+cmd_ai_step2#:#Click “Copy prompt” and paste the text into an AI of your choice, e.g. ChatGPT, Claude, Copilot or Gemini.
+cmd_ai_step3#:#Copy the answer of the AI, i.e. the block with the commands.
+cmd_ai_step4#:#Paste the answer under “Run commands” and click “Run”.
+cmd_ai_task#:#Your task for the AI
+cmd_ai_task_placeholder#:#e.g. Create a mind map on the separation of powers with three branches and two examples each.
+cmd_ai_with_board#:#Include the current board content so that the AI can change existing elements
+cmd_ai_copy_prompt#:#Copy prompt
+cmd_ai_go_run#:#Go to “Run commands”
+cmd_ai_tip#:#Tip: if the board reports errors, copy them with “Copy errors for the AI” into the same conversation and ask the AI for a corrected version.
+cmd_ai_privacy#:#Privacy: with the board content, its texts are sent to the AI. Do not pass confidential or personal data to external AI services.
+cmd_ai_preview#:#Show prompt
+cmd_ref_info#:#The command language “Udon Whiteboard Script” is in English so that any AI understands it: one command per line, names (ids) link the commands.
+cmd_ref_libraries#:#For developers: libraries for JavaScript/TypeScript and Python, an MCP server and a JSON schema are in the plugin’s sdk/ folder.
+cmd_ref_copy#:#Copy reference

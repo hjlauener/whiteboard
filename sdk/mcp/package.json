@@ -1,0 +1,9 @@
+{
+  "name": "udon-whiteboard-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Udon Whiteboard Script (the command language of the Udon Whiteboard ILIAS plugin).",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "udon-whiteboard-mcp": "dist/server.mjs" },
+  "files": ["dist", "README.md"]
+}

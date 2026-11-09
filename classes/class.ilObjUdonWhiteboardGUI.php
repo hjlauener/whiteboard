@@ -281,7 +281,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
                 'saving' => $this->txt('status_saving'),
                 'saved' => $this->txt('status_saved'),
                 'viewOnly' => $this->txt('status_view_only'),
-            ],
+            ] + $this->getCommandTexts(),
         ];
 
         $html = '<div class="xudw-board" data-config="'
@@ -292,6 +292,50 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             . '"></script>';
 
         $this->tpl->setContent($html);
+    }
+
+    /**
+     * Texts of the overlay "Befehle und KI" (key in the board => language key).
+     *
+     * @return array<string, string>
+     */
+    private function getCommandTexts(): array
+    {
+        $keys = [
+            'cmdButton' => 'cmd_button',
+            'cmdTitle' => 'cmd_title',
+            'cmdClose' => 'cmd_close',
+            'cmdTabRun' => 'cmd_tab_run',
+            'cmdTabAi' => 'cmd_tab_ai',
+            'cmdTabReference' => 'cmd_tab_reference',
+            'cmdRunInfo' => 'cmd_run_info',
+            'cmdViewOnly' => 'cmd_view_only',
+            'cmdErrors' => 'cmd_errors',
+            'cmdLine' => 'cmd_line',
+            'cmdCopyErrors' => 'cmd_copy_errors',
+            'cmdCopied' => 'cmd_copied',
+            'cmdChecked' => 'cmd_checked',
+            'cmdDone' => 'cmd_done',
+            'cmdCheck' => 'cmd_check',
+            'cmdRun' => 'cmd_run',
+            'cmdCopyBoard' => 'cmd_copy_board',
+            'cmdAiStep1' => 'cmd_ai_step1',
+            'cmdAiStep2' => 'cmd_ai_step2',
+            'cmdAiStep3' => 'cmd_ai_step3',
+            'cmdAiStep4' => 'cmd_ai_step4',
+            'cmdAiTask' => 'cmd_ai_task',
+            'cmdAiTaskPlaceholder' => 'cmd_ai_task_placeholder',
+            'cmdAiWithBoard' => 'cmd_ai_with_board',
+            'cmdAiCopyPrompt' => 'cmd_ai_copy_prompt',
+            'cmdAiGoRun' => 'cmd_ai_go_run',
+            'cmdAiTip' => 'cmd_ai_tip',
+            'cmdAiPrivacy' => 'cmd_ai_privacy',
+            'cmdAiPreview' => 'cmd_ai_preview',
+            'cmdRefInfo' => 'cmd_ref_info',
+            'cmdRefLibraries' => 'cmd_ref_libraries',
+            'cmdRefCopy' => 'cmd_ref_copy',
+        ];
+        return array_map(fn(string $key): string => $this->txt($key), $keys);
     }
 
     /**

@@ -35,6 +35,7 @@ Browser (pro Person)                        ILIAS 11 (PHP)
 | `frontend/` | TypeScript-Quellcode des Boards, Vite-Konfiguration, Ergänzungen der Excalidraw-Übersetzungen |
 | `js/dist/` | Gebautes Board (wird eingecheckt, ILIAS braucht keinen Build) |
 | `dev/` | Entwicklungsskripte (`udw`, `npm.sh`) |
+| `sdk/` | Befehlssprache für KIs: Spezifikation, JSON-Schema, JS/TS- und Python-Bibliothek, MCP-Server (siehe [sdk/README.md](sdk/README.md)) |
 
 ## Eingesetzte Bibliotheken
 
@@ -50,6 +51,12 @@ Neben ILIAS-Standard nur im Browser bzw. zum Bauen. Alle Versionen sind in
 | @vitejs/plugin-react | 6.3.0 | MIT | Build | JSX/React für Vite |
 | typescript | 7.0.2 | Apache-2.0 | Build | Typprüfung (`tsc --noEmit` vor jedem Build) |
 | @types/react, @types/react-dom | 19.3.0 | MIT | Build | Typen für React |
+| @modelcontextprotocol/sdk | 1.32.2 | MIT | nur MCP-Server (gebündelt) | MCP-Protokoll für `sdk/mcp/dist/server.mjs` |
+| zod | 4.6.7 | MIT | nur MCP-Server (gebündelt) | Eingaben der MCP-Werkzeuge beschreiben |
+| esbuild | 0.28.2 | MIT | Build | MCP-Server zu einer Datei bündeln |
+
+Das Board selbst und die JS/TS- und Python-Bibliothek der Befehlssprache haben
+keine Abhängigkeiten; die Python-Bibliothek braucht nur die Standardbibliothek.
 
 ### Was Excalidraw mitbringt
 
@@ -83,6 +90,30 @@ Update nicht mehr, bricht der Build mit einer Meldung ab.
 
 `frontend/scripts/copy-fonts.mjs` kopiert die Schriften nach `js/dist/fonts/`;
 `window.EXCALIDRAW_ASSET_PATH` zeigt dorthin, damit nichts vom CDN kommt.
+
+## Befehlssprache für KIs („Udon Whiteboard Script“)
+
+Für jede Aktion auf dem Board gibt es einen Befehl (29 Befehle: erstellen,
+ändern, anordnen, Ansicht/Rückgängig), ein Befehl pro Zeile oder als JSON.
+Ausgeführt wird **nur im Board** (Knopf „Befehle“): ein Overlay mit drei
+Reitern – Befehle ausführen, Mit einer KI arbeiten (Anleitung und Prompt für
+eine beliebige KI, auf Wunsch mit dem Inhalt des Boards), Befehlsreferenz.
+
+| Teil | Datei | Aufgabe |
+|---|---|---|
+| Spezifikation | `sdk/js/src/spec.ts` | Einzige Quelle: Befehle, Parameter, Farben, Beispiele (englisch, für KIs) |
+| Sprachkern | `sdk/js/src/language.ts` | Zerlegen, prüfen (mit Zeilennummern), schreiben, Referenz, Prompt; Code-Blöcke aus KI-Antworten werden erkannt |
+| Ausführen | `frontend/src/commands/execute.ts` | Befehle auf einer Arbeitskopie; erst wenn alle gelingen, ein einziges Update (als **ein** Schritt rückgängig zu machen); jede Änderung mit neuer Version, also normal abgeglichen |
+| Exportieren | `frontend/src/commands/export.ts` | Board → Skript (Kontext für die KI; läuft auch auf einem leeren Board) |
+| Overlay | `frontend/src/commands/CommandPanel.tsx` | Oberfläche; Texte aus den ILIAS-Sprachdateien |
+| Bibliotheken | `sdk/` | Aus der Spezifikation erzeugt (`frontend/scripts/build-sdk.ts`) |
+
+Umsetzung im Board: Neue Formen, Texte, Pfeile mit Beschriftung und Rahmen
+erzeugt Excalidraw selbst (`convertToExcalidrawElements`), Änderungen laufen
+über `newElementWith`. Pfeile werden an Formen gebunden (`startBinding`/
+`endBinding`) und nach Verschieben neu geführt. Neue Texte in bestehenden
+Formen lässt das Board von Excalidraw setzen (Kopie der Form mit Text
+umwandeln, Text übernehmen). `undo`/`redo` lösen Excalidraws Tastenkürzel aus.
 
 ## Bewusst ohne Zusatzbibliothek
 
@@ -172,5 +203,8 @@ neu laden, dann `window.xudw.api` (Excalidraw) und `window.xudw.sync` (Abgleich)
 - Excalidraw-Update: Die Build-Plugins und `frontend/locales/*.json` greifen in
   Interna ein – nach einem Versionswechsel bauen und fehlende Übersetzungen
   erneut prüfen.
+- Die KI-Funktion schickt nichts selbst an eine KI: Die Person kopiert den
+  Prompt und fügt die Antwort ein. Mit dem Board-Inhalt gehen dessen Texte an
+  die gewählte KI (Hinweis im Overlay).
 - Last: 1 Anfrage pro Sekunde und offenem Board. Bei sehr vielen gleichzeitig
   offenen Boards ist das die Grenze, nicht die Bibliotheken.

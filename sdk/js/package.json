@@ -1,0 +1,13 @@
+{
+  "name": "udon-whiteboard-script",
+  "version": "1.0.0",
+  "description": "Udon Whiteboard Script: write, check and convert commands for the Udon Whiteboard (ILIAS plugin), e.g. from AI output.",
+  "type": "module",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" }
+  },
+  "files": ["dist", "src", "README.md"]
+}

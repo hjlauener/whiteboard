@@ -1,0 +1,2114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hjlauener/whiteboard/sdk/spec/udon-whiteboard-script.schema.json",
+  "title": "Udon Whiteboard Script 1.0 (JSON form)",
+  "description": "A list of commands for the Udon Whiteboard. Paste it into the board under \"Befehle\" → \"Befehle ausführen\".",
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "title": "rect",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "rect",
+            "description": "Creates a rectangle. Default size 160 x 80."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "x": {
+            "description": "Left edge in board coordinates (y grows downwards).",
+            "type": "number"
+          },
+          "y": {
+            "description": "Top edge.",
+            "type": "number"
+          },
+          "w": {
+            "description": "Width.",
+            "type": "number",
+            "minimum": 1
+          },
+          "h": {
+            "description": "Height.",
+            "type": "number",
+            "minimum": 1
+          },
+          "right": {
+            "description": "Place to the right of this element (instead of x/y).",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "left": {
+            "description": "Place to the left of this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "below": {
+            "description": "Place below this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "above": {
+            "description": "Place above this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "gap": {
+            "description": "Distance for right/left/below/above (default 60).",
+            "type": "number",
+            "minimum": 0
+          },
+          "text": {
+            "description": "Text inside the element. Use \"\\n\" for a line break.",
+            "type": "string"
+          },
+          "stroke": {
+            "description": "Line and text colour: a colour name or #rrggbb.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fill": {
+            "description": "Background colour: a colour name, #rrggbb or transparent.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fillstyle": {
+            "description": "How the background is filled.",
+            "enum": [
+              "solid",
+              "hachure",
+              "cross-hatch"
+            ]
+          },
+          "width": {
+            "description": "Line width.",
+            "enum": [
+              "thin",
+              "bold",
+              "extra"
+            ]
+          },
+          "linestyle": {
+            "description": "Line style.",
+            "enum": [
+              "solid",
+              "dashed",
+              "dotted"
+            ]
+          },
+          "rough": {
+            "description": "Sloppiness: 0 clean, 1 sketchy, 2 very sketchy.",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "round": {
+            "description": "Rounded corners (yes/no).",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "enum": [
+                  "yes",
+                  "no"
+                ]
+              }
+            ]
+          },
+          "font": {
+            "description": "Font family (default serif).",
+            "enum": [
+              "serif",
+              "sans",
+              "hand",
+              "code"
+            ]
+          },
+          "size": {
+            "description": "Font size.",
+            "enum": [
+              "S",
+              "M",
+              "L",
+              "XL"
+            ]
+          },
+          "align": {
+            "description": "Text alignment.",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "ellipse",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "ellipse",
+            "description": "Creates a ellipse. Default size 160 x 80."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "x": {
+            "description": "Left edge in board coordinates (y grows downwards).",
+            "type": "number"
+          },
+          "y": {
+            "description": "Top edge.",
+            "type": "number"
+          },
+          "w": {
+            "description": "Width.",
+            "type": "number",
+            "minimum": 1
+          },
+          "h": {
+            "description": "Height.",
+            "type": "number",
+            "minimum": 1
+          },
+          "right": {
+            "description": "Place to the right of this element (instead of x/y).",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "left": {
+            "description": "Place to the left of this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "below": {
+            "description": "Place below this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "above": {
+            "description": "Place above this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "gap": {
+            "description": "Distance for right/left/below/above (default 60).",
+            "type": "number",
+            "minimum": 0
+          },
+          "text": {
+            "description": "Text inside the element. Use \"\\n\" for a line break.",
+            "type": "string"
+          },
+          "stroke": {
+            "description": "Line and text colour: a colour name or #rrggbb.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fill": {
+            "description": "Background colour: a colour name, #rrggbb or transparent.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fillstyle": {
+            "description": "How the background is filled.",
+            "enum": [
+              "solid",
+              "hachure",
+              "cross-hatch"
+            ]
+          },
+          "width": {
+            "description": "Line width.",
+            "enum": [
+              "thin",
+              "bold",
+              "extra"
+            ]
+          },
+          "linestyle": {
+            "description": "Line style.",
+            "enum": [
+              "solid",
+              "dashed",
+              "dotted"
+            ]
+          },
+          "rough": {
+            "description": "Sloppiness: 0 clean, 1 sketchy, 2 very sketchy.",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "round": {
+            "description": "Rounded corners (yes/no).",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "enum": [
+                  "yes",
+                  "no"
+                ]
+              }
+            ]
+          },
+          "font": {
+            "description": "Font family (default serif).",
+            "enum": [
+              "serif",
+              "sans",
+              "hand",
+              "code"
+            ]
+          },
+          "size": {
+            "description": "Font size.",
+            "enum": [
+              "S",
+              "M",
+              "L",
+              "XL"
+            ]
+          },
+          "align": {
+            "description": "Text alignment.",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "diamond",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "diamond",
+            "description": "Creates a diamond (rhombus), e.g. for decisions. Default size 160 x 80."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "x": {
+            "description": "Left edge in board coordinates (y grows downwards).",
+            "type": "number"
+          },
+          "y": {
+            "description": "Top edge.",
+            "type": "number"
+          },
+          "w": {
+            "description": "Width.",
+            "type": "number",
+            "minimum": 1
+          },
+          "h": {
+            "description": "Height.",
+            "type": "number",
+            "minimum": 1
+          },
+          "right": {
+            "description": "Place to the right of this element (instead of x/y).",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "left": {
+            "description": "Place to the left of this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "below": {
+            "description": "Place below this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "above": {
+            "description": "Place above this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "gap": {
+            "description": "Distance for right/left/below/above (default 60).",
+            "type": "number",
+            "minimum": 0
+          },
+          "text": {
+            "description": "Text inside the element. Use \"\\n\" for a line break.",
+            "type": "string"
+          },
+          "stroke": {
+            "description": "Line and text colour: a colour name or #rrggbb.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fill": {
+            "description": "Background colour: a colour name, #rrggbb or transparent.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fillstyle": {
+            "description": "How the background is filled.",
+            "enum": [
+              "solid",
+              "hachure",
+              "cross-hatch"
+            ]
+          },
+          "width": {
+            "description": "Line width.",
+            "enum": [
+              "thin",
+              "bold",
+              "extra"
+            ]
+          },
+          "linestyle": {
+            "description": "Line style.",
+            "enum": [
+              "solid",
+              "dashed",
+              "dotted"
+            ]
+          },
+          "rough": {
+            "description": "Sloppiness: 0 clean, 1 sketchy, 2 very sketchy.",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "round": {
+            "description": "Rounded corners (yes/no).",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "enum": [
+                  "yes",
+                  "no"
+                ]
+              }
+            ]
+          },
+          "font": {
+            "description": "Font family (default serif).",
+            "enum": [
+              "serif",
+              "sans",
+              "hand",
+              "code"
+            ]
+          },
+          "size": {
+            "description": "Font size.",
+            "enum": [
+              "S",
+              "M",
+              "L",
+              "XL"
+            ]
+          },
+          "align": {
+            "description": "Text alignment.",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "note",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "note",
+            "description": "Creates a sticky note: a light-yellow square with text. Default size 180 x 180."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "x": {
+            "description": "Left edge in board coordinates (y grows downwards).",
+            "type": "number"
+          },
+          "y": {
+            "description": "Top edge.",
+            "type": "number"
+          },
+          "w": {
+            "description": "Width.",
+            "type": "number",
+            "minimum": 1
+          },
+          "h": {
+            "description": "Height.",
+            "type": "number",
+            "minimum": 1
+          },
+          "right": {
+            "description": "Place to the right of this element (instead of x/y).",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "left": {
+            "description": "Place to the left of this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "below": {
+            "description": "Place below this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "above": {
+            "description": "Place above this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "gap": {
+            "description": "Distance for right/left/below/above (default 60).",
+            "type": "number",
+            "minimum": 0
+          },
+          "text": {
+            "description": "Text inside the element. Use \"\\n\" for a line break.",
+            "type": "string"
+          },
+          "stroke": {
+            "description": "Line and text colour: a colour name or #rrggbb.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fill": {
+            "description": "Background colour: a colour name, #rrggbb or transparent.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fillstyle": {
+            "description": "How the background is filled.",
+            "enum": [
+              "solid",
+              "hachure",
+              "cross-hatch"
+            ]
+          },
+          "width": {
+            "description": "Line width.",
+            "enum": [
+              "thin",
+              "bold",
+              "extra"
+            ]
+          },
+          "linestyle": {
+            "description": "Line style.",
+            "enum": [
+              "solid",
+              "dashed",
+              "dotted"
+            ]
+          },
+          "rough": {
+            "description": "Sloppiness: 0 clean, 1 sketchy, 2 very sketchy.",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "round": {
+            "description": "Rounded corners (yes/no).",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "enum": [
+                  "yes",
+                  "no"
+                ]
+              }
+            ]
+          },
+          "font": {
+            "description": "Font family (default serif).",
+            "enum": [
+              "serif",
+              "sans",
+              "hand",
+              "code"
+            ]
+          },
+          "size": {
+            "description": "Font size.",
+            "enum": [
+              "S",
+              "M",
+              "L",
+              "XL"
+            ]
+          },
+          "align": {
+            "description": "Text alignment.",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "text",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "text",
+            "description": "Creates free text without a frame."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "x": {
+            "description": "Left edge in board coordinates (y grows downwards).",
+            "type": "number"
+          },
+          "y": {
+            "description": "Top edge.",
+            "type": "number"
+          },
+          "right": {
+            "description": "Place to the right of this element (instead of x/y).",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "left": {
+            "description": "Place to the left of this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "below": {
+            "description": "Place below this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "above": {
+            "description": "Place above this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "gap": {
+            "description": "Distance for right/left/below/above (default 60).",
+            "type": "number",
+            "minimum": 0
+          },
+          "text": {
+            "description": "The text.",
+            "type": "string"
+          },
+          "stroke": {
+            "description": "Text colour.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "font": {
+            "description": "Font family (default serif).",
+            "enum": [
+              "serif",
+              "sans",
+              "hand",
+              "code"
+            ]
+          },
+          "size": {
+            "description": "Font size.",
+            "enum": [
+              "S",
+              "M",
+              "L",
+              "XL"
+            ]
+          },
+          "align": {
+            "description": "Text alignment.",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
+          }
+        },
+        "required": [
+          "cmd",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "arrow",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "arrow",
+            "description": "Creates an arrow. With from/to it is attached to both elements and follows them when they are moved; otherwise give x1/y1/x2/y2."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "from": {
+            "description": "Element where the arrow starts.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "to": {
+            "description": "Element where the arrow ends.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "x1": {
+            "description": "Start point x (without from).",
+            "type": "number"
+          },
+          "y1": {
+            "description": "Start point y.",
+            "type": "number"
+          },
+          "x2": {
+            "description": "End point x (without to).",
+            "type": "number"
+          },
+          "y2": {
+            "description": "End point y.",
+            "type": "number"
+          },
+          "text": {
+            "description": "Label on the arrow.",
+            "type": "string"
+          },
+          "head": {
+            "description": "Head at the end (default arrow).",
+            "enum": [
+              "arrow",
+              "triangle",
+              "bar",
+              "dot",
+              "none"
+            ]
+          },
+          "tail": {
+            "description": "Head at the start (default none).",
+            "enum": [
+              "arrow",
+              "triangle",
+              "bar",
+              "dot",
+              "none"
+            ]
+          },
+          "stroke": {
+            "description": "Line and text colour: a colour name or #rrggbb.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "width": {
+            "description": "Line width.",
+            "enum": [
+              "thin",
+              "bold",
+              "extra"
+            ]
+          },
+          "linestyle": {
+            "description": "Line style.",
+            "enum": [
+              "solid",
+              "dashed",
+              "dotted"
+            ]
+          },
+          "rough": {
+            "description": "Sloppiness: 0 clean, 1 sketchy, 2 very sketchy.",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "line",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "line",
+            "description": "Creates a line through points, or between two elements with from/to."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "points": {
+            "description": "Points as \"x,y x,y …\" (at least two).",
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "\"x,y x,y …\""
+              },
+              {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          },
+          "from": {
+            "description": "Element where the line starts.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "to": {
+            "description": "Element where the line ends.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "stroke": {
+            "description": "Line and text colour: a colour name or #rrggbb.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "width": {
+            "description": "Line width.",
+            "enum": [
+              "thin",
+              "bold",
+              "extra"
+            ]
+          },
+          "linestyle": {
+            "description": "Line style.",
+            "enum": [
+              "solid",
+              "dashed",
+              "dotted"
+            ]
+          },
+          "rough": {
+            "description": "Sloppiness: 0 clean, 1 sketchy, 2 very sketchy.",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "draw",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "draw",
+            "description": "Creates a freehand stroke through the given points."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "points": {
+            "description": "Points as \"x,y x,y …\" (at least two).",
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "\"x,y x,y …\""
+              },
+              {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          },
+          "stroke": {
+            "description": "Colour.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "width": {
+            "description": "Line width.",
+            "enum": [
+              "thin",
+              "bold",
+              "extra"
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "cmd",
+          "points"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "frame",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "frame",
+            "description": "Creates a named frame (area). Elements listed in contains are put into the frame."
+          },
+          "id": {
+            "description": "Name for the new element, used by later commands (letters, digits, - and _). Optional.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "x": {
+            "description": "Left edge in board coordinates (y grows downwards).",
+            "type": "number"
+          },
+          "y": {
+            "description": "Top edge.",
+            "type": "number"
+          },
+          "w": {
+            "description": "Width.",
+            "type": "number",
+            "minimum": 1
+          },
+          "h": {
+            "description": "Height.",
+            "type": "number",
+            "minimum": 1
+          },
+          "right": {
+            "description": "Place to the right of this element (instead of x/y).",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "left": {
+            "description": "Place to the left of this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "below": {
+            "description": "Place below this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "above": {
+            "description": "Place above this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "gap": {
+            "description": "Distance for right/left/below/above (default 60).",
+            "type": "number",
+            "minimum": 0
+          },
+          "title": {
+            "description": "Name shown above the frame.",
+            "type": "string"
+          },
+          "contains": {
+            "description": "Ids of elements inside the frame, separated by spaces, e.g. \"a b c\".",
+            "type": "string"
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "move",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "move",
+            "description": "Moves elements by dx/dy, or one element to x/y (top-left corner). Attached arrows follow."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to move.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "dx": {
+            "description": "Horizontal distance.",
+            "type": "number"
+          },
+          "dy": {
+            "description": "Vertical distance.",
+            "type": "number"
+          },
+          "x": {
+            "description": "New left edge (one element only).",
+            "type": "number"
+          },
+          "y": {
+            "description": "New top edge (one element only).",
+            "type": "number"
+          },
+          "right": {
+            "description": "Place to the right of this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "left": {
+            "description": "Place to the left of this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "below": {
+            "description": "Place below this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "above": {
+            "description": "Place above this element.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          },
+          "gap": {
+            "description": "Distance for right/left/below/above (default 60).",
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "resize",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "resize",
+            "description": "Changes the size of an element (top-left corner stays)."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to resize.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "w": {
+            "description": "New width.",
+            "type": "number",
+            "minimum": 1
+          },
+          "h": {
+            "description": "New height.",
+            "type": "number",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "rotate",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "rotate",
+            "description": "Rotates elements to the given angle (degrees, clockwise)."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to rotate.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "angle": {
+            "description": "Angle in degrees.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "cmd",
+          "targets",
+          "angle"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "style",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "style",
+            "description": "Changes colours and line style of elements."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to change.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "stroke": {
+            "description": "Line and text colour: a colour name or #rrggbb.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fill": {
+            "description": "Background colour: a colour name, #rrggbb or transparent.",
+            "anyOf": [
+              {
+                "enum": [
+                  "black",
+                  "white",
+                  "gray",
+                  "red",
+                  "pink",
+                  "violet",
+                  "blue",
+                  "cyan",
+                  "teal",
+                  "green",
+                  "yellow",
+                  "orange",
+                  "light-gray",
+                  "light-red",
+                  "light-pink",
+                  "light-violet",
+                  "light-blue",
+                  "light-cyan",
+                  "light-teal",
+                  "light-green",
+                  "light-yellow",
+                  "light-orange",
+                  "transparent"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
+            ]
+          },
+          "fillstyle": {
+            "description": "How the background is filled.",
+            "enum": [
+              "solid",
+              "hachure",
+              "cross-hatch"
+            ]
+          },
+          "width": {
+            "description": "Line width.",
+            "enum": [
+              "thin",
+              "bold",
+              "extra"
+            ]
+          },
+          "linestyle": {
+            "description": "Line style.",
+            "enum": [
+              "solid",
+              "dashed",
+              "dotted"
+            ]
+          },
+          "rough": {
+            "description": "Sloppiness: 0 clean, 1 sketchy, 2 very sketchy.",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "opacity": {
+            "description": "Opacity in percent.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "round": {
+            "description": "Rounded corners (yes/no).",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "enum": [
+                  "yes",
+                  "no"
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "settext",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "settext",
+            "description": "Replaces the text of an element (shape, note, text or arrow label)."
+          },
+          "targets": {
+            "type": "array",
+            "description": "The element.",
+            "minItems": 1,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "text": {
+            "description": "New text. Use \"\\n\" for a line break.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "cmd",
+          "targets",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "font",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "font",
+            "description": "Changes font, size or alignment of the text of elements."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements with text.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "font": {
+            "description": "Font family (default serif).",
+            "enum": [
+              "serif",
+              "sans",
+              "hand",
+              "code"
+            ]
+          },
+          "size": {
+            "description": "Font size.",
+            "enum": [
+              "S",
+              "M",
+              "L",
+              "XL"
+            ]
+          },
+          "align": {
+            "description": "Text alignment.",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "delete",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "delete",
+            "description": "Deletes elements (and their text). Arrows attached to them stay but are detached."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to delete.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "link",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "link",
+            "description": "Adds a web link to an element (empty url removes it)."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "url": {
+            "description": "https:// address, or empty.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "cmd",
+          "targets",
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "lock",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "lock",
+            "description": "Locks elements so that they cannot be moved or changed by mistake."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "unlock",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "unlock",
+            "description": "Unlocks elements."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "group",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "group",
+            "description": "Groups elements so that they are selected and moved together."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to group.",
+            "minItems": 2,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "id": {
+            "description": "Name of the group; can be used like an element id afterwards.",
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$"
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "ungroup",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "ungroup",
+            "description": "Removes the outermost group of the elements (or of the named group)."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements or a group id.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "front",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "front",
+            "description": "Brings elements to the front."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "back",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "back",
+            "description": "Sends elements to the back."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "align",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "align",
+            "description": "Aligns elements to each other."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to align.",
+            "minItems": 2,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "edge": {
+            "description": "Edge or centre line to align on.",
+            "enum": [
+              "left",
+              "center",
+              "right",
+              "top",
+              "middle",
+              "bottom"
+            ]
+          }
+        },
+        "required": [
+          "cmd",
+          "targets",
+          "edge"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "distribute",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "distribute",
+            "description": "Distributes elements evenly between the first and the last one."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to distribute.",
+            "minItems": 3,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "axis": {
+            "description": "x = horizontally, y = vertically.",
+            "enum": [
+              "x",
+              "y"
+            ]
+          }
+        },
+        "required": [
+          "cmd",
+          "targets",
+          "axis"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "select",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "select",
+            "description": "Selects elements on the board (only for you, not for the others)."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "view",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "view",
+            "description": "Scrolls and zooms your view to elements, or to the whole board with \"all\" (only for you)."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements, or \"all\".",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$|^all$"
+            }
+          }
+        },
+        "required": [
+          "cmd",
+          "targets"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "undo",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "undo",
+            "description": "Undoes your last change on the board (a whole script counts as one change)."
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "title": "redo",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "redo",
+            "description": "Redoes what undo has undone."
+          }
+        },
+        "required": [
+          "cmd"
+        ],
+        "additionalProperties": false
+      }
+    ]
+  }
+}

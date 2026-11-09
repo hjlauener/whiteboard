@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "udon-whiteboard"
+version = "1.0.0"
+description = "Udon Whiteboard Script: write, check and convert commands for the Udon Whiteboard (ILIAS plugin), e.g. from AI output."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+
+[tool.setuptools.package-data]
+udon_whiteboard = ["spec.json", "reference.md", "prompt_head.md"]

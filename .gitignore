@@ -5,3 +5,5 @@
 .mount-check-*
 /dev/logs/
 /frontend/node_modules/
+__pycache__/
+*.pyc

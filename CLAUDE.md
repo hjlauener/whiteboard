@@ -8,7 +8,7 @@ Gruppenmanagement-Plugin. GitHub: `hjlauener/whiteboard`.
 
 ## Stand
 
-Version 0.3: gemeinsames Whiteboard (Excalidraw) im Reiter „Inhalt“,
+Version 0.4: Befehlssprache für KIs (Overlay „Befehle“, sdk/). Version 0.3: gemeinsames Whiteboard (Excalidraw) im Reiter „Inhalt“,
 Abgleich per Polling, Mauszeiger der anderen, dauerhaft in der Datenbank
 gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
 „Einstellungen“ (Titel, Beschreibung) und „Rechte“. Noch keine Bilder.
@@ -49,6 +49,18 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
 - Abgleich: Texte erst senden, wenn sie fertig geschrieben sind (leere Texte
   würden von anderen Boards entfernt); gleiche Version mit anderer
   `versionNonce` wird abgeglichen (kleinere gewinnt, wie auf dem Server).
+- Befehlssprache (Udon Whiteboard Script): **einzige Quelle ist
+  `sdk/js/src/spec.ts`**. Daraus erzeugt `./dev/npm.sh run build` auch
+  `sdk/spec/*`, `sdk/js/dist`, `sdk/python/udon_whiteboard/{spec.json,
+  reference.md,prompt_head.md}` und `sdk/mcp/dist/server.mjs` – alles
+  mitcommitten. Neuer Befehl: spec.ts, `execute.ts` (und `export.ts`),
+  Python-Prüfregeln in `_check_combinations` falls nötig, Tests
+  (`sdk/js/test`, `sdk/python/tests`). Sprache, Referenz und Prompt sind
+  englisch (für KIs); Texte des Overlays kommen aus den Sprachdateien.
+  Platzhalter in Sprachtexten: `%s` (ILIAS entfernt `{…}`).
+- Tests der Befehlssprache:
+  `docker run --rm -v "$PWD:/plugin" -w /plugin --entrypoint node ilias-slim-web:latest sdk/js/test/language.test.ts`
+  und `python3 -m unittest discover -s sdk/python/tests`.
 - Fehlersuche im Browser: `localStorage.xudwDebug = "1"`, neu laden, dann
   `window.xudw.api` / `window.xudw.sync` in der Konsole. Menü ohne Links zu Excalidraw und ohne „Zeichenfläche
   löschen“ (würde das Board für alle leeren).

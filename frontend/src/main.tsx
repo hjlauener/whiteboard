@@ -6,6 +6,7 @@ import type { OrderedExcalidrawElement } from "@excalidraw/excalidraw/element/ty
 import "@excalidraw/excalidraw/index.css";
 import "./whiteboard.css";
 import { BoardSync, type SyncStatus } from "./sync";
+import { CommandPanel } from "./commands/CommandPanel";
 import type { BoardConfig } from "./types";
 
 declare global {
@@ -63,7 +64,10 @@ function exposeForDebugging(api: ExcalidrawImperativeAPI, sync: BoardSync): void
 }
 
 function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync; initial: OrderedExcalidrawElement[] }) {
+  const [api, setApi] = useState<ExcalidrawImperativeAPI | null>(null);
+  const [panelOpen, setPanelOpen] = useState(false);
   return (
+    <>
     <Excalidraw
       langCode={config.langCode}
       initialData={{
@@ -80,12 +84,20 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
       viewModeEnabled={!config.canEdit}
       excalidrawAPI={(api: ExcalidrawImperativeAPI) => {
         sync.attach(api);
+        setApi(api);
         exposeForDebugging(api, sync);
         void preloadFonts();
       }}
       onChange={(elements, appState) => sync.handleChange(elements, appState)}
       onPointerUpdate={({ pointer }) => sync.handlePointer(pointer)}
-      renderTopRightUI={() => <StatusBadge sync={sync} config={config} />}
+      renderTopRightUI={() => (
+        <div className="xudw-top-right">
+          <button type="button" className="xudw-cmd-button" onClick={() => setPanelOpen(true)} title={config.texts.cmdTitle}>
+            {config.texts.cmdButton}
+          </button>
+          <StatusBadge sync={sync} config={config} />
+        </div>
+      )}
       UIOptions={{
         tools: { image: false },
         canvasActions: {
@@ -107,6 +119,8 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
         <MainMenu.DefaultItems.ChangeCanvasBackground />
       </MainMenu>
     </Excalidraw>
+    {panelOpen && api !== null && <CommandPanel api={api} config={config} onClose={() => setPanelOpen(false)} />}
+    </>
   );
 }
 
