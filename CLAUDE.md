@@ -32,6 +32,14 @@ Abgleich per Polling, Mauszeiger der anderen; Reiter „Info“, „Einstellunge
 - **Nach jeder Änderung in `frontend/` neu bauen und `js/dist/` mitcommitten.**
 - Texte des Boards kommen aus den ILIAS-Sprachdateien (über `data-config`),
   nicht fest in TypeScript; die Excalidraw-Oberfläche hat eigene Übersetzungen.
+- Sprachen des Boards: nur Deutsch, Englisch, Französisch (je nach
+  ILIAS-Sprache, sonst Englisch). `frontend/locales/de-DE.json` und
+  `fr-FR.json` ergänzen Excalidraws Übersetzungen (fehlende Texte, Deutsch mit
+  „Sie“); der Build fügt sie ein und schreibt Deutsch mit ss statt ß. Neue
+  Excalidraw-Version: fehlende Texte erneut prüfen.
+- Standard für neue Elemente: Schrift Nunito, saubere Linien (jede Person kann
+  es im Board ändern). Menü ohne Links zu Excalidraw und ohne „Zeichenfläche
+  löschen“ (würde das Board für alle leeren).
 
 ## Sprachdateien
 

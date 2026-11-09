@@ -65,7 +65,11 @@ export class BoardSync {
   }
 
   attach(api: ExcalidrawImperativeAPI): void {
+    const first = this.api === null;
     this.api = api;
+    if (!first) {
+      return; // Excalidraw may hand over the API more than once
+    }
     this.schedule(this.config.pollInterval);
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) {

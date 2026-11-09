@@ -1,0 +1,146 @@
+{
+ "labels": {
+  "changeStroke": "Changer la couleur du trait",
+  "changeBackground": "Changer la couleur de fond",
+  "arrowhead_crowfoot_many": "Patte d’oie (plusieurs)",
+  "arrowhead_crowfoot_one": "Patte d’oie (un)",
+  "arrowhead_crowfoot_one_or_many": "Patte d’oie (un ou plusieurs)",
+  "more_options": "Plus d’options",
+  "arrowtypes": "Type de flèche",
+  "arrowtype_sharp": "Flèche droite",
+  "arrowtype_round": "Flèche courbe",
+  "arrowtype_elbowed": "Flèche coudée",
+  "clearCanvas": "Effacer le canevas",
+  "toggleGrid": "Afficher ou masquer la grille",
+  "loadScene": "Charger un dessin depuis un fichier",
+  "showFonts": "Afficher le choix des polices",
+  "theme": "Thème",
+  "link": {
+   "hint": "Saisissez ou collez votre lien ici",
+   "goToElement": "Aller à l’élément cible"
+  },
+  "lineEditor": {
+   "editArrow": "Modifier la flèche"
+  },
+  "followUs": "Suivez-nous",
+  "discordChat": "Discussion Discord",
+  "zoomToFitViewport": "Ajuster à la fenêtre",
+  "zoomToFitSelection": "Zoomer sur la sélection",
+  "zoomToFit": "Zoomer pour voir tous les éléments",
+  "installPWA": "Installer Excalidraw localement (PWA)",
+  "autoResize": "Activer le redimensionnement automatique du texte",
+  "imageCropping": "Recadrage de l’image",
+  "unCroppedDimension": "Dimension non recadrée",
+  "copyElementLink": "Copier le lien vers l’objet",
+  "linkToElement": "Lien vers l’objet",
+  "wrapSelectionInFrame": "Encadrer la sélection"
+ },
+ "elementLink": {
+  "title": "Lien vers l’objet",
+  "desc": "Cliquez sur une forme du canevas ou collez un lien.",
+  "notFound": "L’objet lié est introuvable sur le canevas."
+ },
+ "search": {
+  "title": "Rechercher sur le canevas",
+  "noMatch": "Aucun résultat …",
+  "singleResult": "résultat",
+  "multipleResults": "résultats",
+  "placeholder": "Rechercher du texte sur le canevas …"
+ },
+ "buttons": {
+  "copyLink": "Copier le lien",
+  "systemMode": "Mode système"
+ },
+ "errors": {
+  "saveLibraryError": "Impossible d’enregistrer la bibliothèque. Veuillez l’enregistrer dans un fichier local pour ne pas perdre vos modifications."
+ },
+ "element": {
+  "rectangle": "Rectangle",
+  "diamond": "Losange",
+  "ellipse": "Ellipse",
+  "arrow": "Flèche",
+  "line": "Ligne",
+  "freedraw": "Dessin à main levée",
+  "text": "Texte",
+  "image": "Image",
+  "group": "Groupe",
+  "frame": "Cadre",
+  "magicframe": "Maquette vers code",
+  "embeddable": "Intégration web",
+  "selection": "Sélection",
+  "iframe": "IFrame"
+ },
+ "hints": {
+  "dismissSearch": "Échap pour fermer la recherche",
+  "arrowTool": "Cliquez pour placer plusieurs points, glissez pour une seule ligne. Appuyez à nouveau sur {{arrowShortcut}} pour changer le type de flèche.",
+  "createFlowchart": "Maintenez CtrlOrCmd et une touche fléchée pour créer un organigramme",
+  "enterCropEditor": "Double-cliquez sur l’image ou appuyez sur Entrée pour la recadrer",
+  "leaveCropEditor": "Cliquez en dehors de l’image ou appuyez sur Entrée ou Échap pour terminer le recadrage"
+ },
+ "shareDialog": {
+  "or": "Ou"
+ },
+ "helpDialog": {
+  "createFlowchart": "Créer un organigramme à partir d’un élément",
+  "navigateFlowchart": "Naviguer dans un organigramme",
+  "cropStart": "Recadrer l’image",
+  "cropFinish": "Terminer le recadrage"
+ },
+ "stats": {
+  "shapes": "Formes",
+  "fullTitle": "Propriétés du canevas et des formes",
+  "generalStats": "Général",
+  "elementProperties": "Propriétés de la forme"
+ },
+ "toast": {
+  "copyToClipboardAsSvg": "{{exportSelection}} copié dans le presse-papiers en SVG\n({{exportColorScheme}})",
+  "elementLinkCopied": "Lien copié dans le presse-papiers"
+ },
+ "quickSearch": {
+  "placeholder": "Recherche rapide"
+ },
+ "fontList": {
+  "badge": {
+   "old": "ancienne"
+  },
+  "sceneFonts": "Dans ce dessin",
+  "availableFonts": "Polices disponibles",
+  "empty": "Aucune police trouvée"
+ },
+ "userList": {
+  "empty": "Aucune personne trouvée",
+  "hint": {
+   "text": "Cliquez sur une personne pour la suivre",
+   "followStatus": "Vous suivez actuellement cette personne",
+   "inCall": "La personne est en appel vocal",
+   "micMuted": "Le micro de la personne est coupé",
+   "isSpeaking": "La personne parle"
+  }
+ },
+ "commandPalette": {
+  "title": "Palette de commandes",
+  "shortcuts": {
+   "select": "Sélectionner",
+   "confirm": "Confirmer",
+   "close": "Fermer"
+  },
+  "recents": "Utilisées récemment",
+  "search": {
+   "placeholder": "Rechercher des menus et des commandes",
+   "noMatch": "Aucune commande correspondante …"
+  },
+  "itemNotAvailable": "Commande non disponible …",
+  "shortcutHint": "Palette de commandes : {{shortcut}}"
+ },
+ "publishDialog": {
+  "placeholder": {
+   "githubHandle": "Nom d’utilisateur GitHub (facultatif), pour que vous puissiez modifier la bibliothèque une fois soumise pour vérification"
+  },
+  "noteDescription": "Soumettez votre bibliothèque pour qu’elle soit ajoutée au <link>dépôt public de bibliothèques</link> et que d’autres puissent l’utiliser dans leurs dessins."
+ },
+ "alerts": {
+  "clearReset": "L’intégralité du canevas va être effacée. Êtes-vous sûr·e ?",
+  "confirmAddLibrary": "Cela va ajouter {{numShapes}} forme(s) à votre bibliothèque. Êtes-vous sûr·e ?",
+  "resetLibrary": "Cela va effacer votre bibliothèque. Êtes-vous sûr·e ?"
+ }
+}

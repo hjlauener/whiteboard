@@ -226,16 +226,21 @@ sync_code() {
     esac
 
     step "Kopiere Plugin nach $CONTAINER:$target"
-    in_root mkdir -p "$target"
-    # alten Stand im Container entfernen (nur Inhalt des Plugin-Ordners)
-    in_root find "$target" -mindepth 1 -delete
+    # Erst in einen Nebenordner kopieren und dann in einem Schritt austauschen:
+    # so findet ein offenes Whiteboard (Abgleich jede Sekunde) nie einen
+    # halb leeren Plugin-Ordner.
+    local staging="${target}.neu"
+    in_root rm -rf "$staging"
+    in_root mkdir -p "$staging"
     # COPYFILE_DISABLE verhindert macOS-Metadaten (._*-Dateien)
     COPYFILE_DISABLE=1 tar -C "$PLUGIN_DIR" \
         --exclude=.git --exclude='./frontend' --exclude='./dev/config.env' --exclude='./dev/ilias-slim' --exclude='./dev/logs' --exclude='.DS_Store' --exclude='.mount-check-*' \
-        -cf - . | docker exec -i -u 0 "$CONTAINER" tar -xf - -C "$target" 2>/dev/null \
+        -cf - . | docker exec -i -u 0 "$CONTAINER" tar -xf - -C "$staging" 2>/dev/null \
         || die "Kopieren fehlgeschlagen."
-    in_root chown -R "$CODE_USER" "$target"
-    in_root chmod -R a+rX "$target"
+    in_root chown -R "$CODE_USER" "$staging"
+    in_root chmod -R a+rX "$staging"
+    in_root sh -c 'rm -rf "$1.alt" && { [ ! -e "$1" ] || mv "$1" "$1.alt"; } && mv "$2" "$1" && rm -rf "$1.alt"' sh "$target" "$staging" \
+        || die "Austauschen des Plugin-Ordners fehlgeschlagen."
     ok "Code kopiert."
 }
 

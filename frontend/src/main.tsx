@@ -1,6 +1,6 @@
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Excalidraw } from "@excalidraw/excalidraw";
+import { Excalidraw, FONT_FAMILY, MainMenu } from "@excalidraw/excalidraw";
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
 import type { OrderedExcalidrawElement } from "@excalidraw/excalidraw/element/types";
 import "@excalidraw/excalidraw/index.css";
@@ -21,14 +21,42 @@ function StatusBadge({ sync, config }: { sync: BoardSync; config: BoardConfig })
   return <div className={`xudw-status xudw-status-${status}`}>{text}</div>;
 }
 
+/** fonts of Excalidraw that should be ready before the first text is written */
+const FONTS = ["Nunito", "Excalifont", '"Comic Shanns"', '"Lilita One"', '"Liberation Sans"'];
+const FONT_SAMPLE = "AaZz09ÄäÖöÜüÉéÈèÀàÇç";
+
+/**
+ * Loads the fonts right away. Otherwise Excalidraw measures the first text on
+ * the page with a fallback font, and the text box is too narrow (the last
+ * letters are cut off). Excalidraw registers its fonts when it starts, so this
+ * waits until they are there.
+ */
+async function preloadFonts(attempt = 0): Promise<void> {
+  const loaded = await Promise.all(
+    FONTS.map((font) => document.fonts.load(`20px ${font}`, FONT_SAMPLE).catch(() => [])),
+  );
+  if (loaded.every((faces) => faces.length === 0) && attempt < 10) {
+    await new Promise((resolve) => window.setTimeout(resolve, 200));
+    return preloadFonts(attempt + 1);
+  }
+}
+
 function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync; initial: OrderedExcalidrawElement[] }) {
   return (
     <Excalidraw
       langCode={config.langCode}
-      initialData={{ elements: initial, scrollToContent: true }}
+      initialData={{
+        elements: initial,
+        scrollToContent: true,
+        // sober defaults for teaching: clear font, clean lines (each person can change them)
+        appState: { currentItemFontFamily: FONT_FAMILY.Nunito, currentItemRoughness: 0 },
+      }}
       isCollaborating={true}
       viewModeEnabled={!config.canEdit}
-      excalidrawAPI={(api: ExcalidrawImperativeAPI) => sync.attach(api)}
+      excalidrawAPI={(api: ExcalidrawImperativeAPI) => {
+        sync.attach(api);
+        void preloadFonts();
+      }}
       onChange={(elements) => sync.handleChange(elements)}
       onPointerUpdate={({ pointer }) => sync.handlePointer(pointer)}
       renderTopRightUI={() => <StatusBadge sync={sync} config={config} />}
@@ -42,7 +70,17 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
           toggleTheme: true,
         },
       }}
-    />
+    >
+      {/* no links to Excalidraw's GitHub/Discord, no "clear canvas" (it would delete the board for everybody) */}
+      <MainMenu>
+        <MainMenu.DefaultItems.SaveAsImage />
+        <MainMenu.DefaultItems.SearchMenu />
+        <MainMenu.DefaultItems.Help />
+        <MainMenu.Separator />
+        <MainMenu.DefaultItems.ToggleTheme />
+        <MainMenu.DefaultItems.ChangeCanvasBackground />
+      </MainMenu>
+    </Excalidraw>
   );
 }
 

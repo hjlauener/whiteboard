@@ -275,7 +275,6 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         return match ($this->lng->getLangKey()) {
             'de' => 'de-DE',
             'fr' => 'fr-FR',
-            'it' => 'it-IT',
             default => 'en',
         };
     }
