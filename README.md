@@ -51,6 +51,12 @@ Version 0.2.0: Mehrere Personen zeichnen gleichzeitig auf demselben Board
 nach etwa einer Sekunde, ihre Mauszeiger werden mit Namen angezeigt. Bilder
 einfügen folgt später.
 
+Auswählen, Verschieben, Grösse ändern, Farbe, Löschen, Rückgängig/Wiederholen,
+Verbindungspfeile (wandern mit, wenn eine verbundene Form verschoben wird; den
+Pfeil dazu am Rand der Form ansetzen bzw. enden lassen) und Gruppieren (Cmd+G)
+kommen von Excalidraw und werden bei allen abgeglichen. Rückgängig betrifft nur
+die eigenen Änderungen.
+
 Das Board erscheint auf Deutsch, Englisch oder Französisch (je nach
 ILIAS-Sprache). Neue Texte sind in der Serifenschrift Source Serif, Formen
 haben saubere Linien.

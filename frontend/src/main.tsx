@@ -70,6 +70,10 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
         appState: { currentItemFontFamily: SERIF_FONT_ID, currentItemRoughness: 0 },
       }}
       isCollaborating={true}
+      // shortcuts (Cmd+Z, Delete, ...) also work when the focus has left the
+      // board, e.g. after a button in the side panel disappeared; input fields
+      // of ILIAS are not affected (Excalidraw ignores keys typed into them)
+      handleKeyboardGlobally={true}
       viewModeEnabled={!config.canEdit}
       excalidrawAPI={(api: ExcalidrawImperativeAPI) => {
         sync.attach(api);
