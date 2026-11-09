@@ -1,0 +1,28 @@
+# Udon Whiteboard – fichier de langue français (vouvoiement).
+# Les lignes commençant par # sont des commentaires. Clés et ordre comme dans ilias_de.lang.
+
+# --- Objet et droits ---
+obj_xudw#:#Udon Whiteboard
+objs_xudw#:#Udon Whiteboards
+xudw_new#:#Nouveau Udon Whiteboard
+xudw_add#:#Ajouter un Udon Whiteboard
+obj_xudw_duplicate#:#Copier l’Udon Whiteboard
+# Textes pour les tableaux de droits d’ILIAS (droits, modèles de rôles, journal des droits)
+create_xudw#:#Créer un Udon Whiteboard
+crs_create_xudw#:#Créer un Udon Whiteboard dans le cours
+grp_create_xudw#:#Créer un Udon Whiteboard dans le groupe
+cat_create_xudw#:#Créer un Udon Whiteboard dans la catégorie
+fold_create_xudw#:#Créer un Udon Whiteboard dans le dossier
+xudw_visible#:#L’Udon Whiteboard est visible
+xudw_read#:#Ouvrir l’Udon Whiteboard
+xudw_write#:#Modifier les paramètres
+xudw_delete#:#Supprimer ou déplacer l’Udon Whiteboard
+xudw_edit_permission#:#Modifier les paramètres des droits
+
+# --- Onglets et textes généraux ---
+content#:#Contenu
+properties#:#Paramètres
+edit#:#Modifier
+
+# --- Contenu ---
+whiteboard_empty#:#Le tableau blanc est encore vide. La surface de dessin suivra.

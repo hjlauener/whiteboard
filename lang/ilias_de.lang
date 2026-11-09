@@ -1,0 +1,28 @@
+# Udon Whiteboard – Sprachdatei Deutsch (Schweizer Schreibweise mit ss).
+# Zeilen mit # am Anfang sind Kommentare. Schlüssel und Reihenfolge wie in ilias_en.lang.
+
+# --- Objekt und Rechte ---
+obj_xudw#:#Udon Whiteboard
+objs_xudw#:#Udon Whiteboards
+xudw_new#:#Neues Udon Whiteboard
+xudw_add#:#Udon Whiteboard hinzufügen
+obj_xudw_duplicate#:#Udon Whiteboard kopieren
+# Texte für die Rechte-Tabellen von ILIAS (Rechte, Rollenvorlagen, Rechte-Protokoll)
+create_xudw#:#Udon Whiteboard anlegen
+crs_create_xudw#:#Udon Whiteboard im Kurs anlegen
+grp_create_xudw#:#Udon Whiteboard in der Gruppe anlegen
+cat_create_xudw#:#Udon Whiteboard in der Kategorie anlegen
+fold_create_xudw#:#Udon Whiteboard im Ordner anlegen
+xudw_visible#:#Udon Whiteboard ist sichtbar
+xudw_read#:#Udon Whiteboard öffnen
+xudw_write#:#Einstellungen bearbeiten
+xudw_delete#:#Udon Whiteboard löschen oder verschieben
+xudw_edit_permission#:#Rechteeinstellungen ändern
+
+# --- Reiter und allgemeine Texte ---
+content#:#Inhalt
+properties#:#Einstellungen
+edit#:#Bearbeiten
+
+# --- Inhalt ---
+whiteboard_empty#:#Das Whiteboard ist noch leer. Die Zeichenfläche folgt.

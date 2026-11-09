@@ -1,0 +1,28 @@
+# Udon Whiteboard – English language file (British spelling).
+# Lines starting with # are comments. Keys and order as in ilias_de.lang.
+
+# --- Object and permissions ---
+obj_xudw#:#Udon Whiteboard
+objs_xudw#:#Udon Whiteboards
+xudw_new#:#New Udon Whiteboard
+xudw_add#:#Add Udon Whiteboard
+obj_xudw_duplicate#:#Copy Udon Whiteboard
+# Texts for the ILIAS permission tables (permissions, role templates, permission log)
+create_xudw#:#Create Udon Whiteboard
+crs_create_xudw#:#Create Udon Whiteboard in course
+grp_create_xudw#:#Create Udon Whiteboard in group
+cat_create_xudw#:#Create Udon Whiteboard in category
+fold_create_xudw#:#Create Udon Whiteboard in folder
+xudw_visible#:#Udon Whiteboard is visible
+xudw_read#:#Open Udon Whiteboard
+xudw_write#:#Edit settings
+xudw_delete#:#Delete or move Udon Whiteboard
+xudw_edit_permission#:#Change permission settings
+
+# --- Tabs and general texts ---
+content#:#Content
+properties#:#Settings
+edit#:#Edit
+
+# --- Content ---
+whiteboard_empty#:#The whiteboard is still empty. The drawing area will follow.

@@ -32,7 +32,7 @@ git clone https://github.com/hjlauener/whiteboard.git UdonWhiteboard
 ~/Projekte/UdonWhiteboard/dev/install-command.sh
 ```
 
-Neues Terminal-Fenster öffnen, dann (sobald Plugin-Code vorhanden ist):
+Neues Terminal-Fenster öffnen, dann:
 
 ```bash
 udw install
@@ -46,4 +46,6 @@ udw
 
 ## Aktueller Stand
 
-Nur die Entwicklungsumgebung ist eingerichtet – noch kein Plugin-Code.
+Gerüst (Version 0.1.0): Ein Udon Whiteboard lässt sich anlegen; es hat die
+Reiter „Inhalt“ (noch Platzhalter), „Info“, „Einstellungen“ (Titel,
+Beschreibung) und „Rechte“. Die Zeichenfläche folgt.

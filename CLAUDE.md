@@ -8,8 +8,9 @@ Gruppenmanagement-Plugin. GitHub: `hjlauener/whiteboard`.
 
 ## Stand
 
-Nur die Umgebung ist eingerichtet (Dev-Skripte, Regeln). Noch kein
-Plugin-Code – erst auf Anweisung des Auftraggebers beginnen.
+Gerüst (Version 0.1.0): Objekt anlegen, Reiter „Inhalt“ (Platzhalter),
+„Info“, „Einstellungen“ (Titel, Beschreibung) und „Rechte“. Das eigentliche
+Whiteboard folgt.
 
 ## Sprachdateien
 
