@@ -76,6 +76,27 @@ export class BoardSync {
         this.schedule(0);
       }
     });
+    // changes that are not sent yet: ask before leaving, send them when leaving
+    window.addEventListener("beforeunload", (event) => {
+      if (this.pending.size > 0) {
+        event.preventDefault();
+      }
+    });
+    window.addEventListener("pagehide", () => this.flushOnExit());
+  }
+
+  /**
+   * Last chance when the page is closed or left: the waiting changes are sent
+   * with sendBeacon (the browser delivers it even after the page is gone).
+   */
+  private flushOnExit(): void {
+    if (this.pending.size === 0 || typeof navigator.sendBeacon !== "function") {
+      return;
+    }
+    const body = JSON.stringify({ since: this.rev, elements: Array.from(this.pending.values()).slice(0, MAX_BATCH), pointer: null });
+    if (navigator.sendBeacon(this.config.syncUrl, new Blob([body], { type: "application/json" }))) {
+      this.pending.clear();
+    }
   }
 
   stop(): void {

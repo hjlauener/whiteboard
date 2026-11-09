@@ -14,10 +14,12 @@ grp_create_xudw#:#Créer un Udon Whiteboard dans le groupe
 cat_create_xudw#:#Créer un Udon Whiteboard dans la catégorie
 fold_create_xudw#:#Créer un Udon Whiteboard dans le dossier
 xudw_visible#:#L’Udon Whiteboard est visible
-xudw_read#:#Ouvrir l’Udon Whiteboard et y dessiner
-xudw_write#:#Modifier les paramètres
+xudw_read#:#Ouvrir et consulter l’Udon Whiteboard
+xudw_write#:#Modifier les paramètres et dessiner sur le tableau
 xudw_delete#:#Supprimer ou déplacer l’Udon Whiteboard
 xudw_edit_permission#:#Modifier les paramètres des droits
+udw_edit#:#Modifier le tableau
+xudw_udw_edit#:#Dessiner sur l’Udon Whiteboard et modifier ses objets
 
 # --- Onglets et textes généraux ---
 content#:#Contenu
@@ -28,3 +30,4 @@ edit#:#Modifier
 status_saved#:#Enregistré
 status_saving#:#Enregistrement …
 status_offline#:#Pas de connexion – les modifications seront enregistrées dès que la connexion sera rétablie.
+status_view_only#:#Lecture seule

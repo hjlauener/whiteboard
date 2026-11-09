@@ -57,6 +57,19 @@ Pfeil dazu am Rand der Form ansetzen bzw. enden lassen) und Gruppieren (Cmd+G)
 kommen von Excalidraw und werden bei allen abgeglichen. Rückgängig betrifft nur
 die eigenen Änderungen.
 
+Boards und ihre Objekte werden dauerhaft in der ILIAS-Datenbank gespeichert
+(jedes Objekt einzeln; Änderungen, die beim Schliessen des Tabs noch unterwegs
+sind, werden noch gesendet). Die ILIAS-Rechte steuern den Zugriff:
+
+| Recht | erlaubt |
+|---|---|
+| Sichtbar / Lesen | Board sehen und öffnen (nur ansehen) |
+| Board bearbeiten | zeichnen, Objekte ändern und löschen |
+| Bearbeiten (write) | Einstellungen, und ebenfalls zeichnen |
+
+Standardrechte wie beim ILIAS-Forum: Kursmitglieder dürfen zeichnen, Gäste
+nur sehen; wer ein Forum anlegen darf, darf auch ein Whiteboard anlegen.
+
 Das Board erscheint auf Deutsch, Englisch oder Französisch (je nach
 ILIAS-Sprache). Neue Texte sind in der Serifenschrift Source Serif, Formen
 haben saubere Linien.

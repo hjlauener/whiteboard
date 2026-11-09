@@ -17,6 +17,9 @@ declare global {
 function StatusBadge({ sync, config }: { sync: BoardSync; config: BoardConfig }) {
   const [status, setStatus] = useState<SyncStatus>("online");
   useEffect(() => sync.onStatus(setStatus), [sync]);
+  if (status !== "offline" && !config.canEdit) {
+    return <div className="xudw-status xudw-status-view">{config.texts.viewOnly}</div>;
+  }
   const text = status === "offline" ? config.texts.offline : status === "saving" ? config.texts.saving : config.texts.saved;
   return <div className={`xudw-status xudw-status-${status}`}>{text}</div>;
 }

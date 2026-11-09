@@ -14,6 +14,7 @@ export interface BoardConfig {
     offline: string;
     saving: string;
     saved: string;
+    viewOnly: string;
   };
 }
 

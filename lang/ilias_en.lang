@@ -14,10 +14,12 @@ grp_create_xudw#:#Create Udon Whiteboard in group
 cat_create_xudw#:#Create Udon Whiteboard in category
 fold_create_xudw#:#Create Udon Whiteboard in folder
 xudw_visible#:#Udon Whiteboard is visible
-xudw_read#:#Open Udon Whiteboard and draw on it
-xudw_write#:#Edit settings
+xudw_read#:#Open and view Udon Whiteboard
+xudw_write#:#Edit settings and draw on the board
 xudw_delete#:#Delete or move Udon Whiteboard
 xudw_edit_permission#:#Change permission settings
+udw_edit#:#Edit board
+xudw_udw_edit#:#Draw on the Udon Whiteboard and edit its objects
 
 # --- Tabs and general texts ---
 content#:#Content
@@ -28,3 +30,4 @@ edit#:#Edit
 status_saved#:#Saved
 status_saving#:#Saving …
 status_offline#:#No connection – changes will be saved as soon as the connection is back.
+status_view_only#:#View only

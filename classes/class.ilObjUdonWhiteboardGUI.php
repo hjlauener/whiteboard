@@ -12,9 +12,13 @@ use Psr\Http\Message\ServerRequestInterface;
  * (polling, JSON): own changes are sent, changes of the others and the
  * pointers of the people on the board come back.
  *
- * Permissions:
- * - read:  open the whiteboard and draw on it (not for anonymous users)
- * - write: settings (title, description)
+ * Permissions (ILIAS RBAC):
+ * - visible: the board appears in the course/category
+ * - read:    open and view the board (with the pointers of the others)
+ * - udw_edit ("Board bearbeiten"): draw and edit objects on the board
+ * - write:   settings (title, description), includes editing the board
+ * Anonymous users can only view. The server checks the permission for every
+ * change; without it the board opens in view mode.
  *
  * @ilCtrl_isCalledBy ilObjUdonWhiteboardGUI: ilRepositoryGUI, ilAdministrationGUI, ilObjPluginDispatchGUI
  * @ilCtrl_Calls      ilObjUdonWhiteboardGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonActionDispatcherGUI
@@ -137,6 +141,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
                 'offline' => $this->txt('status_offline'),
                 'saving' => $this->txt('status_saving'),
                 'saved' => $this->txt('status_saved'),
+                'viewOnly' => $this->txt('status_view_only'),
             ],
         ];
 
@@ -257,9 +262,17 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         return [(float) $x, (float) $y];
     }
 
+    /**
+     * Draw and edit objects: permission "Board bearbeiten" or "write".
+     */
     private function canEdit(): bool
     {
-        return !$this->isAnonymous();
+        if ($this->isAnonymous()) {
+            return false;
+        }
+        $ref_id = $this->object->getRefId();
+        return $this->access->checkAccess(ilUdonWhiteboardPlugin::OP_EDIT, '', $ref_id)
+            || $this->access->checkAccess('write', '', $ref_id);
     }
 
     private function isAnonymous(): bool

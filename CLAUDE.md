@@ -8,9 +8,10 @@ Gruppenmanagement-Plugin. GitHub: `hjlauener/whiteboard`.
 
 ## Stand
 
-Version 0.2.0: gemeinsames Whiteboard (Excalidraw) im Reiter „Inhalt“,
-Abgleich per Polling, Mauszeiger der anderen; Reiter „Info“, „Einstellungen“
-(Titel, Beschreibung) und „Rechte“. Noch keine Bilder.
+Version 0.3: gemeinsames Whiteboard (Excalidraw) im Reiter „Inhalt“,
+Abgleich per Polling, Mauszeiger der anderen, dauerhaft in der Datenbank
+gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
+„Einstellungen“ (Titel, Beschreibung) und „Rechte“. Noch keine Bilder.
 
 ## Aufbau
 
@@ -70,6 +71,17 @@ Prüfen:
 diff <(cut -d'#' -f1 lang/ilias_de.lang) <(cut -d'#' -f1 lang/ilias_en.lang)
 diff <(cut -d'#' -f1 lang/ilias_de.lang) <(cut -d'#' -f1 lang/ilias_fr.lang)
 ```
+
+## Rechte
+
+- `visible`/`read`: Board sehen und öffnen (Ansichtsmodus), `udw_edit`
+  („Board bearbeiten“, eigene RBAC-Operation): zeichnen und Objekte
+  bearbeiten, `write`: Einstellungen und ebenfalls bearbeiten. Der Server
+  prüft das Recht bei jeder Änderung (`syncBoard`); Anonyme nur ansehen.
+- Beim ersten Installieren setzt das Plugin Standardrechte nach dem Muster
+  des ILIAS-Forums (`ensureDefaultPermissions()`): Rollenvorlagen und
+  „Udon Whiteboard anlegen“ überall, wo „Forum anlegen“ erlaubt ist. Danach
+  ändert es nichts mehr an Rechten (Einstellungen der Administration bleiben).
 
 ## Oberfläche
 

@@ -14,10 +14,12 @@ grp_create_xudw#:#Udon Whiteboard in der Gruppe anlegen
 cat_create_xudw#:#Udon Whiteboard in der Kategorie anlegen
 fold_create_xudw#:#Udon Whiteboard im Ordner anlegen
 xudw_visible#:#Udon Whiteboard ist sichtbar
-xudw_read#:#Udon Whiteboard öffnen und darauf zeichnen
-xudw_write#:#Einstellungen bearbeiten
+xudw_read#:#Udon Whiteboard öffnen und ansehen
+xudw_write#:#Einstellungen bearbeiten und auf dem Board zeichnen
 xudw_delete#:#Udon Whiteboard löschen oder verschieben
 xudw_edit_permission#:#Rechteeinstellungen ändern
+udw_edit#:#Board bearbeiten
+xudw_udw_edit#:#Auf dem Udon Whiteboard zeichnen und Objekte bearbeiten
 
 # --- Reiter und allgemeine Texte ---
 content#:#Inhalt
@@ -28,3 +30,4 @@ edit#:#Bearbeiten
 status_saved#:#Gespeichert
 status_saving#:#Wird gespeichert …
 status_offline#:#Keine Verbindung – Änderungen werden gespeichert, sobald die Verbindung wieder da ist.
+status_view_only#:#Nur ansehen
