@@ -37,6 +37,11 @@ members_mode_edit_info#:#All members can draw on the board and edit its objects.
 # --- Colour palettes (settings of the board, configuration of the plugin) ---
 palette#:#Colour palette
 palette_info#:#Colours offered on the board (line, background, text). Objects already drawn keep their colours. Applies after reloading the board.
+palette_mode_default#:#Standard palette
+palette_mode_default_info#:#“Calm and natural”: muted natural colours from Werner's Nomenclature of Colours (1814).
+palette_mode_other#:#Choose another palette
+palette_mode_other_info#:#Shows the other palettes to choose from.
+palette_choice#:#Palette
 palette_natural#:#Calm and natural
 palette_natural_info#:#Muted natural colours from Werner's Nomenclature of Colours (1814).
 palette_modern#:#Modern and clear

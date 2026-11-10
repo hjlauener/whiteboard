@@ -44,7 +44,10 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
     private const MEMBERS_PRESENT = 'present';
     private const MEMBERS_EDIT = 'edit';
 
-    /** field of the settings form: colour palette of the board */
+    /** fields of the settings form: standard palette or another one, and which */
+    private const FIELD_PALETTE_MODE = 'palette_mode';
+    private const PALETTE_MODE_DEFAULT = 'default';
+    private const PALETTE_MODE_OTHER = 'other';
     private const FIELD_PALETTE = 'palette';
 
     /** poll interval of the board in milliseconds */
@@ -540,8 +543,11 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             $values = [
                 'title' => $this->object->getTitle(),
                 'desc' => $this->object->getLongDescription(),
-                self::FIELD_PALETTE => ilUdwPalettes::resolve($this->object->getPalette()),
             ];
+            $palette = ilUdwPalettes::resolve($this->object->getPalette());
+            $values[self::FIELD_PALETTE_MODE] = $palette === ilUdwPalettes::DEFAULT
+                ? self::PALETTE_MODE_DEFAULT : self::PALETTE_MODE_OTHER;
+            $values[self::FIELD_PALETTE] = $palette === ilUdwPalettes::DEFAULT ? 'modern' : $palette;
             if ($this->canChangeMembersMode()) {
                 $values[self::FIELD_MEMBERS] = $this->membersCanEdit($this->object->getRefId())
                     ? self::MEMBERS_EDIT : self::MEMBERS_PRESENT;
@@ -563,7 +569,9 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
 
         $this->object->setTitle((string) $form->getInput('title'));
         $this->object->setDescription((string) $form->getInput('desc'));
-        $palette = (string) $form->getInput(self::FIELD_PALETTE);
+        $palette = (string) $form->getInput(self::FIELD_PALETTE_MODE) === self::PALETTE_MODE_OTHER
+            ? (string) $form->getInput(self::FIELD_PALETTE)
+            : ilUdwPalettes::DEFAULT;
         if (in_array($palette, ilUdwPalettes::available(), true)) {
             $this->object->setPalette($palette);
         }
@@ -595,15 +603,6 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         $desc->setRows(2);
         $form->addItem($desc);
 
-        $palette = new ilRadioGroupInputGUI($this->txt('palette'), self::FIELD_PALETTE);
-        $palette->setInfo($this->txt('palette_info'));
-        foreach (ilUdwPalettes::available() as $id) {
-            $option = new ilRadioOption($this->txt('palette_' . $id), $id);
-            $option->setInfo($this->txt('palette_' . $id . '_info') . ilUdwPalettes::swatches($id));
-            $palette->addOption($option);
-        }
-        $form->addItem($palette);
-
         if ($this->canChangeMembersMode()) {
             $members = new ilRadioGroupInputGUI($this->txt('members_mode'), self::FIELD_MEMBERS);
             $members->setInfo($this->txt('members_mode_info'));
@@ -615,6 +614,27 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             $members->addOption($edit);
             $form->addItem($members);
         }
+
+        // colour palette, last: standard palette, or "another palette" with the list as sub-choice
+        $mode = new ilRadioGroupInputGUI($this->txt('palette'), self::FIELD_PALETTE_MODE);
+        $mode->setInfo($this->txt('palette_info'));
+        $standard = new ilRadioOption($this->txt('palette_mode_default'), self::PALETTE_MODE_DEFAULT);
+        $standard->setInfo($this->txt('palette_mode_default_info') . ilUdwPalettes::swatches(ilUdwPalettes::DEFAULT));
+        $mode->addOption($standard);
+        $other = new ilRadioOption($this->txt('palette_mode_other'), self::PALETTE_MODE_OTHER);
+        $other->setInfo($this->txt('palette_mode_other_info'));
+        $choice = new ilRadioGroupInputGUI($this->txt('palette_choice'), self::FIELD_PALETTE);
+        foreach (ilUdwPalettes::available() as $id) {
+            if ($id === ilUdwPalettes::DEFAULT) {
+                continue;
+            }
+            $option = new ilRadioOption($this->txt('palette_' . $id), $id);
+            $option->setInfo($this->txt('palette_' . $id . '_info') . ilUdwPalettes::swatches($id));
+            $choice->addOption($option);
+        }
+        $other->addSubItem($choice);
+        $mode->addOption($other);
+        $form->addItem($mode);
 
         $form->addCommandButton('updateProperties', $this->lng->txt('save'));
 

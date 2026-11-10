@@ -37,6 +37,11 @@ members_mode_edit_info#:#Alle Mitglieder können auf dem Board zeichnen und Obje
 # --- Farbpaletten (Einstellungen des Boards, Konfiguration des Plugins) ---
 palette#:#Farbpalette
 palette_info#:#Farben, die im Board zur Auswahl stehen (Strich, Hintergrund, Text). Bereits gezeichnete Objekte behalten ihre Farben. Gilt nach dem Neuladen des Boards.
+palette_mode_default#:#Standardpalette
+palette_mode_default_info#:#„Ruhig und natürlich“: gedeckte Naturfarben aus Werners Nomenklatur der Farben (1814).
+palette_mode_other#:#Andere Palette wählen
+palette_mode_other_info#:#Zeigt die weiteren Paletten zur Auswahl.
+palette_choice#:#Palette
 palette_natural#:#Ruhig und natürlich
 palette_natural_info#:#Gedeckte Naturfarben aus Werners Nomenklatur der Farben (1814).
 palette_modern#:#Modern und klar

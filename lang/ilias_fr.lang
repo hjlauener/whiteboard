@@ -37,6 +37,11 @@ members_mode_edit_info#:#Tous les membres peuvent dessiner sur le tableau et mod
 # --- Palettes de couleurs (paramètres du tableau, configuration du plugin) ---
 palette#:#Palette de couleurs
 palette_info#:#Couleurs proposées sur le tableau (trait, arrière-plan, texte). Les objets déjà dessinés gardent leurs couleurs. S’applique après le rechargement du tableau.
+palette_mode_default#:#Palette standard
+palette_mode_default_info#:#« Calme et naturelle » : couleurs naturelles et sobres de la nomenclature des couleurs de Werner (1814).
+palette_mode_other#:#Choisir une autre palette
+palette_mode_other_info#:#Affiche les autres palettes à choisir.
+palette_choice#:#Palette
 palette_natural#:#Calme et naturelle
 palette_natural_info#:#Couleurs naturelles et sobres de la nomenclature des couleurs de Werner (1814).
 palette_modern#:#Moderne et claire
