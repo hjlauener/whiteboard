@@ -44,6 +44,9 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
     private const MEMBERS_PRESENT = 'present';
     private const MEMBERS_EDIT = 'edit';
 
+    /** field of the settings form: colour palette of the board */
+    private const FIELD_PALETTE = 'palette';
+
     /** poll interval of the board in milliseconds */
     private const POLL_INTERVAL = 1000;
     /** limits for one sync request */
@@ -275,6 +278,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'langCode' => $this->getExcalidrawLanguage(),
             'userId' => $this->xudw_user->getId(),
             'canEdit' => $this->canEdit(),
+            'palette' => ilUdwPalettes::resolve($this->object->getPalette()),
             'pollInterval' => self::POLL_INTERVAL,
             'aiPrompt' => $this->getAiPrompt(),
             'texts' => [
@@ -536,6 +540,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             $values = [
                 'title' => $this->object->getTitle(),
                 'desc' => $this->object->getLongDescription(),
+                self::FIELD_PALETTE => ilUdwPalettes::resolve($this->object->getPalette()),
             ];
             if ($this->canChangeMembersMode()) {
                 $values[self::FIELD_MEMBERS] = $this->membersCanEdit($this->object->getRefId())
@@ -558,6 +563,10 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
 
         $this->object->setTitle((string) $form->getInput('title'));
         $this->object->setDescription((string) $form->getInput('desc'));
+        $palette = (string) $form->getInput(self::FIELD_PALETTE);
+        if (in_array($palette, ilUdwPalettes::available(), true)) {
+            $this->object->setPalette($palette);
+        }
         $this->object->update();
 
         if ($this->canChangeMembersMode()) {
@@ -585,6 +594,15 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         $desc = new ilTextAreaInputGUI($this->lng->txt('description'), 'desc');
         $desc->setRows(2);
         $form->addItem($desc);
+
+        $palette = new ilRadioGroupInputGUI($this->txt('palette'), self::FIELD_PALETTE);
+        $palette->setInfo($this->txt('palette_info'));
+        foreach (ilUdwPalettes::available() as $id) {
+            $option = new ilRadioOption($this->txt('palette_' . $id), $id);
+            $option->setInfo($this->txt('palette_' . $id . '_info') . ilUdwPalettes::swatches($id));
+            $palette->addOption($option);
+        }
+        $form->addItem($palette);
 
         if ($this->canChangeMembersMode()) {
             $members = new ilRadioGroupInputGUI($this->txt('members_mode'), self::FIELD_MEMBERS);

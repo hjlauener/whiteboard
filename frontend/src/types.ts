@@ -8,6 +8,8 @@ export interface BoardConfig {
   langCode: string;
   userId: number;
   canEdit: boolean;
+  /** colour palette of the board (palettes.ts), from the settings */
+  palette: string;
   /** text for an AI (templates/ai_prompt_*.txt) with [[BOARD …]] and [[TASK …]] blocks */
   aiPrompt: string;
   /** poll interval in milliseconds */

@@ -7,7 +7,7 @@ import "@excalidraw/excalidraw/index.css";
 import "./whiteboard.css";
 import { BoardSync, type SyncStatus } from "./sync";
 import { CommandPanel } from "./commands/CommandPanel";
-import { WERNER_STROKE_PICKS } from "../werner-colors.ts";
+import { DEFAULT_PALETTE, PALETTES } from "../palettes.ts";
 import { installConvertMenu } from "./commands/convertMenu";
 import { SHAPES_SIDEBAR, ShapesSidebar } from "./shapes/ShapesSidebar";
 import { installSmoothing, setSmoothingEnabled, smoothingEnabled } from "./smoothing";
@@ -93,7 +93,7 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
         elements: initial,
         scrollToContent: true,
         // sober defaults for teaching: serif font, clean lines (each person can change them)
-        appState: { currentItemFontFamily: SERIF_FONT_ID, currentItemRoughness: 0, currentItemStrokeColor: WERNER_STROKE_PICKS[0] },
+        appState: { currentItemFontFamily: SERIF_FONT_ID, currentItemRoughness: 0, currentItemStrokeColor: (PALETTES[config.palette] ?? PALETTES[DEFAULT_PALETTE]).stroke[0] },
       }}
       isCollaborating={true}
       // shortcuts (Cmd+Z, Delete, ...) also work when the focus has left the

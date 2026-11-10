@@ -1,0 +1,864 @@
+{
+ "default": "natural",
+ "palettes": {
+  "natural": {
+   "families": {
+    "blacks": [
+     "#555152",
+     "#413f44",
+     "#423937",
+     "#433635",
+     "#241f20"
+    ],
+    "greys": [
+     "#cbc8b7",
+     "#bfbbb0",
+     "#bab191",
+     "#9c9d9a",
+     "#5b5c61"
+    ],
+    "whites": [
+     "#f2e7cf",
+     "#f1e9cd",
+     "#f3e9ca",
+     "#ece6d0",
+     "#e2ddc6"
+    ],
+    "reds": [
+     "#eedac3",
+     "#cd6d57",
+     "#8d746f",
+     "#6e3b31",
+     "#3f3033"
+    ],
+    "oranges": [
+     "#ebbc71",
+     "#dfa837",
+     "#d17c3f",
+     "#bb603c",
+     "#92462f"
+    ],
+    "yellows": [
+     "#f3daa7",
+     "#f1d28c",
+     "#ead665",
+     "#d09b2c",
+     "#a36629"
+    ],
+    "greens": [
+     "#a4b6a7",
+     "#c8c76f",
+     "#61ac86",
+     "#8e9849",
+     "#33431e"
+    ],
+    "blues": [
+     "#8aa1a6",
+     "#6fb5a8",
+     "#719ba2",
+     "#383867",
+     "#281f3f"
+    ],
+    "purples": [
+     "#d0d5d3",
+     "#8590ae",
+     "#584c77",
+     "#533552",
+     "#39334a"
+    ],
+    "browns": [
+     "#c39e6d",
+     "#8b7859",
+     "#864735",
+     "#553d3a",
+     "#453b32"
+    ]
+   },
+   "stroke": [
+    "#241f20",
+    "#b63e36",
+    "#1c1949",
+    "#7d8c55",
+    "#dfa837"
+   ],
+   "background": [
+    "transparent",
+    "#eecfbf",
+    "#c2c190",
+    "#d0d5d3",
+    "#ebdd99"
+   ]
+  },
+  "modern": {
+   "families": {
+    "blacks": [
+     "#64748b",
+     "#475569",
+     "#334155",
+     "#1e293b",
+     "#0f172a"
+    ],
+    "greys": [
+     "#f1f5f9",
+     "#e2e8f0",
+     "#cbd5e1",
+     "#94a3b8",
+     "#64748b"
+    ],
+    "whites": [
+     "#ffffff",
+     "#fafafa",
+     "#f8fafc",
+     "#f5f5f4",
+     "#f4f4f5"
+    ],
+    "reds": [
+     "#fee2e2",
+     "#fca5a5",
+     "#ef4444",
+     "#dc2626",
+     "#991b1b"
+    ],
+    "oranges": [
+     "#ffedd5",
+     "#fdba74",
+     "#f97316",
+     "#ea580c",
+     "#9a3412"
+    ],
+    "yellows": [
+     "#fef9c3",
+     "#fde047",
+     "#eab308",
+     "#ca8a04",
+     "#854d0e"
+    ],
+    "greens": [
+     "#dcfce7",
+     "#86efac",
+     "#22c55e",
+     "#16a34a",
+     "#166534"
+    ],
+    "blues": [
+     "#eff6ff",
+     "#93c5fd",
+     "#3b82f6",
+     "#1d4ed8",
+     "#1e3a8a"
+    ],
+    "purples": [
+     "#ede9fe",
+     "#c4b5fd",
+     "#8b5cf6",
+     "#6d28d9",
+     "#4c1d95"
+    ],
+    "browns": [
+     "#efe5dc",
+     "#d4b9a0",
+     "#a67c52",
+     "#7c5532",
+     "#4a3220"
+    ]
+   },
+   "stroke": [
+    "#0f172a",
+    "#dc2626",
+    "#1d4ed8",
+    "#16a34a",
+    "#ea580c"
+   ],
+   "background": [
+    "transparent",
+    "#eff6ff",
+    "#dcfce7",
+    "#fef9c3",
+    "#fee2e2"
+   ]
+  },
+  "warm": {
+   "families": {
+    "blacks": [
+     "#6b5a52",
+     "#5a4a42",
+     "#4a3b34",
+     "#3a2e28",
+     "#2b211c"
+    ],
+    "greys": [
+     "#efe8e2",
+     "#ddd2c8",
+     "#c4b5a8",
+     "#a39283",
+     "#7d6d60"
+    ],
+    "whites": [
+     "#fffaf3",
+     "#fff5e8",
+     "#fff1e0",
+     "#fdf0e6",
+     "#faebdd"
+    ],
+    "reds": [
+     "#fde2dc",
+     "#f4a596",
+     "#e06c5a",
+     "#c0503f",
+     "#a84e42"
+    ],
+    "oranges": [
+     "#fff1df",
+     "#ffca8a",
+     "#f39065",
+     "#e0703d",
+     "#b5532a"
+    ],
+    "yellows": [
+     "#fff6d6",
+     "#ffe29a",
+     "#f7c75a",
+     "#e0a93a",
+     "#b58224"
+    ],
+    "greens": [
+     "#eef3dc",
+     "#cfdca4",
+     "#a7bb6b",
+     "#7e9446",
+     "#56692c"
+    ],
+    "blues": [
+     "#e6f0f2",
+     "#b3d2d8",
+     "#7aa9b3",
+     "#4f7f8c",
+     "#335a66"
+    ],
+    "purples": [
+     "#f6e4ec",
+     "#e3b3c8",
+     "#c47a9b",
+     "#9c5677",
+     "#6e3a55"
+    ],
+    "browns": [
+     "#f1e2d3",
+     "#d9b796",
+     "#b48660",
+     "#8a5f3e",
+     "#5e3f28"
+    ]
+   },
+   "stroke": [
+    "#3a2e28",
+    "#c0503f",
+    "#335a66",
+    "#7e9446",
+    "#e0703d"
+   ],
+   "background": [
+    "transparent",
+    "#fff1df",
+    "#fde2dc",
+    "#fff6d6",
+    "#eef3dc"
+   ]
+  },
+  "playful": {
+   "families": {
+    "blacks": [
+     "#4d4d4d",
+     "#333333",
+     "#222222",
+     "#141414",
+     "#000000"
+    ],
+    "greys": [
+     "#f0f0f0",
+     "#d9d9d9",
+     "#b3b3b3",
+     "#8c8c8c",
+     "#595959"
+    ],
+    "whites": [
+     "#ffffff",
+     "#fffdf5",
+     "#fffbea",
+     "#f8f9ff",
+     "#fff8fb"
+    ],
+    "reds": [
+     "#ffd6d6",
+     "#ff8a8a",
+     "#ff3b3b",
+     "#e60000",
+     "#a30000"
+    ],
+    "pinks": [
+     "#ffe0f0",
+     "#ff9ccf",
+     "#ff4fa3",
+     "#e6007e",
+     "#a3005a"
+    ],
+    "oranges": [
+     "#ffe3c2",
+     "#ffb35c",
+     "#ff8c00",
+     "#f26b00",
+     "#b84a00"
+    ],
+    "yellows": [
+     "#fff7b3",
+     "#ffeb3b",
+     "#ffd600",
+     "#ffc400",
+     "#e6a800"
+    ],
+    "greens": [
+     "#d4fcd4",
+     "#7cf07c",
+     "#2ee52e",
+     "#00c21a",
+     "#008a12"
+    ],
+    "blues": [
+     "#d1ecff",
+     "#6ec6ff",
+     "#1ea0ff",
+     "#0066ff",
+     "#0033cc"
+    ],
+    "purples": [
+     "#f4e6ff",
+     "#c9a8ff",
+     "#a78bfa",
+     "#8a2be2",
+     "#6d28d9"
+    ]
+   },
+   "stroke": [
+    "#000000",
+    "#ff3b3b",
+    "#0066ff",
+    "#00c21a",
+    "#ff8c00"
+   ],
+   "background": [
+    "transparent",
+    "#fff7b3",
+    "#d1ecff",
+    "#ffd6d6",
+    "#d4fcd4"
+   ]
+  },
+  "pastel": {
+   "families": {
+    "blacks": [
+     "#d2d0d5",
+     "#9b98a3",
+     "#4a4458",
+     "#383342",
+     "#25222c"
+    ],
+    "greys": [
+     "#eae9ed",
+     "#d0ced6",
+     "#a9a6b5",
+     "#7f7d88",
+     "#55535b"
+    ],
+    "whites": [
+     "#ffffff",
+     "#fdfcff",
+     "#fbf8ff",
+     "#f8fbff",
+     "#fffaf7"
+    ],
+    "reds": [
+     "#fce9e9",
+     "#f9cece",
+     "#f4a6a6",
+     "#b77d7d",
+     "#7a5353"
+    ],
+    "pinks": [
+     "#fdedf4",
+     "#fad8e6",
+     "#f6b8d1",
+     "#b98a9d",
+     "#7b5c69"
+    ],
+    "oranges": [
+     "#fdf2e6",
+     "#fbe1c8",
+     "#f8c99b",
+     "#ba9774",
+     "#7c654e"
+    ],
+    "yellows": [
+     "#fef9e7",
+     "#fcf2ca",
+     "#f9e79f",
+     "#bbad77",
+     "#7d7450"
+    ],
+    "greens": [
+     "#edf8ed",
+     "#d6efd8",
+     "#b5e2b8",
+     "#88aa8a",
+     "#5b715c"
+    ],
+    "blues": [
+     "#eaf3fc",
+     "#d0e4f8",
+     "#a9cdf2",
+     "#7f9ab6",
+     "#556779"
+    ],
+    "purples": [
+     "#f3ecfb",
+     "#e4d6f7",
+     "#cdb4f0",
+     "#9a87b4",
+     "#675a78"
+    ]
+   },
+   "stroke": [
+    "#4a4458",
+    "#d9777a",
+    "#6b9bd1",
+    "#6fb579",
+    "#d99a5b"
+   ],
+   "background": [
+    "transparent",
+    "#fde2e4",
+    "#e2f0cb",
+    "#dbeafe",
+    "#fff1c1"
+   ]
+  },
+  "colorblind": {
+   "families": {
+    "blacks": [
+     "#bfbfbf",
+     "#737373",
+     "#000000",
+     "#000000",
+     "#000000"
+    ],
+    "greys": [
+     "#e2e2e2",
+     "#c0c0c0",
+     "#8c8c8c",
+     "#696969",
+     "#464646"
+    ],
+    "whites": [
+     "#ffffff",
+     "#fafafa",
+     "#f5f5f5",
+     "#f8f9fb",
+     "#fbfaf7"
+    ],
+    "reds": [
+     "#f5d7bf",
+     "#e8a673",
+     "#d55e00",
+     "#a04700",
+     "#6b2f00"
+    ],
+    "oranges": [
+     "#f9e7bf",
+     "#f1ca73",
+     "#e69f00",
+     "#ad7700",
+     "#735000"
+    ],
+    "yellows": [
+     "#fbf8d0",
+     "#f7f097",
+     "#f0e442",
+     "#b4ab32",
+     "#787221"
+    ],
+    "teals": [
+     "#bfe7dc",
+     "#73cab2",
+     "#009e73",
+     "#007756",
+     "#004f3a"
+    ],
+    "cyans": [
+     "#d5ecfa",
+     "#a2d6f3",
+     "#56b4e9",
+     "#4187af",
+     "#2b5a75"
+    ],
+    "blues": [
+     "#bfdcec",
+     "#73b1d5",
+     "#0072b2",
+     "#005686",
+     "#003959"
+    ],
+    "pinks": [
+     "#f2dee9",
+     "#e3b5cf",
+     "#cc79a7",
+     "#995b7d",
+     "#663d54"
+    ]
+   },
+   "stroke": [
+    "#000000",
+    "#d55e00",
+    "#0072b2",
+    "#009e73",
+    "#e69f00"
+   ],
+   "background": [
+    "transparent",
+    "#d5ecfa",
+    "#f9f4b3",
+    "#f2dee9",
+    "#bfe7dc"
+   ]
+  },
+  "ocean": {
+   "families": {
+    "blacks": [
+     "#c6cace",
+     "#828a93",
+     "#1b2a3a",
+     "#14202c",
+     "#0e151d"
+    ],
+    "greys": [
+     "#e2e6ea",
+     "#bfc8d1",
+     "#8a9bab",
+     "#687480",
+     "#454e56"
+    ],
+    "whites": [
+     "#ffffff",
+     "#f7fbff",
+     "#f2f8fc",
+     "#f5fbfa",
+     "#fbf9f3"
+    ],
+    "blues": [
+     "#c7dbec",
+     "#84b0d5",
+     "#1f6fb2",
+     "#175386",
+     "#103859"
+    ],
+    "cyans": [
+     "#d3ecf9",
+     "#9ed5f2",
+     "#4fb3e8",
+     "#3b86ae",
+     "#285a74"
+    ],
+    "teals": [
+     "#c4e3e3",
+     "#7dc0c2",
+     "#138d90",
+     "#0e6a6c",
+     "#0a4748"
+    ],
+    "greens": [
+     "#d2ebe3",
+     "#9dd3c1",
+     "#4caf8e",
+     "#39836b",
+     "#265847"
+    ],
+    "yellows": [
+     "#f9f1dc",
+     "#f2e1b1",
+     "#e8c872",
+     "#ae9656",
+     "#746439"
+    ],
+    "oranges": [
+     "#fbe2d7",
+     "#f7bfa6",
+     "#f08a5d",
+     "#b46846",
+     "#78452f"
+    ],
+    "purples": [
+     "#dad8f1",
+     "#aea9e0",
+     "#6c63c7",
+     "#514a95",
+     "#363264"
+    ]
+   },
+   "stroke": [
+    "#1b2a3a",
+    "#1f6fb2",
+    "#138d90",
+    "#f08a5d",
+    "#6c63c7"
+   ],
+   "background": [
+    "transparent",
+    "#d3ecf9",
+    "#c4e3e3",
+    "#f6e9c7",
+    "#fbe2d7"
+   ]
+  },
+  "forest": {
+   "families": {
+    "blacks": [
+     "#cacac8",
+     "#8a8a85",
+     "#2a2a22",
+     "#20201a",
+     "#151511"
+    ],
+    "greys": [
+     "#e3e2de",
+     "#c1bfb6",
+     "#8f8a7a",
+     "#6b685c",
+     "#48453d"
+    ],
+    "whites": [
+     "#fffdf7",
+     "#fbf8ef",
+     "#f7f4ea",
+     "#f6f7ef",
+     "#faf6ee"
+    ],
+    "greens": [
+     "#cfdfce",
+     "#95b893",
+     "#3f7d3a",
+     "#2f5e2c",
+     "#203f1d"
+    ],
+    "teals": [
+     "#cbdbd8",
+     "#8db0a9",
+     "#2f6f62",
+     "#23534a",
+     "#183831"
+    ],
+    "yellows": [
+     "#f2e8c9",
+     "#e1cc88",
+     "#c9a227",
+     "#977a1d",
+     "#655114"
+    ],
+    "oranges": [
+     "#edd9c7",
+     "#d6aa83",
+     "#b5651d",
+     "#884c16",
+     "#5b330f"
+    ],
+    "reds": [
+     "#e6cbcb",
+     "#c88c8d",
+     "#9b2d30",
+     "#742224",
+     "#4e1718"
+    ],
+    "browns": [
+     "#ded4cb",
+     "#b6a08d",
+     "#7a5230",
+     "#5c3e24",
+     "#3d2918"
+    ],
+    "blues": [
+     "#d2d8dd",
+     "#9ba9b5",
+     "#4a6378",
+     "#384a5a",
+     "#25323c"
+    ],
+    "purples": [
+     "#ded7de",
+     "#b6a6b6",
+     "#7b5e7b",
+     "#5c475c",
+     "#3e2f3e"
+    ]
+   },
+   "stroke": [
+    "#2a2a22",
+    "#3f7d3a",
+    "#7a5230",
+    "#b5651d",
+    "#4a6378"
+   ],
+   "background": [
+    "transparent",
+    "#cfdfce",
+    "#ecdeb3",
+    "#ded4cb",
+    "#d2d8dd"
+   ]
+  },
+  "retro": {
+   "families": {
+    "blacks": [
+     "#cecbcb",
+     "#938d8d",
+     "#3b2f2f",
+     "#2c2323",
+     "#1e1818"
+    ],
+    "greys": [
+     "#e8e6e2",
+     "#ccc7c0",
+     "#a39a8c",
+     "#7a7469",
+     "#524d46"
+    ],
+    "whites": [
+     "#fffaf0",
+     "#fdf6e3",
+     "#faf0dc",
+     "#f8f1e5",
+     "#f5ecd9"
+    ],
+    "reds": [
+     "#edd0ca",
+     "#d6988a",
+     "#b5442b",
+     "#883320",
+     "#5b2216"
+    ],
+    "oranges": [
+     "#f7dec7",
+     "#eeb684",
+     "#e07a1f",
+     "#a85c17",
+     "#703d10"
+    ],
+    "yellows": [
+     "#f8ebc0",
+     "#efd273",
+     "#e1ad01",
+     "#a98201",
+     "#715701"
+    ],
+    "greens": [
+     "#dae3c8",
+     "#aec186",
+     "#6b8e23",
+     "#506b1a",
+     "#364712"
+    ],
+    "teals": [
+     "#cae7e3",
+     "#8ac9c1",
+     "#2a9d8f",
+     "#20766b",
+     "#154f48"
+    ],
+    "purples": [
+     "#dfceda",
+     "#b894ae",
+     "#7d3c6b",
+     "#5e2d50",
+     "#3f1e36"
+    ],
+    "browns": [
+     "#e2d6ca",
+     "#bfa48a",
+     "#8b5a2b",
+     "#684420",
+     "#462d16"
+    ]
+   },
+   "stroke": [
+    "#3b2f2f",
+    "#b5442b",
+    "#e07a1f",
+    "#2a9d8f",
+    "#6b8e23"
+   ],
+   "background": [
+    "transparent",
+    "#f5e2a6",
+    "#f7dec7",
+    "#dae3c8",
+    "#cae7e3"
+   ]
+  },
+  "print": {
+   "families": {
+    "blacks": [
+     "#bfbfbf",
+     "#737373",
+     "#000000",
+     "#000000",
+     "#000000"
+    ],
+    "greys": [
+     "#f2f2f2",
+     "#d9d9d9",
+     "#a6a6a6",
+     "#737373",
+     "#404040"
+    ],
+    "whites": [
+     "#ffffff",
+     "#fcfcfc",
+     "#f9f9f9",
+     "#f7f7f7",
+     "#f4f4f4"
+    ],
+    "reds": [
+     "#efbfbf",
+     "#dc7373",
+     "#c00000",
+     "#900000",
+     "#600000"
+    ],
+    "blues": [
+     "#c7d3e6",
+     "#849ec9",
+     "#1f4e9c",
+     "#173b75",
+     "#10274e"
+    ],
+    "greens": [
+     "#cbdfcc",
+     "#8cb88e",
+     "#2e7d32",
+     "#235e26",
+     "#173f19"
+    ]
+   },
+   "stroke": [
+    "#000000",
+    "#404040",
+    "#808080",
+    "#c00000",
+    "#1f4e9c"
+   ],
+   "background": [
+    "transparent",
+    "#f2f2f2",
+    "#d9d9d9",
+    "#fde0e0",
+    "#e1e9f7"
+   ]
+  }
+ }
+}

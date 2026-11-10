@@ -34,6 +34,34 @@ members_mode_present_info#:#Die Mitglieder sehen das Board und die Mauszeiger li
 members_mode_edit#:#Bearbeitungsmodus für alle
 members_mode_edit_info#:#Alle Mitglieder können auf dem Board zeichnen und Objekte bearbeiten.
 
+# --- Farbpaletten (Einstellungen des Boards, Konfiguration des Plugins) ---
+palette#:#Farbpalette
+palette_info#:#Farben, die im Board zur Auswahl stehen (Strich, Hintergrund, Text). Bereits gezeichnete Objekte behalten ihre Farben. Gilt nach dem Neuladen des Boards.
+palette_natural#:#Ruhig und natürlich
+palette_natural_info#:#Gedeckte Naturfarben aus Werners Nomenklatur der Farben (1814).
+palette_modern#:#Modern und klar
+palette_modern_info#:#Klare, gleichmässig abgestufte Farben, übersichtlich und sachlich.
+palette_warm#:#Warm und freundlich
+palette_warm_info#:#Pfirsich, Apricot und Terrakotta, einladend und motivierend.
+palette_playful#:#Spielerisch und frisch
+palette_playful_info#:#Kräftige Comic-Farben mit schwarzer Tusche.
+palette_pastel#:#Pastell und sanft
+palette_pastel_info#:#Helle, zarte Farben, ruhig für lange Sitzungen.
+palette_colorblind#:#Für Farbsehschwäche geeignet
+palette_colorblind_info#:#Die acht Farben nach Okabe und Ito, auch bei Rot-Grün-Schwäche unterscheidbar.
+palette_ocean#:#Meer und Himmel
+palette_ocean_info#:#Blau, Türkis, Sand und Koralle.
+palette_forest#:#Wald und Erde
+palette_forest_info#:#Grün, Moos, Ocker, Rost und Rinde.
+palette_retro#:#Retro
+palette_retro_info#:#Senfgelb, Orange, Avocado, Ziegelrot und Pflaume wie in den Siebzigerjahren.
+palette_print#:#Druckfreundlich
+palette_print_info#:#Schwarz und Grau mit wenigen klaren Akzenten, gut lesbar auch im Schwarz-Weiss-Druck.
+config_title#:#Konfiguration Udon Whiteboard
+config_palettes#:#Zusätzliche Farbpaletten
+config_palettes_info#:#Angekreuzte Paletten stehen in den Einstellungen jedes Boards zusätzlich zu den vier Standardpaletten zur Auswahl. Boards mit einer abgewählten Palette verwenden wieder „Ruhig und natürlich“.
+config_saved#:#Die Konfiguration wurde gespeichert.
+
 # --- Whiteboard ---
 status_saved#:#Gespeichert
 status_saving#:#Wird gespeichert …

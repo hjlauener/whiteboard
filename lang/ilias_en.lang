@@ -34,6 +34,34 @@ members_mode_present_info#:#Members see the board and the pointers live but do n
 members_mode_edit#:#Editing mode for everyone
 members_mode_edit_info#:#All members can draw on the board and edit its objects.
 
+# --- Colour palettes (settings of the board, configuration of the plugin) ---
+palette#:#Colour palette
+palette_info#:#Colours offered on the board (line, background, text). Objects already drawn keep their colours. Applies after reloading the board.
+palette_natural#:#Calm and natural
+palette_natural_info#:#Muted natural colours from Werner's Nomenclature of Colours (1814).
+palette_modern#:#Modern and clear
+palette_modern_info#:#Clear, evenly graded colours, tidy and matter-of-fact.
+palette_warm#:#Warm and friendly
+palette_warm_info#:#Peach, apricot and terracotta, inviting and motivating.
+palette_playful#:#Playful and fresh
+palette_playful_info#:#Bold comic colours with black ink.
+palette_pastel#:#Pastel and soft
+palette_pastel_info#:#Light, delicate colours, calm for long sessions.
+palette_colorblind#:#Suitable for colour blindness
+palette_colorblind_info#:#The eight colours by Okabe and Ito, distinguishable even with red-green colour blindness.
+palette_ocean#:#Sea and sky
+palette_ocean_info#:#Blue, turquoise, sand and coral.
+palette_forest#:#Forest and earth
+palette_forest_info#:#Green, moss, ochre, rust and bark.
+palette_retro#:#Retro
+palette_retro_info#:#Mustard, orange, avocado, brick red and plum as in the seventies.
+palette_print#:#Print-friendly
+palette_print_info#:#Black and grey with a few clear accents, easy to read in black-and-white print too.
+config_title#:#Configuration of Udon Whiteboard
+config_palettes#:#Additional colour palettes
+config_palettes_info#:#Ticked palettes are offered in the settings of every board in addition to the four standard palettes. Boards with a palette that is no longer ticked use “Calm and natural” again.
+config_saved#:#The configuration has been saved.
+
 # --- Whiteboard ---
 status_saved#:#Saved
 status_saving#:#Saving …

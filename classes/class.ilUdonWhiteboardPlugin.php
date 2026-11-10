@@ -63,6 +63,7 @@ class ilUdonWhiteboardPlugin extends ilRepositoryObjectPlugin
                 $db->dropTable($table, false);
             }
         }
+        ilUdwPalettes::deleteSettings();
     }
 
     public function allowCopy(): bool

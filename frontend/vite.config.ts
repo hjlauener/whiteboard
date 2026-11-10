@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { WERNER_BACKGROUND_PICKS, WERNER_PALETTE, WERNER_STROKE_PICKS } from "./werner-colors.ts";
+import { DEFAULT_PALETTE, PALETTES } from "./palettes.ts";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -176,17 +176,31 @@ function serifFont(): Plugin {
 
 /**
  * Defaults of the board that Excalidraw does not let configure:
- * - colour palette and quick picks: Werner's Nomenclature of Colours
- *   (werner-colors.ts) instead of Open Color
+ * - colour palette and quick picks: one of the four palettes of palettes.ts
+ *   instead of Open Color. All four are built in; the board takes the one
+ *   of data-config.palette (the div is there before the module runs, module
+ *   scripts are deferred). The build also writes palettes.json for the
+ *   settings form.
  * - line widths: 2 / 4 / 6 instead of 1 / 2 / 4 (start with the former
  *   middle one, then thicker)
  * If a new Excalidraw version changes these places, the build stops.
  */
 function boardDefaults(): Plugin {
   const chunk = /[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]chunk-[A-Z0-9]+\.js$/;
-  const palette = JSON.stringify({ transparent: "transparent", white: "#ffffff", ...WERNER_PALETTE });
+  const pick =
+    `var __xudwPal=(function(){var P=${JSON.stringify(PALETTES)},d=${JSON.stringify(DEFAULT_PALETTE)},n=d;` +
+    `try{var e=document.querySelector(".xudw-board");if(e){n=JSON.parse(e.dataset.config||"null").palette||d;}}catch(x){}` +
+    `return P[n]||P[d];})();\n`;
+  const families = 'Object.assign({transparent:"transparent",white:"#ffffff"},__xudwPal.families)';
+  let patched = false;
   return {
     name: "xudw-board-defaults",
+    generateBundle() {
+      if (!patched) {
+        this.error("Board defaults: Excalidraw chunk with the palettes not found");
+      }
+      this.emitFile({ type: "asset", fileName: "palettes.json", source: JSON.stringify({ default: DEFAULT_PALETTE, palettes: PALETTES }, null, 1) });
+    },
     transform(code, id) {
       if (!chunk.test(id) || !code.includes("extraBold:4}")) {
         return null;
@@ -203,25 +217,26 @@ function boardDefaults(): Plugin {
       out = replace(
         out,
         /(\w+)=\[(\w+)\.black,\2\.red\[\w+\],\2\.green\[\w+\],\2\.blue\[\w+\],\2\.yellow\[\w+\]\]/,
-        (_m, v) => `${v}=${JSON.stringify(WERNER_STROKE_PICKS)}`,
+        (_m, v) => `${v}=__xudwPal.stroke`,
         "stroke picks",
         1,
       );
       out = replace(
         out,
         /(\w+)=\[(\w+)\.transparent,\2\.red\[\w+\],\2\.green\[\w+\],\2\.blue\[\w+\],\2\.yellow\[\w+\]\]/,
-        (_m, v) => `${v}=${JSON.stringify(WERNER_BACKGROUND_PICKS)}`,
+        (_m, v) => `${v}=__xudwPal.background`,
         "background picks",
         1,
       );
       out = replace(
         out,
         /(\w+)=\{transparent:(\w+)\.transparent,white:\2\.white,gray:\2\.gray,black:\2\.black,bronze:\2\.bronze,\.\.\.\w+\}/,
-        (_m, v) => `${v}=${palette}`,
+        (_m, v) => `${v}=${families}`,
         "element palettes",
         2,
       );
-      return { code: out, map: null };
+      patched = true;
+      return { code: pick + out, map: null };
     },
   };
 }

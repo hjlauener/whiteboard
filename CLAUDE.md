@@ -11,7 +11,7 @@ Gruppenmanagement-Plugin. GitHub: `hjlauener/whiteboard`.
 Version 0.4: Befehlssprache für KIs (Overlay „Befehle“, sdk/). Version 0.3: gemeinsames Whiteboard (Excalidraw) im Reiter „Inhalt“,
 Abgleich per Polling, Mauszeiger der anderen, dauerhaft in der Datenbank
 gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
-„Einstellungen“ (Titel, Beschreibung) und „Rechte“. Noch keine Bilder.
+„Einstellungen“ (Titel, Beschreibung, Farbpalette) und „Rechte“; Plugin-Konfiguration (Zusatzpaletten). Noch keine Bilder.
 
 ## Aufbau
 
@@ -72,7 +72,7 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   `docker run --rm -v "$PWD:/plugin" -w /plugin --entrypoint node ilias-slim-web:latest sdk/js/test/language.test.ts`
   und `python3 -m unittest discover -s sdk/python/tests`.
 - Anpassungen an Excalidraw beim Bauen (`vite.config.ts`): Sprachen,
-  Serifenschrift, `boardDefaults()` (Werner-Farben aus `werner-colors.ts`,
+  Serifenschrift, `boardDefaults()` (Farbpaletten aus `palettes.ts`, zur Laufzeit gewählt über `data-config.palette`; PHP-Seite `ilUdwPalettes`, Konfiguration `ilUdonWhiteboardConfigGUI`; Listen BASE/EXTRA in beiden gleich halten,
   Strichstärken 2/4/6), `hugeFontSize()` (Schriftgrösse XXL = 48). ILIAS-Bootstrap blendet `.dropdown-menu` aus: in
   `whiteboard.css` für Excalidraw zurückgesetzt. Rechtsklick-Einträge in
   `commands/convertMenu.ts`, Formen-Seitenleiste `shapes/`, Glätten

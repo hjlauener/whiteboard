@@ -55,7 +55,7 @@ Neben ILIAS-Standard nur im Browser bzw. zum Bauen. Alle Versionen sind in
 | zod | 4.6.7 | MIT | nur MCP-Server (gebündelt) | Eingaben der MCP-Werkzeuge beschreiben |
 | esbuild | 0.28.2 | MIT | Build | MCP-Server zu einer Datei bündeln |
 | 7 Excalidraw-Bibliotheken in 3 Sammlungen: Grundformen (Basic shapes, 3D Shapes), Figuren und Sprechblasen (Stick Figures, Stick people, Bubbles), Diagramme und Mathematik (Data Viz, Math Teacher Library) | – | MIT | Laufzeit (Daten) | Seitenleiste „Formen“; Quellen in `frontend/libraries/README.md` |
-| Werners Nomenklatur der Farben | 1814/1821 | gemeinfrei (Buch); Farbwerte der Digitalisierung c82.net ohne ausdrückliche Lizenz | Laufzeit (Daten) | Farbpalette, `frontend/werner-colors.ts` |
+| Werners Nomenklatur der Farben | 1814/1821 | gemeinfrei (Buch); Farbwerte der Digitalisierung c82.net ohne ausdrückliche Lizenz | Laufzeit (Daten) | Palette „Ruhig und natürlich“, `frontend/palettes.ts` |
 
 Das Board selbst und die JS/TS- und Python-Bibliothek der Befehlssprache haben
 keine Abhängigkeiten; die Python-Bibliothek braucht nur die Standardbibliothek.
@@ -97,7 +97,7 @@ Update nicht mehr, bricht der Build mit einer Meldung ab.
 
 | Was | Wie |
 |---|---|
-| Farbpalette und Schnellwahl | Werners Nomenklatur der Farben: 10 Familien × 5 Abstufungen (`werner-colors.ts`), im Build eingesetzt (`boardDefaults()` in `vite.config.ts`) |
+| Farbpaletten | 10 Paletten in `frontend/palettes.ts` (je bis 11 Farbfamilien × 5 Abstufungen, 5 Schnellfarben für Strich und Hintergrund). Immer wählbar: Ruhig und natürlich (Werner, Standard), Modern und klar, Warm und freundlich, Spielerisch und frisch (Comic). In der Plugin-Konfiguration zuschaltbar: Pastell und sanft, Für Farbsehschwäche geeignet (Okabe-Ito), Meer und Himmel, Wald und Erde, Retro, Druckfreundlich. Alle sind im Build eingebaut (`boardDefaults()` in `vite.config.ts`); Excalidraw nimmt beim Start die Palette aus `data-config.palette`. Der Build schreibt `js/dist/palettes.json`, daraus zeigt PHP (`ilUdwPalettes`) die Farbfelder in den Formularen |
 | Strichstärken | 2 / 4 / 6 statt 1 / 2 / 4 (beginnt bei der früheren mittleren), ebenfalls `boardDefaults()` |
 | Schriftgrösse XXL | fünfter Knopf (48 px) nach S/M/L/XL (16/20/28/36), `hugeFontSize()` in `vite.config.ts`; in der Befehlssprache `size=XXL` |
 | Eigenschaften-Leiste | 15rem statt 12,5rem breit |
@@ -169,7 +169,9 @@ Antwort:  {"rev": 44, "elements": [ …Elemente mit Revision > 41… ], "users":
 
 | Tabelle | Inhalt |
 |---|---|
-| `rep_robj_xudw_board` | `id` (obj_id), `rev` (Revisionszähler) |
+| `rep_robj_xudw_board` | `id` (obj_id), `rev` (Revisionszähler), `palette` (Farbpalette, Standard `natural`) |
+
+Plugin-Konfiguration (Administration › Plugins › UdonWhiteboard › Konfigurieren, `ilUdonWhiteboardConfigGUI`): zugeschaltete Zusatzpaletten in `ilSetting` (Modul `xudw`, Schlüssel `extra_palettes`). Boards mit einer abgewählten Palette verwenden „Ruhig und natürlich“.
 | `rep_robj_xudw_el` | `board_id`, `el_id`, `el_version`, `el_nonce`, `rev`, `is_deleted`, `el_json` (CLOB, Excalidraw-JSON), `last_user`, `last_update`; Index (`board_id`, `rev`) |
 | `rep_robj_xudw_pres` | `board_id`, `user_id`, `pointer_x`, `pointer_y`, `last_seen` (anwesend = letzte 15 s) |
 

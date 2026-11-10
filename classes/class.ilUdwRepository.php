@@ -33,6 +33,23 @@ class ilUdwRepository
         $this->db->replace(self::TABLE_BOARD, ['id' => ['integer', $board_id]], ['rev' => ['integer', 0]]);
     }
 
+    public function getPalette(int $board_id): string
+    {
+        $result = $this->db->query('SELECT palette FROM ' . self::TABLE_BOARD
+            . ' WHERE id = ' . $this->db->quote($board_id, 'integer'));
+        $row = $this->db->fetchAssoc($result);
+        return is_array($row) ? (string) $row['palette'] : ilUdwPalettes::DEFAULT;
+    }
+
+    public function setPalette(int $board_id, string $palette): void
+    {
+        $this->db->update(
+            self::TABLE_BOARD,
+            ['palette' => ['text', $palette]],
+            ['id' => ['integer', $board_id]]
+        );
+    }
+
     public function deleteBoard(int $board_id): void
     {
         foreach ([self::TABLE_ELEMENT, self::TABLE_PRESENCE] as $table) {

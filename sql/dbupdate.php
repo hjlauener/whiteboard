@@ -42,3 +42,12 @@ if (!$ilDB->tableExists('rep_robj_xudw_pres')) {
     $ilDB->addPrimaryKey('rep_robj_xudw_pres', ['board_id', 'user_id']);
 }
 ?>
+<#3>
+<?php
+// colour palette of the board (see ilUdwPalettes)
+if (!$ilDB->tableColumnExists('rep_robj_xudw_board', 'palette')) {
+    $ilDB->addTableColumn('rep_robj_xudw_board', 'palette', [
+        'type' => 'text', 'length' => 20, 'notnull' => true, 'default' => 'natural',
+    ]);
+}
+?>

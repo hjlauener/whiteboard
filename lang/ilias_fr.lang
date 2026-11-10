@@ -34,6 +34,34 @@ members_mode_present_info#:#Les membres voient le tableau et les pointeurs en di
 members_mode_edit#:#Mode édition pour tous
 members_mode_edit_info#:#Tous les membres peuvent dessiner sur le tableau et modifier ses objets.
 
+# --- Palettes de couleurs (paramètres du tableau, configuration du plugin) ---
+palette#:#Palette de couleurs
+palette_info#:#Couleurs proposées sur le tableau (trait, arrière-plan, texte). Les objets déjà dessinés gardent leurs couleurs. S’applique après le rechargement du tableau.
+palette_natural#:#Calme et naturelle
+palette_natural_info#:#Couleurs naturelles et sobres de la nomenclature des couleurs de Werner (1814).
+palette_modern#:#Moderne et claire
+palette_modern_info#:#Couleurs nettes, aux nuances régulières, claires et sobres.
+palette_warm#:#Chaleureuse et accueillante
+palette_warm_info#:#Pêche, abricot et terre cuite, engageantes et motivantes.
+palette_playful#:#Ludique et fraîche
+palette_playful_info#:#Couleurs vives de bande dessinée avec encre noire.
+palette_pastel#:#Pastel et douce
+palette_pastel_info#:#Couleurs claires et délicates, reposantes pour les longues séances.
+palette_colorblind#:#Adaptée aux daltoniens
+palette_colorblind_info#:#Les huit couleurs d’Okabe et Ito, distinguables même en cas de daltonisme rouge-vert.
+palette_ocean#:#Mer et ciel
+palette_ocean_info#:#Bleu, turquoise, sable et corail.
+palette_forest#:#Forêt et terre
+palette_forest_info#:#Vert, mousse, ocre, rouille et écorce.
+palette_retro#:#Rétro
+palette_retro_info#:#Moutarde, orange, avocat, rouge brique et prune comme dans les années 1970.
+palette_print#:#Adaptée à l’impression
+palette_print_info#:#Noir et gris avec quelques accents nets, bien lisible aussi en impression noir et blanc.
+config_title#:#Configuration d’Udon Whiteboard
+config_palettes#:#Palettes de couleurs supplémentaires
+config_palettes_info#:#Les palettes cochées sont proposées dans les paramètres de chaque tableau, en plus des quatre palettes standard. Les tableaux dont la palette n’est plus cochée reprennent « Calme et naturelle ».
+config_saved#:#La configuration a été enregistrée.
+
 # --- Tableau blanc ---
 status_saved#:#Enregistré
 status_saving#:#Enregistrement …
