@@ -109,6 +109,7 @@ shapes_loading#:#Wird geladen …
 shapes_lib_basic#:#Grundformen
 shapes_lib_people#:#Figuren und Sprechblasen
 shapes_lib_charts#:#Diagramme und Mathematik
+fill_remove#:#Füllung entfernen
 line_pattern#:#Linienform
 line_pattern_straight#:#Gerade
 line_pattern_straight_info#:#Ohne Muster

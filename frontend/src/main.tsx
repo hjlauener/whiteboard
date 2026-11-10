@@ -14,6 +14,7 @@ import { SHAPES_SIDEBAR, ShapesSidebar } from "./shapes/ShapesSidebar";
 import { installSmoothing, setSmoothingEnabled, smoothingEnabled } from "./smoothing";
 import { installLinePatterns } from "./linePatterns";
 import { installLinePatternMenu } from "./linePatternMenu";
+import { installFillMenu } from "./fillMenu";
 import { insertTemplate, TemplatesButton } from "./templates/TemplatesMenu";
 import type { BoardConfig } from "./types";
 
@@ -123,7 +124,9 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
     const removeSmoothing = installSmoothing(api);
     const removePatterns = installLinePatterns(api);
     const removePatternMenu = installLinePatternMenu(api, boardRef.current, config);
+    const removeFillMenu = installFillMenu(api, boardRef.current, config);
     return () => {
+      removeFillMenu();
       removeMenu();
       removeSmoothing();
       removePatterns();

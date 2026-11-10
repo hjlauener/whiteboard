@@ -42,6 +42,7 @@ export interface BoardConfig {
     ctxConvertLine: string;
     shapesButton: string;
     templatesButton: string;
+    fillRemove: string;
     templatesTitle: string;
     templatesConfirmTitle: string;
     templatesConfirmText: string;

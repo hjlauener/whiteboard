@@ -365,6 +365,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         $keys = [
             'cmdButton' => 'cmd_button',
             'templatesButton' => 'templates_button',
+            'fillRemove' => 'fill_remove',
             'templatesTitle' => 'templates_title',
             'templatesConfirmTitle' => 'templates_confirm_title',
             'templatesConfirmText' => 'templates_confirm_text',

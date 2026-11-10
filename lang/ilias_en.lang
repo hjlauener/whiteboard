@@ -109,6 +109,7 @@ shapes_loading#:#Loading …
 shapes_lib_basic#:#Basic shapes
 shapes_lib_people#:#Figures and speech bubbles
 shapes_lib_charts#:#Charts and mathematics
+fill_remove#:#Remove fill
 line_pattern#:#Line shape
 line_pattern_straight#:#Straight
 line_pattern_straight_info#:#No pattern

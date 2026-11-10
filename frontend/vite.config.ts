@@ -117,6 +117,26 @@ function hugeFontSize(): Plugin {
 }
 
 /**
+ * Excalidraw shows the fill styles (hatched, cross-hatched, solid) only if
+ * there is a background colour; the board shows them for every element that
+ * can be filled (src/fillMenu.ts sets a colour when a style is chosen and
+ * adds the button "Füllung entfernen"). If a new Excalidraw version changes
+ * this place, the build stops.
+ */
+function alwaysShowFill(): Plugin {
+  const index = /[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]index\.js$/;
+  const rule = /(\w+)=(\w+)\((\w+)\.activeTool\.type\)&&!(\w+)\(\3\.currentItemBackgroundColor\)\|\|(\w+)\.some\((\w+)=>\2\(\6\.type\)&&!\4\(\6\.backgroundColor\)\)/;
+  return {
+    name: "xudw-always-show-fill",
+    transform(code, id) {
+      if (!index.test(id)) return null;
+      if (!rule.test(code)) this.error("Fill styles: rule not found in Excalidraw");
+      return { code: code.replace(rule, (_m, v, has, s, _t, els, e) => `${v}=${has}(${s}.activeTool.type)||${els}.some(${e}=>${has}(${e}.type))`), map: null };
+    },
+  };
+}
+
+/**
  * Adds the serif font "Source Serif" (Source Serif 4, Adobe, OFL) to the fonts
  * of Excalidraw. Excalidraw has a fixed list of fonts (number, metrics, font
  * files); the font is added to these three places in its code. The metrics are
@@ -249,7 +269,7 @@ function boardDefaults(): Plugin {
 //   whiteboard.css  styles of Excalidraw
 //   chunks/         parts loaded on demand (languages, export, ...)
 export default defineConfig({
-  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), react()],
+  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), alwaysShowFill(), react()],
   base: "./",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),

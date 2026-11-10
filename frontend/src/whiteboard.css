@@ -522,3 +522,27 @@
 .xudw-confirm {
   max-width: 32rem;
 }
+
+/* button "Füllung entfernen" in the row "Füllung" (fillMenu.ts) */
+.xudw-board .excalidraw .xudw-fill-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: var(--border-radius-lg, 0.5rem);
+  background: var(--button-gray-1, #f1f0ff);
+  color: var(--icon-fill-color, #1b1b1f);
+  cursor: pointer;
+}
+.xudw-board .excalidraw .xudw-fill-remove:hover {
+  background: var(--button-gray-2, #e9ecef);
+  color: #c92a2a;
+}
+.xudw-board .excalidraw .xudw-fill-remove svg {
+  width: 1rem;
+  height: 1rem;
+}

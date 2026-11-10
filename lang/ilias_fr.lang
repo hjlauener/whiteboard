@@ -109,6 +109,7 @@ shapes_loading#:#Chargement …
 shapes_lib_basic#:#Formes de base
 shapes_lib_people#:#Personnages et bulles
 shapes_lib_charts#:#Graphiques et mathématiques
+fill_remove#:#Supprimer le remplissage
 line_pattern#:#Forme de la ligne
 line_pattern_straight#:#Droite
 line_pattern_straight_info#:#Sans motif
