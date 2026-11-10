@@ -78,7 +78,7 @@ nur sehen; wer ein Forum anlegen darf, darf auch ein Whiteboard anlegen.
 
 **Formen, Farben, Zeichnen:** Seitenleiste „Formen“ mit Grundformen, Figuren
 und Sprechblasen sowie Diagrammen und Mathematik (Excalidraw-Bibliotheken);
-Schriftgrösse bis XXL; Farbpalette pro Board in den Einstellungen wählbar (vier Standardpaletten, darunter Werners Nomenklatur der Farben und Comic-Farben; sechs weitere in der Plugin-Konfiguration zuschaltbar); Rechtsklick
+Schriftgrösse bis XXL; 39 Vorlagen (Unterrichtsplanung, Mindmap, Kanban, Eisenhower-Matrix …) im Knopf „Vorlagen“, in der Plugin-Konfiguration abwählbar; Farbpalette pro Board in den Einstellungen wählbar (vier Standardpaletten, darunter Werners Nomenklatur der Farben und Comic-Farben; sechs weitere in der Plugin-Konfiguration zuschaltbar); Rechtsklick
 wandelt eine Form in eine andere um; Freihandlinien werden geglättet; Linien und Pfeile als Zickzack, Welle, Sägezahn, Blitz, Locken, Schlingen u.a.; der
 Zen-Modus zeigt nur die Werkzeugleiste.
 

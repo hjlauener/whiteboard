@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { DEFAULT_PALETTE, PALETTES } from "./palettes.ts";
+import { TEMPLATE_TOPICS } from "./templates.ts";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -200,6 +201,8 @@ function boardDefaults(): Plugin {
         this.error("Board defaults: Excalidraw chunk with the palettes not found");
       }
       this.emitFile({ type: "asset", fileName: "palettes.json", source: JSON.stringify({ default: DEFAULT_PALETTE, palettes: PALETTES }, null, 1) });
+      // list of the templates for the plugin configuration (ilUdwTemplates)
+      this.emitFile({ type: "asset", fileName: "templates.json", source: JSON.stringify(TEMPLATE_TOPICS, null, 1) });
     },
     transform(code, id) {
       if (!chunk.test(id) || !code.includes("extraBold:4}")) {

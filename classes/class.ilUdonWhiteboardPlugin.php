@@ -64,6 +64,7 @@ class ilUdonWhiteboardPlugin extends ilRepositoryObjectPlugin
             }
         }
         ilUdwPalettes::deleteSettings();
+        ilUdwTemplates::deleteSettings();
     }
 
     public function allowCopy(): bool

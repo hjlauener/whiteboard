@@ -9,6 +9,11 @@ export interface BoardConfig {
   langCode: string;
   userId: number;
   canEdit: boolean;
+  /** templates switched on, by topic ([id, name, description]), and the texts of their contents */
+  templates: {
+    topics: Array<{ id: string; name: string; items: Array<[string, string, string]> }>;
+    texts: Record<string, string>;
+  };
   /** names of the line shapes: [name, description] per id of linePatterns.ts */
   linePatterns: { title: string; items: Record<string, [string, string]> };
   /** colour palette of the board (palettes.ts), from the settings */
@@ -36,6 +41,13 @@ export interface BoardConfig {
     ctxConvertArrow: string;
     ctxConvertLine: string;
     shapesButton: string;
+    templatesButton: string;
+    templatesTitle: string;
+    templatesConfirmTitle: string;
+    templatesConfirmText: string;
+    templatesConfirmOk: string;
+    templatesCancel: string;
+    templatesNone: string;
     shapesTitle: string;
     shapesLibrary: string;
     shapesHint: string;

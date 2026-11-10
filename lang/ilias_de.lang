@@ -135,3 +135,417 @@ ai_opened_prefilled#:#%s wurde in einem neuen Tab mit dem Text geöffnet. Beschr
 ai_opened_paste#:#%s wurde in einem neuen Tab geöffnet, der Text ist kopiert. Fügen Sie ihn dort mit Cmd+V (Mac) bzw. Ctrl+V (Windows) ein, beschreiben Sie Ihre Aufgabe und fügen Sie die Antwort der KI hier oben ein.
 menu_zen#:#Zen-Modus (nur Werkzeugleiste)
 menu_smooth#:#Freihand glätten
+
+# --- Vorlagen (Knopf „Vorlagen“, Plugin-Konfiguration; Inhalte tplt_<Vorlage>_<Text>) ---
+templates_button#:#Vorlagen
+templates_title#:#Vorlage wählen
+templates_confirm_title#:#Vorlage einfügen?
+templates_confirm_text#:#Das Board wird für alle Personen geleert und durch die Vorlage „%s“ ersetzt. Mit „Rückgängig“ (Cmd+Z bzw. Ctrl+Z) lässt sich das wieder aufheben.
+templates_confirm_ok#:#Board leeren und Vorlage einfügen
+templates_cancel#:#Abbrechen
+templates_none#:#Keine Vorlagen freigeschaltet.
+config_templates#:#Vorlagen im Board
+config_templates_info#:#Angekreuzte Vorlagen stehen im Board unter „Vorlagen“ zur Auswahl. Neue Vorlagen sind eingeschaltet.
+tplcat_didactics#:#Didaktik
+tplcat_brainstorming#:#Brainstorming
+tplcat_org#:#Organigramme
+tplcat_diagrams#:#Diagramme
+tplcat_mapping#:#Mapping
+tplcat_workshops#:#Workshops
+tplcat_worktools#:#Arbeitstools
+tpl_lesson_plan#:#Lesson Plan
+tpl_lesson_plan_info#:#Unterrichtsziele, Ablauf, Material und Aktivitäten planen
+tpl_syllabus#:#Syllabus
+tpl_syllabus_info#:#Kursübersicht mit Themen, Terminen und Anforderungen
+tpl_study_board#:#Student Study Board
+tpl_study_board_info#:#Lernstoff, Aufgaben und Lernfortschritt organisieren
+tpl_reflection#:#Learning Reflection
+tpl_reflection_info#:#Lernerfahrungen und nächste Schritte reflektieren
+tpl_objectives#:#Learning Objectives
+tpl_objectives_info#:#Lernziele formulieren und strukturieren
+tpl_concept_map#:#Concept Map / Semantic Map
+tpl_concept_map_info#:#Begriffe und ihre Beziehungen darstellen
+tpl_english_tenses#:#English Tenses
+tpl_english_tenses_info#:#Grammatikthema visuell erschliessen und üben
+tpl_clothes#:#Clothes Learning
+tpl_clothes_info#:#Wortschatz und Begriffe visuell lernen
+tpl_warm_up#:#Warm-up for Your English Lesson
+tpl_warm_up_info#:#Einstieg oder Aufwärmübung für den Sprachunterricht
+tpl_family_tree#:#Family Tree
+tpl_family_tree_info#:#Familienbeziehungen oder Abstammung darstellen
+tpl_book_outline#:#Book Outline
+tpl_book_outline_info#:#Aufbau und Inhalte eines Buches oder Textprojekts planen
+tpl_icebreaker#:#Icebreaker
+tpl_icebreaker_info#:#Kennenlernen und Einstieg in eine Unterrichtseinheit
+tpl_onboarding#:#Classroom / Course Onboarding
+tpl_onboarding_info#:#Lernende mit Kurs, Werkzeugen oder Abläufen vertraut machen
+tpl_brainstorming#:#Brainstorming
+tpl_brainstorming_info#:#Ideen sammeln
+tpl_reverse_brainstorming#:#Reverse Brainstorming
+tpl_reverse_brainstorming_info#:#Ein Problem über mögliche Ursachen oder Gegenmassnahmen erschliessen
+tpl_clustering#:#Sticky-Note-Clustering
+tpl_clustering_info#:#Notizen gruppieren und Themen herausarbeiten
+tpl_org_chart#:#Organigramm
+tpl_org_chart_info#:#Rollen oder Organisationsstrukturen darstellen
+tpl_flowchart#:#Flowchart
+tpl_flowchart_info#:#Abläufe und Entscheidungen darstellen
+tpl_swot#:#SWOT-Analyse
+tpl_swot_info#:#Stärken, Schwächen, Chancen und Risiken sammeln
+tpl_decision_matrix#:#Decision Matrix
+tpl_decision_matrix_info#:#Optionen anhand von Kriterien vergleichen
+tpl_timeline#:#Timeline
+tpl_timeline_info#:#Ereignisse, Meilensteine oder Termine anordnen
+tpl_wireframe#:#Wireframe
+tpl_wireframe_info#:#Erste Entwürfe für eine Website oder Anwendung skizzieren
+tpl_moodboard#:#Moodboard
+tpl_moodboard_info#:#Visuelle Eindrücke und Stilrichtungen sammeln
+tpl_mind_map#:#Mind Map
+tpl_mind_map_info#:#Gedanken, Vorwissen oder Themen hierarchisch ordnen
+tpl_customer_journey#:#Customer Journey Map
+tpl_customer_journey_info#:#Erfahrungen entlang einer Nutzerreise visualisieren
+tpl_user_story_map#:#User Story Map
+tpl_user_story_map_info#:#Anforderungen und Nutzungsabläufe ordnen
+tpl_roadmap#:#Product Roadmap
+tpl_roadmap_info#:#Produktziele und geplante Schritte darstellen
+tpl_business_model_canvas#:#Business Model Canvas
+tpl_business_model_canvas_info#:#Geschäftsmodell auf einer Seite strukturieren
+tpl_diagram_mapping#:#Diagramm- und Mapping-Vorlagen
+tpl_diagram_mapping_info#:#Prozesse, Begriffe oder Beziehungen visualisieren
+tpl_retrospective#:#Retrospective
+tpl_retrospective_info#:#Zusammenarbeit oder einen Projektabschnitt auswerten
+tpl_agenda#:#Meeting- oder Workshop-Agenda
+tpl_agenda_info#:#Sitzungen und Übungen strukturieren
+tpl_eisenhower#:#Eisenhower-Matrix
+tpl_eisenhower_info#:#Aufgaben nach Dringlichkeit und Wichtigkeit priorisieren
+tpl_impact_effort#:#Impact-Effort-Matrix
+tpl_impact_effort_info#:#Vorhaben nach erwarteter Wirkung und Aufwand vergleichen
+tpl_moscow#:#MoSCoW-Methode
+tpl_moscow_info#:#Anforderungen in „Must“, „Should“, „Could“ und „Won't“ einteilen
+tpl_smart#:#SMART-Ziele
+tpl_smart_info#:#Ziele konkret und überprüfbar formulieren
+tpl_todo#:#To-do-Liste
+tpl_todo_info#:#Aufgaben sammeln und den Bearbeitungsstand festhalten
+tpl_week_planner#:#Wochenplaner
+tpl_week_planner_info#:#Aufgaben und Termine über die Woche verteilen
+tpl_pomodoro#:#Pomodoro-Planer
+tpl_pomodoro_info#:#Arbeitsphasen und Pausen strukturieren
+tpl_kanban#:#Kanban Board
+tpl_kanban_info#:#Aufgaben in Arbeitsschritten organisieren
+tplt_common_idea#:#Idee
+tplt_lesson_plan_title#:#Unterrichtsplanung
+tplt_lesson_plan_topic#:#Thema:
+tplt_lesson_plan_group#:#Zielgruppe:
+tplt_lesson_plan_duration#:#Dauer:
+tplt_lesson_plan_goals#:#Lernziele
+tplt_lesson_plan_col_time#:#Zeit
+tplt_lesson_plan_col_phase#:#Phase
+tplt_lesson_plan_col_activity#:#Aktivität
+tplt_lesson_plan_col_form#:#Sozialform
+tplt_lesson_plan_col_material#:#Material
+tplt_lesson_plan_ph_intro#:#Einstieg
+tplt_lesson_plan_ph_work#:#Erarbeitung
+tplt_lesson_plan_ph_secure#:#Sicherung
+tplt_lesson_plan_ph_close#:#Abschluss
+tplt_syllabus_title#:#Kursübersicht
+tplt_syllabus_course#:#Kurs:
+tplt_syllabus_lecturer#:#Dozierende:
+tplt_syllabus_goals#:#Ziele des Kurses
+tplt_syllabus_assessment#:#Leistungsnachweis
+tplt_syllabus_col_week#:#Woche
+tplt_syllabus_col_date#:#Datum
+tplt_syllabus_col_topic#:#Thema
+tplt_syllabus_col_reading#:#Lektüre und Aufgaben
+tplt_study_board_title#:#Lernplaner
+tplt_study_board_material#:#Lernstoff
+tplt_study_board_todo#:#Zu erledigen
+tplt_study_board_doing#:#In Arbeit
+tplt_study_board_done#:#Gelernt
+tplt_study_board_exams#:#Prüfungen und Termine
+tplt_study_board_sample#:#Kapitel 1
+tplt_reflection_title#:#Lernreflexion
+tplt_reflection_q1#:#Was habe ich gelernt?
+tplt_reflection_q2#:#Was ist mir leichtgefallen?
+tplt_reflection_q3#:#Wo hatte ich Schwierigkeiten?
+tplt_reflection_q4#:#Was nehme ich mir als Nächstes vor?
+tplt_objectives_title#:#Lernziele
+tplt_objectives_hint#:#Nach Stufen geordnet (Taxonomie nach Bloom)
+tplt_objectives_l1#:#Erinnern
+tplt_objectives_l2#:#Verstehen
+tplt_objectives_l3#:#Anwenden
+tplt_objectives_l4#:#Analysieren
+tplt_objectives_l5#:#Bewerten
+tplt_objectives_l6#:#Erschaffen
+tplt_objectives_sample#:#Die Lernenden können …
+tplt_concept_map_title#:#Begriffsnetz
+tplt_concept_map_centre#:#Zentraler Begriff
+tplt_concept_map_concept#:#Begriff
+tplt_concept_map_rel1#:#ist Teil von
+tplt_concept_map_rel2#:#führt zu
+tplt_concept_map_rel3#:#ist Beispiel für
+tplt_concept_map_rel4#:#hängt ab von
+tplt_english_tenses_title#:#Englische Zeitformen
+tplt_english_tenses_simple#:#Simple
+tplt_english_tenses_progressive#:#Progressive
+tplt_english_tenses_perfect#:#Perfect
+tplt_english_tenses_past#:#Past
+tplt_english_tenses_present#:#Present
+tplt_english_tenses_future#:#Future
+tplt_english_tenses_past_simple#:#I worked
+tplt_english_tenses_past_progressive#:#I was working
+tplt_english_tenses_past_perfect#:#I had worked
+tplt_english_tenses_present_simple#:#I work
+tplt_english_tenses_present_progressive#:#I am working
+tplt_english_tenses_present_perfect#:#I have worked
+tplt_english_tenses_future_simple#:#I will work
+tplt_english_tenses_future_progressive#:#I will be working
+tplt_english_tenses_future_perfect#:#I will have worked
+tplt_english_tenses_practice#:#Eigene Beispielsätze
+tplt_clothes_title#:#Kleidung – Wortschatz
+tplt_clothes_hat#:#hat
+tplt_clothes_scarf#:#scarf
+tplt_clothes_shirt#:#shirt
+tplt_clothes_jacket#:#jacket
+tplt_clothes_trousers#:#trousers
+tplt_clothes_shoes#:#shoes
+tplt_clothes_more#:#Weitere Wörter
+tplt_warm_up_title#:#Warm-up für den Englischunterricht
+tplt_warm_up_task#:#Find someone who … – Fragen Sie herum und schreiben Sie Namen dazu.
+tplt_warm_up_p1#:#… has a pet
+tplt_warm_up_p2#:#… likes coffee
+tplt_warm_up_p3#:#… can cook
+tplt_warm_up_p4#:#… has been abroad
+tplt_warm_up_p5#:#… plays an instrument
+tplt_warm_up_p6#:#… reads every day
+tplt_warm_up_p7#:#… likes sport
+tplt_warm_up_p8#:#… speaks three languages
+tplt_warm_up_p9#:#… was born in winter
+tplt_family_tree_title#:#Stammbaum
+tplt_family_tree_grandmother#:#Grossmutter
+tplt_family_tree_grandfather#:#Grossvater
+tplt_family_tree_mother#:#Mutter
+tplt_family_tree_father#:#Vater
+tplt_family_tree_me#:#Ich
+tplt_family_tree_sibling#:#Geschwister
+tplt_book_outline_title#:#Buchplanung
+tplt_book_outline_book_title#:#Titel
+tplt_book_outline_message#:#Thema und Kernaussage
+tplt_book_outline_audience#:#Zielpublikum
+tplt_book_outline_intro#:#Einleitung
+tplt_book_outline_ch1#:#Kapitel 1
+tplt_book_outline_ch2#:#Kapitel 2
+tplt_book_outline_ch3#:#Kapitel 3
+tplt_book_outline_end#:#Schluss
+tplt_book_outline_sample#:#Inhalt, Quellen
+tplt_icebreaker_title#:#Kennenlernen
+tplt_icebreaker_welcome#:#Willkommen!
+tplt_icebreaker_q1#:#Wer bin ich? Name, Fach, Herkunft
+tplt_icebreaker_q2#:#Mein Lieblingsort
+tplt_icebreaker_q3#:#Das möchte ich hier lernen
+tplt_icebreaker_q4#:#Etwas Überraschendes über mich
+tplt_onboarding_title#:#Willkommen im Kurs
+tplt_onboarding_s1#:#1. Kurs kennenlernen
+tplt_onboarding_s2#:#2. Werkzeuge einrichten
+tplt_onboarding_s3#:#3. Erste Aufgabe lösen
+tplt_onboarding_s4#:#4. Fragen stellen
+tplt_onboarding_links#:#Wichtige Links
+tplt_onboarding_people#:#Ansprechpersonen
+tplt_onboarding_dates#:#Termine
+tplt_onboarding_rules#:#Regeln der Zusammenarbeit
+tplt_brainstorming_title#:#Brainstorming
+tplt_brainstorming_question#:#Frage oder Thema
+tplt_reverse_brainstorming_title#:#Umgekehrtes Brainstorming
+tplt_reverse_brainstorming_problem#:#Problem: …
+tplt_reverse_brainstorming_worse#:#Wie könnten wir es schlimmer machen?
+tplt_reverse_brainstorming_solutions#:#Umgekehrt: Lösungsideen
+tplt_reverse_brainstorming_reverse#:#umkehren
+tplt_clustering_title#:#Notizen gruppieren
+tplt_clustering_ideas#:#Ideen sammeln
+tplt_clustering_cluster_a#:#Thema A
+tplt_clustering_cluster_b#:#Thema B
+tplt_clustering_cluster_c#:#Thema C
+tplt_org_chart_title#:#Organigramm
+tplt_org_chart_lead#:#Leitung
+tplt_org_chart_area#:#Bereich
+tplt_org_chart_team#:#Team
+tplt_flowchart_title#:#Flussdiagramm
+tplt_flowchart_start#:#Start
+tplt_flowchart_step#:#Schritt
+tplt_flowchart_decision#:#Entscheidung?
+tplt_flowchart_end#:#Ende
+tplt_flowchart_yes#:#Ja
+tplt_flowchart_no#:#Nein
+tplt_swot_title#:#SWOT-Analyse
+tplt_swot_s#:#Stärken
+tplt_swot_s_sub#:#Was können wir gut?
+tplt_swot_w#:#Schwächen
+tplt_swot_w_sub#:#Wo sind wir schwach?
+tplt_swot_o#:#Chancen
+tplt_swot_o_sub#:#Was können wir nutzen?
+tplt_swot_th#:#Risiken
+tplt_swot_th_sub#:#Was könnte uns schaden?
+tplt_swot_helpful#:#hilfreich
+tplt_swot_harmful#:#hinderlich
+tplt_swot_internal#:#intern
+tplt_swot_external#:#extern
+tplt_decision_matrix_title#:#Entscheidungsmatrix
+tplt_decision_matrix_hint#:#Je Kriterium 1 bis 5 Punkte vergeben, mit der Gewichtung multiplizieren und zusammenzählen.
+tplt_decision_matrix_criterion#:#Kriterium
+tplt_decision_matrix_weight#:#Gewichtung
+tplt_decision_matrix_option#:#Option
+tplt_decision_matrix_total#:#Summe
+tplt_timeline_title#:#Zeitstrahl
+tplt_timeline_date#:#Datum
+tplt_timeline_milestone#:#Meilenstein
+tplt_wireframe_title#:#Wireframe
+tplt_wireframe_logo#:#Logo
+tplt_wireframe_nav1#:#Start
+tplt_wireframe_nav2#:#Angebot
+tplt_wireframe_nav3#:#Kontakt
+tplt_wireframe_image#:#Bild
+tplt_wireframe_headline#:#Überschrift
+tplt_wireframe_button#:#Schaltfläche
+tplt_wireframe_sidebar#:#Seitenspalte
+tplt_moodboard_title#:#Moodboard
+tplt_moodboard_images#:#Bilder
+tplt_moodboard_colours#:#Farben
+tplt_moodboard_fonts#:#Schriften
+tplt_moodboard_mood#:#Stimmung
+tplt_moodboard_examples#:#Beispiele
+tplt_moodboard_notes#:#Notizen
+tplt_mind_map_title#:#Mindmap
+tplt_mind_map_topic#:#Thema
+tplt_mind_map_branch#:#Ast
+tplt_customer_journey_title#:#Customer Journey Map
+tplt_customer_journey_st1#:#Aufmerksamkeit
+tplt_customer_journey_st2#:#Information
+tplt_customer_journey_st3#:#Entscheidung
+tplt_customer_journey_st4#:#Nutzung
+tplt_customer_journey_st5#:#Bindung
+tplt_customer_journey_actions#:#Handlungen
+tplt_customer_journey_thoughts#:#Gedanken
+tplt_customer_journey_feelings#:#Gefühle
+tplt_customer_journey_touchpoints#:#Berührungspunkte
+tplt_customer_journey_chances#:#Chancen
+tplt_user_story_map_title#:#User Story Map
+tplt_user_story_map_hint#:#Oben die Aktivitäten in der Reihenfolge der Nutzung, darunter Aufgaben und Stories nach Priorität.
+tplt_user_story_map_activity#:#Aktivität
+tplt_user_story_map_task#:#Aufgabe
+tplt_user_story_map_release1#:#Version 1
+tplt_user_story_map_release2#:#Version 2
+tplt_user_story_map_story#:#Story
+tplt_roadmap_title#:#Produkt-Roadmap
+tplt_roadmap_now#:#Jetzt
+tplt_roadmap_next#:#Als Nächstes
+tplt_roadmap_later#:#Später
+tplt_roadmap_vision#:#Vision
+tplt_roadmap_lane1#:#Ziele
+tplt_roadmap_lane2#:#Funktionen
+tplt_roadmap_lane3#:#Forschung
+tplt_roadmap_item#:#Vorhaben
+tplt_business_model_canvas_title#:#Business Model Canvas
+tplt_business_model_canvas_partners#:#Schlüsselpartner
+tplt_business_model_canvas_activities#:#Schlüsselaktivitäten
+tplt_business_model_canvas_resources#:#Schlüsselressourcen
+tplt_business_model_canvas_value#:#Wertangebote
+tplt_business_model_canvas_relationships#:#Kundenbeziehungen
+tplt_business_model_canvas_channels#:#Kanäle
+tplt_business_model_canvas_segments#:#Kundensegmente
+tplt_business_model_canvas_costs#:#Kostenstruktur
+tplt_business_model_canvas_revenue#:#Einnahmequellen
+tplt_diagram_mapping_title#:#Diagramme und Karten
+tplt_diagram_mapping_process#:#Prozess
+tplt_diagram_mapping_step#:#Schritt
+tplt_diagram_mapping_cycle#:#Kreislauf
+tplt_diagram_mapping_phase#:#Phase
+tplt_diagram_mapping_compare#:#Vergleich
+tplt_diagram_mapping_a#:#A
+tplt_diagram_mapping_b#:#B
+tplt_diagram_mapping_both#:#Beide
+tplt_retrospective_title#:#Retrospektive
+tplt_retrospective_good#:#Was lief gut?
+tplt_retrospective_bad#:#Was lief nicht gut?
+tplt_retrospective_try#:#Was probieren wir aus?
+tplt_retrospective_actions#:#Massnahmen
+tplt_retrospective_sample#:#Beobachtung
+tplt_agenda_title#:#Agenda
+tplt_agenda_goal#:#Ziel:
+tplt_agenda_date#:#Datum:
+tplt_agenda_people#:#Teilnehmende:
+tplt_agenda_col_time#:#Zeit
+tplt_agenda_col_item#:#Programmpunkt
+tplt_agenda_col_method#:#Methode
+tplt_agenda_col_who#:#Verantwortlich
+tplt_agenda_i1#:#Begrüssung und Ziele
+tplt_agenda_i2#:#Einstieg
+tplt_agenda_i3#:#Arbeitsphase
+tplt_agenda_i4#:#Ergebnisse
+tplt_agenda_i5#:#Abschluss und nächste Schritte
+tplt_eisenhower_title#:#Eisenhower-Matrix
+tplt_eisenhower_do#:#Sofort erledigen
+tplt_eisenhower_do_sub#:#wichtig und dringend
+tplt_eisenhower_plan#:#Planen
+tplt_eisenhower_plan_sub#:#wichtig, nicht dringend
+tplt_eisenhower_delegate#:#Delegieren
+tplt_eisenhower_delegate_sub#:#dringend, nicht wichtig
+tplt_eisenhower_drop#:#Weglassen
+tplt_eisenhower_drop_sub#:#weder wichtig noch dringend
+tplt_eisenhower_urgent#:#dringend
+tplt_eisenhower_not_urgent#:#nicht dringend
+tplt_eisenhower_important#:#wichtig
+tplt_eisenhower_not_important#:#nicht wichtig
+tplt_impact_effort_title#:#Impact-Effort-Matrix
+tplt_impact_effort_quick#:#Schnelle Erfolge
+tplt_impact_effort_quick_sub#:#grosse Wirkung, wenig Aufwand
+tplt_impact_effort_major#:#Grosse Vorhaben
+tplt_impact_effort_major_sub#:#grosse Wirkung, viel Aufwand
+tplt_impact_effort_fill#:#Kleinigkeiten
+tplt_impact_effort_fill_sub#:#wenig Wirkung, wenig Aufwand
+tplt_impact_effort_thankless#:#Zeitfresser
+tplt_impact_effort_thankless_sub#:#wenig Wirkung, viel Aufwand
+tplt_impact_effort_low_effort#:#wenig Aufwand
+tplt_impact_effort_high_effort#:#viel Aufwand
+tplt_impact_effort_high_impact#:#grosse Wirkung
+tplt_impact_effort_low_impact#:#wenig Wirkung
+tplt_moscow_title#:#MoSCoW-Methode
+tplt_moscow_must#:#Must have (muss)
+tplt_moscow_should#:#Should have (sollte)
+tplt_moscow_could#:#Could have (könnte)
+tplt_moscow_wont#:#Won't have (diesmal nicht)
+tplt_moscow_sample#:#Anforderung
+tplt_smart_title#:#SMART-Ziele
+tplt_smart_goal#:#Ziel:
+tplt_smart_s#:#S – Spezifisch
+tplt_smart_s_q#:#Was genau soll erreicht werden?
+tplt_smart_m#:#M – Messbar
+tplt_smart_m_q#:#Woran erkennen wir, dass das Ziel erreicht ist?
+tplt_smart_a#:#A – Attraktiv
+tplt_smart_a_q#:#Warum lohnt es sich? Ist es erreichbar?
+tplt_smart_r#:#R – Realistisch
+tplt_smart_r_q#:#Passen Zeit und Mittel?
+tplt_smart_t#:#T – Terminiert
+tplt_smart_t_q#:#Bis wann?
+tplt_todo_title#:#To-do-Liste
+tplt_todo_task#:#Aufgabe
+tplt_todo_due#:#Fällig am
+tplt_todo_status#:#Status
+tplt_week_planner_title#:#Wochenplaner
+tplt_week_planner_mo#:#Montag
+tplt_week_planner_tu#:#Dienstag
+tplt_week_planner_we#:#Mittwoch
+tplt_week_planner_th#:#Donnerstag
+tplt_week_planner_fr#:#Freitag
+tplt_week_planner_sa#:#Samstag
+tplt_week_planner_su#:#Sonntag
+tplt_week_planner_goals#:#Ziele der Woche
+tplt_pomodoro_title#:#Pomodoro-Planer
+tplt_pomodoro_work#:#Arbeitsphase
+tplt_pomodoro_short_break#:#Kurze Pause
+tplt_pomodoro_long_break#:#Lange Pause
+tplt_pomodoro_tasks#:#Aufgaben für heute
+tplt_pomodoro_done#:#Erledigt
+tplt_kanban_title#:#Kanban-Board
+tplt_kanban_backlog#:#Ideenspeicher
+tplt_kanban_todo#:#Zu erledigen
+tplt_kanban_doing#:#In Arbeit
+tplt_kanban_done#:#Erledigt
+tplt_kanban_sample#:#Aufgabe

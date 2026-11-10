@@ -287,6 +287,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'pollInterval' => self::POLL_INTERVAL,
             'aiPrompt' => $this->getAiPrompt(),
             'linePatterns' => $this->getLinePatternTexts(),
+            'templates' => $this->getTemplates(),
             'texts' => [
                 'offline' => $this->txt('status_offline'),
                 'saving' => $this->txt('status_saving'),
@@ -318,6 +319,28 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
     }
 
     /**
+     * Templates for the button "Vorlagen": switched-on templates by topic with
+     * name and description, and the texts of their contents.
+     *
+     * @return array{topics: array<int, array{id: string, name: string, items: array<int, array{0: string, 1: string, 2: string}>}>, texts: array<string, string>}
+     */
+    private function getTemplates(): array
+    {
+        $topics = [];
+        foreach (ilUdwTemplates::enabledTopics() as $topic) {
+            $items = [];
+            foreach ($topic['templates'] as $id) {
+                $items[] = [$id, $this->txt('tpl_' . $id), $this->txt('tpl_' . $id . '_info')];
+            }
+            $topics[] = ['id' => $topic['id'], 'name' => $this->txt('tplcat_' . $topic['id']), 'items' => $items];
+        }
+        return [
+            'topics' => $topics,
+            'texts' => ilUdwTemplates::contentTexts($this->getPlugin()->getDirectory(), $this->lng->getLangKey()),
+        ];
+    }
+
+    /**
      * Names of the line shapes for the dropdown "Linienform" (ids as in
      * frontend/src/linePatterns.ts).
      *
@@ -341,6 +364,13 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
     {
         $keys = [
             'cmdButton' => 'cmd_button',
+            'templatesButton' => 'templates_button',
+            'templatesTitle' => 'templates_title',
+            'templatesConfirmTitle' => 'templates_confirm_title',
+            'templatesConfirmText' => 'templates_confirm_text',
+            'templatesConfirmOk' => 'templates_confirm_ok',
+            'templatesCancel' => 'templates_cancel',
+            'templatesNone' => 'templates_none',
             'cmdTitle' => 'cmd_title',
             'cmdClose' => 'cmd_close',
             'cmdRunInfo' => 'cmd_run_info',

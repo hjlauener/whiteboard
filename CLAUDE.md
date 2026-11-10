@@ -68,6 +68,12 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   Befehlsliste darin ist von Hand geschrieben: bei Änderungen an spec.ts
   nachführen. Die Bibliotheken (sdk/) nutzen weiter den erzeugten englischen
   Prompt.
+- Vorlagen (Knopf „Vorlagen“): Liste/Themen in `frontend/templates.ts`, Aufbau
+  in `frontend/src/templates/catalog.ts` (Bausteine `builder.ts`), Texte in
+  den Sprachdateien (`tpl_<id>`, `tpl_<id>_info`, `tplcat_<thema>`,
+  Inhalte `tplt_<id>_<text>`). Neue Vorlage: alle drei Stellen, dann
+  `docker run --rm -v "$PWD:/plugin" -w /plugin --entrypoint node ilias-slim-web:latest frontend/scripts/check-templates.ts`
+  (prüft Texte und Befehle).
 - Tests der Befehlssprache:
   `docker run --rm -v "$PWD:/plugin" -w /plugin --entrypoint node ilias-slim-web:latest sdk/js/test/language.test.ts`
   und `python3 -m unittest discover -s sdk/python/tests`.

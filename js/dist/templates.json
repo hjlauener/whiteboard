@@ -1,0 +1,76 @@
+[
+ {
+  "id": "didactics",
+  "templates": [
+   "lesson_plan",
+   "syllabus",
+   "study_board",
+   "reflection",
+   "objectives",
+   "concept_map",
+   "english_tenses",
+   "clothes",
+   "warm_up",
+   "family_tree",
+   "book_outline",
+   "icebreaker",
+   "onboarding"
+  ]
+ },
+ {
+  "id": "brainstorming",
+  "templates": [
+   "brainstorming",
+   "reverse_brainstorming",
+   "clustering"
+  ]
+ },
+ {
+  "id": "org",
+  "templates": [
+   "org_chart"
+  ]
+ },
+ {
+  "id": "diagrams",
+  "templates": [
+   "flowchart",
+   "swot",
+   "decision_matrix",
+   "timeline",
+   "wireframe",
+   "moodboard"
+  ]
+ },
+ {
+  "id": "mapping",
+  "templates": [
+   "mind_map",
+   "customer_journey",
+   "user_story_map",
+   "roadmap",
+   "business_model_canvas",
+   "diagram_mapping"
+  ]
+ },
+ {
+  "id": "workshops",
+  "templates": [
+   "retrospective",
+   "agenda"
+  ]
+ },
+ {
+  "id": "worktools",
+  "templates": [
+   "eisenhower",
+   "impact_effort",
+   "moscow",
+   "smart",
+   "todo",
+   "week_planner",
+   "pomodoro",
+   "kanban"
+  ]
+ }
+]

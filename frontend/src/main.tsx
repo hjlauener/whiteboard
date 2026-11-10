@@ -14,6 +14,7 @@ import { SHAPES_SIDEBAR, ShapesSidebar } from "./shapes/ShapesSidebar";
 import { installSmoothing, setSmoothingEnabled, smoothingEnabled } from "./smoothing";
 import { installLinePatterns } from "./linePatterns";
 import { installLinePatternMenu } from "./linePatternMenu";
+import { insertTemplate, TemplatesButton } from "./templates/TemplatesMenu";
 import type { BoardConfig } from "./types";
 
 declare global {
@@ -91,10 +92,10 @@ async function preloadFonts(attempt = 0): Promise<void> {
 }
 
 /** With localStorage.xudwDebug = "1" the board is reachable in the browser console (window.xudw). */
-function exposeForDebugging(api: ExcalidrawImperativeAPI, sync: BoardSync): void {
+function exposeForDebugging(api: ExcalidrawImperativeAPI, sync: BoardSync, config: BoardConfig): void {
   try {
     if (window.localStorage.getItem("xudwDebug") === "1") {
-      (window as unknown as { xudw: unknown }).xudw = { api, sync };
+      (window as unknown as { xudw: unknown }).xudw = { api, sync, insertTemplate: (id: string) => insertTemplate(api, config, id) };
     }
   } catch {
     // no storage (private mode): no debugging
@@ -152,7 +153,7 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
         sync.attach(api);
         apiRef.current = api;
         setApi(api);
-        exposeForDebugging(api, sync);
+        exposeForDebugging(api, sync, config);
         void preloadFonts();
       }}
       onChange={(elements, appState) => {
@@ -168,6 +169,7 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
           <button type="button" className="xudw-cmd-button" onClick={() => setPanelOpen(true)} title={config.texts.cmdTitle}>
             {config.texts.cmdButton}
           </button>
+          <TemplatesButton api={api} config={config} portal={boardEl} />
         </div>
       )}
       UIOptions={{
