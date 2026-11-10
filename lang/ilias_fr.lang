@@ -105,14 +105,12 @@ ctx_add_point#:#Ajouter un point d'ancrage
 shapes_button#:#Formes
 shapes_title#:#Formes des bibliothèques
 shapes_library#:#Bibliothèque
-shapes_hint#:#Un clic insère la forme au milieu ; vous pouvez aussi la faire glisser sur le tableau.
 shapes_loading#:#Chargement …
 shapes_lib_notes#:#Notes autocollantes
 notes_square#:#Note carrée
 notes_round#:#Note ronde
 notes_pad_square#:#Bloc-notes carré
 notes_pad_round#:#Bloc-notes rond
-notes_hint#:#Un clic sur une couleur insère une note au milieu ; vous pouvez aussi la faire glisser sur le tableau. Avec « Pile », vous obtenez un bloc-notes : en tirant dessus, vous détachez la note du dessus. Maintenez la touche Maj pour déplacer tout le bloc.
 notes_stack#:#Pile
 notes_stack_label#:#Bloc-notes
 shapes_lib_basic#:#Formes de base

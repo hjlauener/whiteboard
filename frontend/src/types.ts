@@ -58,7 +58,6 @@ export interface BoardConfig {
     templatesNone: string;
     shapesTitle: string;
     shapesLibrary: string;
-    shapesHint: string;
     shapesLoading: string;
     shapesSource: string;
     shapesLibNotes: string;
@@ -67,7 +66,6 @@ export interface BoardConfig {
     notesRound: string;
     notesPadSquare: string;
     notesPadRound: string;
-    notesHint: string;
     notesStack: string;
     notesStackLabel: string;
     shapesLibPeople: string;

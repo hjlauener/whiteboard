@@ -226,7 +226,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
             <option key={c.text} value={i}>{t[c.text]}</option>
           ))}
         </select>
-        <p className="xudw-shapes-hint">{config.canEdit ? (collection.generated ? t.notesHint : t.shapesHint) : t.cmdViewOnly}</p>
+        {!config.canEdit && <p className="xudw-shapes-hint">{t.cmdViewOnly}</p>}
         {failed && <p className="xudw-warning">{t.offline}</p>}
         {items === null && !failed && <p className="xudw-shapes-hint">{t.shapesLoading}</p>}
         {collection.generated && <NotesPanel config={config} onInsert={insert} />}
