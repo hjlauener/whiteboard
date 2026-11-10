@@ -73,6 +73,9 @@ shapes_title#:#Formes des bibliothèques
 shapes_library#:#Bibliothèque
 shapes_hint#:#Un clic insère la forme au milieu ; vous pouvez aussi la faire glisser sur le tableau.
 shapes_loading#:#Chargement …
+shapes_lib_basic#:#Formes de base
+shapes_lib_people#:#Personnages et bulles
+shapes_lib_charts#:#Graphiques et mathématiques
 shapes_source#:#Source : %s, libraries.excalidraw.com, licence MIT
 ai_open#:#Ouvrir une IA
 ai_open_info#:#Copie le texte pour l’IA et ouvre une IA dans un nouvel onglet.

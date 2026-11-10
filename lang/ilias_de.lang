@@ -73,6 +73,9 @@ shapes_title#:#Formen aus Bibliotheken
 shapes_library#:#Bibliothek
 shapes_hint#:#Ein Klick fügt die Form in der Mitte ein; Sie können sie auch auf das Board ziehen.
 shapes_loading#:#Wird geladen …
+shapes_lib_basic#:#Grundformen
+shapes_lib_people#:#Figuren und Sprechblasen
+shapes_lib_charts#:#Diagramme und Mathematik
 shapes_source#:#Quelle: %s, libraries.excalidraw.com, MIT-Lizenz
 ai_open#:#KI öffnen
 ai_open_info#:#Kopiert den Text für die KI und öffnet eine KI in einem neuen Tab.

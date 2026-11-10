@@ -27,7 +27,8 @@ function size(fontSize: number): string {
   if (fontSize <= 18) return "S";
   if (fontSize <= 24) return "M";
   if (fontSize <= 32) return "L";
-  return "XL";
+  if (fontSize <= 42) return "XL";
+  return "XXL";
 }
 
 /** line widths of the board: 2 / 4 / 6 */

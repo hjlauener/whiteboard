@@ -36705,7 +36705,7 @@ var STYLE = [
 ];
 var FONT = [
   { name: "font", type: "enum", values: ["serif", "sans", "hand", "code"], description: "Font family (default serif)." },
-  { name: "size", type: "enum", values: ["S", "M", "L", "XL"], description: "Font size." },
+  { name: "size", type: "enum", values: ["S", "M", "L", "XL", "XXL"], description: "Font size." },
   { name: "align", type: "enum", values: ["left", "center", "right"], description: "Text alignment." }
 ];
 var TEXT = { name: "text", type: "string", description: 'Text inside the element. Use "\\n" for a line break.' };

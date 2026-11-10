@@ -73,6 +73,9 @@ shapes_title#:#Shapes from libraries
 shapes_library#:#Library
 shapes_hint#:#A click inserts the shape in the middle; you can also drag it onto the board.
 shapes_loading#:#Loading …
+shapes_lib_basic#:#Basic shapes
+shapes_lib_people#:#Figures and speech bubbles
+shapes_lib_charts#:#Charts and mathematics
 shapes_source#:#Source: %s, libraries.excalidraw.com, MIT licence
 ai_open#:#Open AI
 ai_open_info#:#Copies the text for the AI and opens an AI in a new tab.

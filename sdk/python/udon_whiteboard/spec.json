@@ -170,7 +170,8 @@
             "S",
             "M",
             "L",
-            "XL"
+            "XL",
+            "XXL"
           ],
           "description": "Font size."
         },
@@ -333,7 +334,8 @@
             "S",
             "M",
             "L",
-            "XL"
+            "XL",
+            "XXL"
           ],
           "description": "Font size."
         },
@@ -496,7 +498,8 @@
             "S",
             "M",
             "L",
-            "XL"
+            "XL",
+            "XXL"
           ],
           "description": "Font size."
         },
@@ -659,7 +662,8 @@
             "S",
             "M",
             "L",
-            "XL"
+            "XL",
+            "XXL"
           ],
           "description": "Font size."
         },
@@ -761,7 +765,8 @@
             "S",
             "M",
             "L",
-            "XL"
+            "XL",
+            "XXL"
           ],
           "description": "Font size."
         },
@@ -1319,7 +1324,8 @@
             "S",
             "M",
             "L",
-            "XL"
+            "XL",
+            "XXL"
           ],
           "description": "Font size."
         },

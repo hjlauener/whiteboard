@@ -25,13 +25,13 @@ rect, ellipse, diamond, note:
   optional w=NUMBER h=NUMBER text=TEXT stroke=COLOUR fill=COLOUR
   fillstyle=solid|hachure|cross-hatch width=thin|bold|extra
   linestyle=solid|dashed|dotted rough=0|1|2 opacity=PERCENT
-  round=yes|no font=serif|sans|hand|code size=S|M|L|XL
+  round=yes|no font=serif|sans|hand|code size=S|M|L|XL|XXL
   align=left|center|right
 
 text:
   id=ID and x=NUMBER y=NUMBER or a relative position; text=TEXT is required.
   Optional: stroke=COLOUR opacity=PERCENT font=serif|sans|hand|code
-  size=S|M|L|XL align=left|center|right
+  size=S|M|L|XL|XXL align=left|center|right
 
 arrow:
   id=ID from=START_ID to=TARGET_ID
@@ -58,7 +58,7 @@ rotate ID angle=DEGREES
 style ID with stroke=COLOUR, fill=COLOUR, fillstyle=solid|hachure|cross-hatch, width=thin|bold|extra, linestyle=solid|dashed|dotted, rough=0|1|2, opacity=PERCENT or round=yes|no
 settext ID text=NEW_TEXT
 convert ID … to=rect|ellipse|diamond|note|arrow|line   (change the kind: shapes among each other, arrows and lines among each other)
-font ID with font=serif|sans|hand|code, size=S|M|L|XL or align=left|center|right
+font ID with font=serif|sans|hand|code, size=S|M|L|XL|XXL or align=left|center|right
 delete ID …
 link ID url=WEB_ADDRESS
 lock ID …

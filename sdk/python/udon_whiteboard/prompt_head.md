@@ -40,7 +40,7 @@ Creates a rectangle. Default size 160 x 80.
 - `opacity`: Opacity in percent.
 - `round`: Rounded corners (yes/no).
 - `font`: Font family (default serif). (serif | sans | hand | code)
-- `size`: Font size. (S | M | L | XL)
+- `size`: Font size. (S | M | L | XL | XXL)
 - `align`: Text alignment. (left | center | right)
 
 ```
@@ -71,7 +71,7 @@ Creates a ellipse. Default size 160 x 80.
 - `opacity`: Opacity in percent.
 - `round`: Rounded corners (yes/no).
 - `font`: Font family (default serif). (serif | sans | hand | code)
-- `size`: Font size. (S | M | L | XL)
+- `size`: Font size. (S | M | L | XL | XXL)
 - `align`: Text alignment. (left | center | right)
 
 ```
@@ -102,7 +102,7 @@ Creates a diamond (rhombus), e.g. for decisions. Default size 160 x 80.
 - `opacity`: Opacity in percent.
 - `round`: Rounded corners (yes/no).
 - `font`: Font family (default serif). (serif | sans | hand | code)
-- `size`: Font size. (S | M | L | XL)
+- `size`: Font size. (S | M | L | XL | XXL)
 - `align`: Text alignment. (left | center | right)
 
 ```
@@ -133,7 +133,7 @@ Creates a sticky note: a light-yellow square with text. Default size 180 x 180.
 - `opacity`: Opacity in percent.
 - `round`: Rounded corners (yes/no).
 - `font`: Font family (default serif). (serif | sans | hand | code)
-- `size`: Font size. (S | M | L | XL)
+- `size`: Font size. (S | M | L | XL | XXL)
 - `align`: Text alignment. (left | center | right)
 
 ```
@@ -156,7 +156,7 @@ Creates free text without a frame.
 - `stroke`: Text colour.
 - `opacity`: Opacity in percent.
 - `font`: Font family (default serif). (serif | sans | hand | code)
-- `size`: Font size. (S | M | L | XL)
+- `size`: Font size. (S | M | L | XL | XXL)
 - `align`: Text alignment. (left | center | right)
 
 ```
@@ -308,7 +308,7 @@ settext a text="Revised goal"
 Changes font, size or alignment of the text of elements.
 
 - `font`: Font family (default serif). (serif | sans | hand | code)
-- `size`: Font size. (S | M | L | XL)
+- `size`: Font size. (S | M | L | XL | XXL)
 - `align`: Text alignment. (left | center | right)
 
 ```

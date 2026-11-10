@@ -36,6 +36,9 @@ export interface BoardConfig {
     shapesHint: string;
     shapesLoading: string;
     shapesSource: string;
+    shapesLibBasic: string;
+    shapesLibPeople: string;
+    shapesLibCharts: string;
     aiOpen: string;
     aiOpenInfo: string;
     aiOpenedPrefilled: string;

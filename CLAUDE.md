@@ -73,7 +73,7 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   und `python3 -m unittest discover -s sdk/python/tests`.
 - Anpassungen an Excalidraw beim Bauen (`vite.config.ts`): Sprachen,
   Serifenschrift, `boardDefaults()` (Werner-Farben aus `werner-colors.ts`,
-  Strichstärken 2/4/6). ILIAS-Bootstrap blendet `.dropdown-menu` aus: in
+  Strichstärken 2/4/6), `hugeFontSize()` (Schriftgrösse XXL = 48). ILIAS-Bootstrap blendet `.dropdown-menu` aus: in
   `whiteboard.css` für Excalidraw zurückgesetzt. Rechtsklick-Einträge in
   `commands/convertMenu.ts`, Formen-Seitenleiste `shapes/`, Glätten
   `smoothing.ts`. Texte aller neuen Knöpfe aus den Sprachdateien.

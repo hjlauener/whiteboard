@@ -73,6 +73,49 @@ function excalidrawLocales(): Plugin {
 }
 
 /**
+ * Fifth font size "XXL" (48) after Excalidraw's S/M/L/XL (16/20/28/36): a
+ * button in the font size picker and the English text of its tooltip
+ * (German and French: locales/*.json). If a new Excalidraw version changes
+ * these places, the build stops.
+ */
+export const HUGE_FONT_SIZE = 48;
+/** "XXL" drawn like Excalidraw's "XL" icon (20×20, strokes) */
+const XXL_PATH = "M0.8 3.333 5.6 16.667M5.6 3.333 0.8 16.667M7.2 3.333 12 16.667M12 3.333 7.2 16.667M13.6 3.333v13.334h5.2";
+function hugeFontSize(): Plugin {
+  const prod = /[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]/;
+  const picker = /(\w+)\("legend",\{children:(\w+)\("labels\.fontSize"\)\}\)(.{0,400}?)\{value:36,text:\2\("labels\.veryLarge"\),icon:(\w+),testId:"fontSize-veryLarge"\}\]/;
+  let pickerDone = false;
+  let englishDone = false;
+  return {
+    name: "xudw-huge-font-size",
+    transform(code, id) {
+      if (!prod.test(id)) return null;
+      let out = code;
+      if (picker.test(out)) {
+        out = out.replace(
+          picker,
+          (_m, jsx, t, between, icon) =>
+            `${jsx}("legend",{children:${t}("labels.fontSize")})${between}{value:36,text:${t}("labels.veryLarge"),icon:${icon},testId:"fontSize-veryLarge"},` +
+            `{value:${HUGE_FONT_SIZE},text:${t}("labels.xudwHuge"),icon:${jsx}("svg",{"aria-hidden":"true",focusable:"false",role:"img",viewBox:"0 0 20 20",fill:"none",stroke:"currentColor",strokeLinecap:"round",strokeLinejoin:"round",children:${jsx}("path",{d:"${XXL_PATH}",strokeWidth:1.25})}),testId:"fontSize-xxl"}]`,
+        );
+        pickerDone = true;
+      }
+      // built-in English texts (the fallback of every language)
+      if (!/[\\/]locales[\\/]/.test(id) && out.includes('veryLarge:"Very large"')) {
+        out = out.replace('veryLarge:"Very large"', 'veryLarge:"Very large",xudwHuge:"Huge"');
+        englishDone = true;
+      }
+      return out === code ? null : { code: out, map: null };
+    },
+    buildEnd() {
+      if (!pickerDone || !englishDone) {
+        this.error(`XXL font size: ${pickerDone ? "" : "font size picker "}${englishDone ? "" : "English text "}not found`);
+      }
+    },
+  };
+}
+
+/**
  * Adds the serif font "Source Serif" (Source Serif 4, Adobe, OFL) to the fonts
  * of Excalidraw. Excalidraw has a fixed list of fonts (number, metrics, font
  * files); the font is added to these three places in its code. The metrics are
@@ -188,7 +231,7 @@ function boardDefaults(): Plugin {
 //   whiteboard.css  styles of Excalidraw
 //   chunks/         parts loaded on demand (languages, export, ...)
 export default defineConfig({
-  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), react()],
+  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), react()],
   base: "./",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),

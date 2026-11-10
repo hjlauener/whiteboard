@@ -95,7 +95,7 @@ const STYLE: readonly ParamSpec[] = [
 
 const FONT: readonly ParamSpec[] = [
   { name: "font", type: "enum", values: ["serif", "sans", "hand", "code"], description: "Font family (default serif)." },
-  { name: "size", type: "enum", values: ["S", "M", "L", "XL"], description: "Font size." },
+  { name: "size", type: "enum", values: ["S", "M", "L", "XL", "XXL"], description: "Font size." },
   { name: "align", type: "enum", values: ["left", "center", "right"], description: "Text alignment." },
 ];
 

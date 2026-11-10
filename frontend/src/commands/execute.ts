@@ -44,7 +44,7 @@ class CommandError extends Error {}
 
 const SERIF = ((FONT_FAMILY as Record<string, number>)["Source Serif"] ?? FONT_FAMILY.Nunito) as number;
 const FONTS: Record<string, number> = { serif: SERIF, sans: FONT_FAMILY.Nunito, hand: FONT_FAMILY.Excalifont, code: FONT_FAMILY["Comic Shanns"] };
-const SIZES: Record<string, number> = { S: 16, M: 20, L: 28, XL: 36 };
+const SIZES: Record<string, number> = { S: 16, M: 20, L: 28, XL: 36, XXL: 48 };
 /** line widths as in the board: 2 / 4 / 6 (see boardDefaults() in vite.config.ts) */
 const WIDTHS: Record<string, number> = { thin: 2, bold: 4, extra: 6 };
 const NOTE_FILL = "#ffec99";

@@ -2,7 +2,7 @@
 // from ILIAS itself and not from a CDN. "Xiaolai" (Chinese, Japanese,
 // Korean characters, 12 MB) is left out; for such characters Excalidraw falls
 // back to its CDN.
-import { cpSync, mkdirSync, readdirSync } from "node:fs";
+import { cpSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 const src = "node_modules/@excalidraw/excalidraw/dist/prod/fonts";
@@ -23,6 +23,8 @@ cpSync(join(serif, "LICENSE"), join(dst, "SourceSerif", "LICENSE.txt"));
 console.log("Source Serif copied");
 
 // shape libraries (libraries.excalidraw.com, MIT), see src/shapes/ShapesSidebar.tsx
+// emptied first, so that removed libraries do not stay in js/dist
+rmSync("../js/dist/libraries", { recursive: true, force: true });
 mkdirSync("../js/dist/libraries", { recursive: true });
 for (const file of readdirSync("libraries")) {
   cpSync(join("libraries", file), join("../js/dist/libraries", file));

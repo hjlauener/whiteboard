@@ -76,8 +76,9 @@ entfernt, unabhängig von der Rollenvorlage.
 Standardrechte wie beim ILIAS-Forum: Kursmitglieder dürfen zeichnen, Gäste
 nur sehen; wer ein Forum anlegen darf, darf auch ein Whiteboard anlegen.
 
-**Formen, Farben, Zeichnen:** Seitenleiste „Formen“ mit drei Excalidraw-
-Bibliotheken; Farbpalette nach Werners Nomenklatur der Farben; Rechtsklick
+**Formen, Farben, Zeichnen:** Seitenleiste „Formen“ mit Grundformen, Figuren
+und Sprechblasen sowie Diagrammen und Mathematik (Excalidraw-Bibliotheken);
+Schriftgrösse bis XXL; Farbpalette nach Werners Nomenklatur der Farben; Rechtsklick
 wandelt eine Form in eine andere um; Freihandlinien werden geglättet; der
 Zen-Modus zeigt nur die Werkzeugleiste.
 

@@ -1,8 +1,9 @@
 /**
- * Side panel "Formen": a dropdown with three shape libraries from
- * libraries.excalidraw.com (the three with the most downloads, MIT licence,
- * stored in the plugin under js/dist/libraries/). A click inserts the shape in
- * the middle of the view; shapes can also be dragged onto the board.
+ * Side panel "Formen": a dropdown with three collections of shapes, each made
+ * of one or more libraries from libraries.excalidraw.com (MIT licence, stored
+ * in the plugin under js/dist/libraries/): basic shapes, and two collections
+ * for teaching. A click inserts the shape in the middle of the view; shapes
+ * can also be dragged onto the board.
  */
 import { useEffect, useRef, useState } from "react";
 import { CaptureUpdateAction, exportToSvg, MIME_TYPES, restoreElements, restoreLibraryItems, Sidebar } from "@excalidraw/excalidraw";
@@ -19,11 +20,35 @@ interface ShapeLibrary {
   author: string;
 }
 
-/** The three most downloaded libraries on libraries.excalidraw.com (November 2026). */
-export const LIBRARIES: readonly ShapeLibrary[] = [
-  { file: "software-architecture.excalidrawlib", name: "Software Architecture", author: "Youri Tjang" },
-  { file: "system-design.excalidrawlib", name: "System Design Components", author: "Rohan Pithadiya" },
-  { file: "architecture-diagram-components.excalidrawlib", name: "Architecture diagram components", author: "Anna Pastushko" },
+interface ShapeCollection {
+  /** key of the name in config.texts */
+  text: "shapesLibBasic" | "shapesLibPeople" | "shapesLibCharts";
+  libraries: readonly ShapeLibrary[];
+}
+
+export const COLLECTIONS: readonly ShapeCollection[] = [
+  {
+    text: "shapesLibBasic",
+    libraries: [
+      { file: "basic-shapes.excalidrawlib", name: "Basic shapes", author: "Pablo Gil Fernández" },
+      { file: "3d-shapes.excalidrawlib", name: "3D Shapes", author: "Andre Costa" },
+    ],
+  },
+  {
+    text: "shapesLibPeople",
+    libraries: [
+      { file: "stick-figures.excalidrawlib", name: "Stick Figures", author: "Youri Tjang" },
+      { file: "stick-people.excalidrawlib", name: "Stick people", author: "David Hurt" },
+      { file: "bubbles.excalidrawlib", name: "Bubbles", author: "Oscar Capraro" },
+    ],
+  },
+  {
+    text: "shapesLibCharts",
+    libraries: [
+      { file: "data-viz.excalidrawlib", name: "Data Viz", author: "dbs-sticky" },
+      { file: "math-teacher-library.excalidrawlib", name: "Math Teacher Library", author: "Yatrik Patel" },
+    ],
+  },
 ];
 
 const cache = new Map<string, LibraryItem[]>();
@@ -106,19 +131,19 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
   const [selected, setSelected] = useState(0);
   const [items, setItems] = useState<LibraryItem[] | null>(null);
   const [failed, setFailed] = useState(false);
-  const lib = LIBRARIES[selected];
+  const collection = COLLECTIONS[selected];
 
   useEffect(() => {
     let cancelled = false;
     setItems(null);
     setFailed(false);
-    loadLibrary(config, lib)
-      .then((loaded) => !cancelled && setItems(loaded))
+    Promise.all(collection.libraries.map((lib) => loadLibrary(config, lib)))
+      .then((loaded) => !cancelled && setItems(loaded.flat()))
       .catch(() => !cancelled && setFailed(true));
     return () => {
       cancelled = true;
     };
-  }, [lib, config]);
+  }, [collection, config]);
 
   const insert = (item: LibraryItem) => {
     if (!api || !config.canEdit) return;
@@ -140,8 +165,8 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
       <div className="xudw-shapes-body">
         <label className="xudw-shapes-label" htmlFor="xudw-shapes-select">{t.shapesLibrary}</label>
         <select id="xudw-shapes-select" className="xudw-shapes-select" value={selected} onChange={(e) => setSelected(Number(e.target.value))}>
-          {LIBRARIES.map((l, i) => (
-            <option key={l.file} value={i}>{l.name}</option>
+          {COLLECTIONS.map((c, i) => (
+            <option key={c.text} value={i}>{t[c.text]}</option>
           ))}
         </select>
         <p className="xudw-shapes-hint">{config.canEdit ? t.shapesHint : t.cmdViewOnly}</p>
@@ -154,7 +179,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
                 key={item.id}
                 type="button"
                 className="xudw-shape"
-                title={item.name ?? lib.name}
+                title={item.name || t[collection.text]}
                 disabled={!config.canEdit}
                 draggable={config.canEdit}
                 onClick={() => insert(item)}
@@ -168,7 +193,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
             ))}
           </div>
         )}
-        <p className="xudw-shapes-source">{t.shapesSource.replace("%s", `«${lib.name}» – ${lib.author}`)}</p>
+        <p className="xudw-shapes-source">{t.shapesSource.replace("%s", collection.libraries.map((l) => `«${l.name}» – ${l.author}`).join(", "))}</p>
       </div>
     </Sidebar>
   );

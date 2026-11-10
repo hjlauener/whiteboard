@@ -36,7 +36,8 @@
   "unCroppedDimension": "Ursprüngliche Grösse",
   "copyElementLink": "Link zum Objekt kopieren",
   "linkToElement": "Link zum Objekt",
-  "wrapSelectionInFrame": "Auswahl in Rahmen setzen"
+  "wrapSelectionInFrame": "Auswahl in Rahmen setzen",
+  "xudwHuge": "Riesig"
  },
  "library": {
   "hint_emptyLibrary": "Wählen Sie ein Element auf der Zeichenfläche, um es hier hinzuzufügen.",

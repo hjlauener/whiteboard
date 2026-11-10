@@ -25,13 +25,13 @@ rect, ellipse, diamond, note:
   optional w=ZAHL h=ZAHL text=TEXT stroke=FARBE fill=FARBE
   fillstyle=solid|hachure|cross-hatch width=thin|bold|extra
   linestyle=solid|dashed|dotted rough=0|1|2 opacity=PROZENT
-  round=yes|no font=serif|sans|hand|code size=S|M|L|XL
+  round=yes|no font=serif|sans|hand|code size=S|M|L|XL|XXL
   align=left|center|right
 
 text:
   id=ID und x=ZAHL y=ZAHL oder eine relative Position; text=TEXT ist erforderlich.
   Optional: stroke=FARBE opacity=PROZENT font=serif|sans|hand|code
-  size=S|M|L|XL align=left|center|right
+  size=S|M|L|XL|XXL align=left|center|right
 
 arrow:
   id=ID from=START_ID to=ZIEL_ID
@@ -58,7 +58,7 @@ rotate ID angle=GRADZAHL
 style ID mit stroke=FARBE, fill=FARBE, fillstyle=solid|hachure|cross-hatch, width=thin|bold|extra, linestyle=solid|dashed|dotted, rough=0|1|2, opacity=PROZENT oder round=yes|no
 settext ID text=NEUER_TEXT
 convert ID … to=rect|ellipse|diamond|note|arrow|line   (Form ändern: Formen untereinander, Pfeile und Linien untereinander)
-font ID mit font=serif|sans|hand|code, size=S|M|L|XL oder align=left|center|right
+font ID mit font=serif|sans|hand|code, size=S|M|L|XL|XXL oder align=left|center|right
 delete ID …
 link ID url=WEBADRESSE
 lock ID …

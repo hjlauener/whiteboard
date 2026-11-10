@@ -33,7 +33,8 @@
   "unCroppedDimension": "Dimension non recadrée",
   "copyElementLink": "Copier le lien vers l’objet",
   "linkToElement": "Lien vers l’objet",
-  "wrapSelectionInFrame": "Encadrer la sélection"
+  "wrapSelectionInFrame": "Encadrer la sélection",
+  "xudwHuge": "Énorme"
  },
  "elementLink": {
   "title": "Lien vers l’objet",
