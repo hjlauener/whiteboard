@@ -74,7 +74,7 @@ status_offline#:#No connection – changes will be saved as soon as the connecti
 status_view_only#:#View only
 
 # --- Commands and AI (overlay in the board) ---
-cmd_button#:#Commands
+cmd_button#:#AI
 cmd_title#:#Commands and AI
 cmd_close#:#Close
 cmd_run_info#:#Paste commands here, e.g. the answer of an AI, and run them. All commands together can be undone with Undo.

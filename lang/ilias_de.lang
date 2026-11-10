@@ -74,7 +74,7 @@ status_offline#:#Keine Verbindung – Änderungen werden gespeichert, sobald die
 status_view_only#:#Nur ansehen
 
 # --- Befehle und KI (Overlay im Board) ---
-cmd_button#:#Befehle
+cmd_button#:#KI
 cmd_title#:#Befehle und KI
 cmd_close#:#Schliessen
 cmd_run_info#:#Fügen Sie hier Befehle ein, z.B. die Antwort einer KI, und führen Sie sie aus. Alle Befehle zusammen lassen sich mit Rückgängig wieder zurücknehmen.

@@ -74,7 +74,7 @@ status_offline#:#Pas de connexion – les modifications seront enregistrées dè
 status_view_only#:#Lecture seule
 
 # --- Commandes et IA (fenêtre dans le tableau) ---
-cmd_button#:#Commandes
+cmd_button#:#IA
 cmd_title#:#Commandes et IA
 cmd_close#:#Fermer
 cmd_run_info#:#Collez ici des commandes, p.ex. la réponse d’une IA, et exécutez-les. L’ensemble des commandes peut être annulé avec Annuler.

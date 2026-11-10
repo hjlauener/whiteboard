@@ -8,7 +8,7 @@ Gruppenmanagement-Plugin. GitHub: `hjlauener/whiteboard`.
 
 ## Stand
 
-Version 0.4: Befehlssprache für KIs (Overlay „Befehle“, sdk/). Version 0.3: gemeinsames Whiteboard (Excalidraw) im Reiter „Inhalt“,
+Version 0.4: Befehlssprache für KIs (Overlay „Befehle und KI“, Knopf „KI“, sdk/). Version 0.3: gemeinsames Whiteboard (Excalidraw) im Reiter „Inhalt“,
 Abgleich per Polling, Mauszeiger der anderen, dauerhaft in der Datenbank
 gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
 „Einstellungen“ (Titel, Beschreibung, Farbpalette) und „Rechte“; Plugin-Konfiguration (Zusatzpaletten). Noch keine Bilder.
