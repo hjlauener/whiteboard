@@ -25,6 +25,11 @@
   font-weight: normal;
 }
 
+/* under the hamburger menu, top left (main.tsx: useStatusSlot) */
+.xudw-status-slot {
+  display: flex;
+  pointer-events: none;
+}
 .xudw-status {
   font-size: 0.75rem;
   padding: 0.25rem 0.6rem;
@@ -347,6 +352,7 @@
 }
 
 /* zen mode: everything except the toolbar on top and "Zen-Modus verlassen" */
+.xudw-zen .excalidraw .xudw-status-slot,
 .xudw-zen .excalidraw .main-menu-trigger,
 .xudw-zen .excalidraw .layer-ui__wrapper__top-right,
 .xudw-zen .excalidraw .layer-ui__wrapper__footer-left,

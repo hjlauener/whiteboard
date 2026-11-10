@@ -1,4 +1,5 @@
-import { StrictMode, useEffect, useRef, useState } from "react";
+import { StrictMode, useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { createRoot } from "react-dom/client";
 import { Excalidraw, FONT_FAMILY, MainMenu } from "@excalidraw/excalidraw";
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
@@ -29,6 +30,37 @@ function StatusBadge({ sync, config }: { sync: BoardSync; config: BoardConfig })
   }
   const text = status === "offline" ? config.texts.offline : status === "saving" ? config.texts.saving : config.texts.saved;
   return <div className={`xudw-status xudw-status-${status}`}>{text}</div>;
+}
+
+/**
+ * Place of the status ("Gespeichert") in the top left column, right under the
+ * hamburger menu. Excalidraw has no slot there, so a node is added to its
+ * column (after the menu button); the properties panel follows below it.
+ */
+function useStatusSlot(board: HTMLElement | null): HTMLElement | null {
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    if (board === null) return;
+    const node = document.createElement("div");
+    node.className = "xudw-status-slot";
+    const place = () => {
+      const column = board.querySelector<HTMLElement>(".App-menu_top__left");
+      const menu = column?.firstElementChild;
+      if (!column || !menu || menu === node) return;
+      if (node.parentElement !== column || node.previousElementSibling !== menu) {
+        menu.after(node);
+      }
+    };
+    place();
+    setSlot(node);
+    const observer = new MutationObserver(place);
+    observer.observe(board, { childList: true, subtree: true });
+    return () => {
+      observer.disconnect();
+      node.remove();
+    };
+  }, [board]);
+  return slot;
 }
 
 /**
@@ -75,6 +107,13 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
   const [smooth, setSmooth] = useState(smoothingEnabled());
   const [zen, setZen] = useState(false);
   const boardRef = useRef<HTMLDivElement>(null);
+  const [boardEl, setBoardEl] = useState<HTMLDivElement | null>(null);
+  const statusSlot = useStatusSlot(boardEl);
+  // stable, so that React does not call it again on every render
+  const setBoard = useCallback((el: HTMLDivElement | null) => {
+    boardRef.current = el;
+    setBoardEl(el);
+  }, []);
   // the buttons in the top right are rendered by Excalidraw: they use the current API through a ref
   const apiRef = useRef<ExcalidrawImperativeAPI | null>(null);
   useEffect(() => {
@@ -92,7 +131,9 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
   }, [api, config]);
   return (
     // zen mode: only the toolbar on top (and "Zen-Modus verlassen") stays visible
-    <div ref={boardRef} className={zen ? "xudw-board-inner xudw-zen" : "xudw-board-inner"}>
+    <div
+      ref={setBoard}
+      className={zen ? "xudw-board-inner xudw-zen" : "xudw-board-inner"}>
     <Excalidraw
       langCode={config.langCode}
       initialData={{
@@ -127,7 +168,6 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
           <button type="button" className="xudw-cmd-button" onClick={() => setPanelOpen(true)} title={config.texts.cmdTitle}>
             {config.texts.cmdButton}
           </button>
-          <StatusBadge sync={sync} config={config} />
         </div>
       )}
       UIOptions={{
@@ -164,6 +204,7 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
       </MainMenu>
       <ShapesSidebar api={api} config={config} />
     </Excalidraw>
+    {statusSlot !== null && createPortal(<StatusBadge sync={sync} config={config} />, statusSlot)}
     {panelOpen && api !== null && <CommandPanel api={api} config={config} onClose={() => setPanelOpen(false)} />}
     </div>
   );
