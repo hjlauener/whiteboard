@@ -15,6 +15,7 @@ import { installSmoothing, setSmoothingEnabled, smoothingEnabled } from "./smoot
 import { installLinePatterns } from "./linePatterns";
 import { installLinePatternMenu } from "./linePatternMenu";
 import { installFillMenu } from "./fillMenu";
+import { installStickyPads } from "./stickyNotes";
 import { insertTemplate, TemplatesButton } from "./templates/TemplatesMenu";
 import type { BoardConfig } from "./types";
 
@@ -125,7 +126,9 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
     const removePatterns = installLinePatterns(api);
     const removePatternMenu = installLinePatternMenu(api, boardRef.current, config);
     const removeFillMenu = installFillMenu(api, boardRef.current, config);
+    const removePads = installStickyPads(api);
     return () => {
+      removePads();
       removeFillMenu();
       removeMenu();
       removeSmoothing();

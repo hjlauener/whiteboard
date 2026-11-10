@@ -106,6 +106,12 @@ shapes_title#:#Formen aus Bibliotheken
 shapes_library#:#Bibliothek
 shapes_hint#:#Ein Klick fügt die Form in der Mitte ein; Sie können sie auch auf das Board ziehen.
 shapes_loading#:#Wird geladen …
+shapes_lib_notes#:#Notizzettel
+notes_square#:#Zettel eckig
+notes_round#:#Zettel rund
+notes_pad_square#:#Notizblock eckig
+notes_pad_round#:#Notizblock rund
+notes_hint#:#Ein Klick fügt den Zettel oder Block in der Mitte ein; Sie können ihn auch auf das Board ziehen. Ziehen Sie am Notizblock, reissen Sie den obersten Zettel ab. Mit gedrückter Umschalttaste verschieben Sie den ganzen Block.
 shapes_lib_basic#:#Grundformen
 shapes_lib_people#:#Figuren und Sprechblasen
 shapes_lib_charts#:#Diagramme und Mathematik

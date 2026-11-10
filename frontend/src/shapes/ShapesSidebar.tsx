@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { CaptureUpdateAction, exportToSvg, MIME_TYPES, restoreElements, restoreLibraryItems, Sidebar } from "@excalidraw/excalidraw";
 import type { ExcalidrawImperativeAPI, LibraryItem } from "@excalidraw/excalidraw/types";
 import type { BoardConfig } from "../types.ts";
+import { stickyNoteItems } from "../stickyNotes.ts";
 
 export const SHAPES_SIDEBAR = "xudw-shapes";
 
@@ -22,11 +23,15 @@ interface ShapeLibrary {
 
 interface ShapeCollection {
   /** key of the name in config.texts */
-  text: "shapesLibBasic" | "shapesLibPeople" | "shapesLibCharts";
+  text: "shapesLibNotes" | "shapesLibBasic" | "shapesLibPeople" | "shapesLibCharts";
   libraries: readonly ShapeLibrary[];
+  /** made by the board instead of loaded from libraries */
+  generated?: boolean;
 }
 
 export const COLLECTIONS: readonly ShapeCollection[] = [
+  // sticky notes and note pads in six colours (stickyNotes.ts)
+  { text: "shapesLibNotes", libraries: [], generated: true },
   {
     text: "shapesLibBasic",
     libraries: [
@@ -137,13 +142,19 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
     let cancelled = false;
     setItems(null);
     setFailed(false);
+    if (collection.generated) {
+      setItems(
+        stickyNoteItems({ square: t.notesSquare, round: t.notesRound, padSquare: t.notesPadSquare, padRound: t.notesPadRound }),
+      );
+      return;
+    }
     Promise.all(collection.libraries.map((lib) => loadLibrary(config, lib)))
       .then((loaded) => !cancelled && setItems(loaded.flat()))
       .catch(() => !cancelled && setFailed(true));
     return () => {
       cancelled = true;
     };
-  }, [collection, config]);
+  }, [collection, config, t]);
 
   const insert = (item: LibraryItem) => {
     if (!api || !config.canEdit) return;
@@ -169,7 +180,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
             <option key={c.text} value={i}>{t[c.text]}</option>
           ))}
         </select>
-        <p className="xudw-shapes-hint">{config.canEdit ? t.shapesHint : t.cmdViewOnly}</p>
+        <p className="xudw-shapes-hint">{config.canEdit ? (collection.generated ? t.notesHint : t.shapesHint) : t.cmdViewOnly}</p>
         {failed && <p className="xudw-warning">{t.offline}</p>}
         {items === null && !failed && <p className="xudw-shapes-hint">{t.shapesLoading}</p>}
         {items !== null && (
@@ -193,7 +204,9 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
             ))}
           </div>
         )}
-        <p className="xudw-shapes-source">{t.shapesSource.replace("%s", collection.libraries.map((l) => `«${l.name}» – ${l.author}`).join(", "))}</p>
+        {!collection.generated && (
+          <p className="xudw-shapes-source">{t.shapesSource.replace("%s", collection.libraries.map((l) => `«${l.name}» – ${l.author}`).join(", "))}</p>
+        )}
       </div>
     </Sidebar>
   );

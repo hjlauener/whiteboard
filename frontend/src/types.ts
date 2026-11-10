@@ -54,7 +54,13 @@ export interface BoardConfig {
     shapesHint: string;
     shapesLoading: string;
     shapesSource: string;
+    shapesLibNotes: string;
     shapesLibBasic: string;
+    notesSquare: string;
+    notesRound: string;
+    notesPadSquare: string;
+    notesPadRound: string;
+    notesHint: string;
     shapesLibPeople: string;
     shapesLibCharts: string;
     aiOpen: string;

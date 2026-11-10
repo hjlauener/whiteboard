@@ -106,6 +106,12 @@ shapes_title#:#Formes des bibliothèques
 shapes_library#:#Bibliothèque
 shapes_hint#:#Un clic insère la forme au milieu ; vous pouvez aussi la faire glisser sur le tableau.
 shapes_loading#:#Chargement …
+shapes_lib_notes#:#Notes autocollantes
+notes_square#:#Note carrée
+notes_round#:#Note ronde
+notes_pad_square#:#Bloc-notes carré
+notes_pad_round#:#Bloc-notes rond
+notes_hint#:#Un clic insère la note ou le bloc au milieu ; vous pouvez aussi le faire glisser sur le tableau. En tirant sur un bloc-notes, vous détachez la note du dessus. Maintenez la touche Maj pour déplacer tout le bloc.
 shapes_lib_basic#:#Formes de base
 shapes_lib_people#:#Personnages et bulles
 shapes_lib_charts#:#Graphiques et mathématiques
