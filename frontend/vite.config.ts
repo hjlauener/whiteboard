@@ -139,6 +139,34 @@ function fineHatching(): Plugin {
 }
 
 /**
+ * Hand-drawn hatching on clean shapes: the board draws new shapes with
+ * roughness 0 (clean outline), and roughjs then draws the hatching perfectly
+ * even. Like in Excalidraw's own look the hatch lines should vary a little
+ * (spacing, sometimes a double, thicker line), so the hatching (roughjs
+ * patternFillPolygons/patternFillArc) is drawn with roughness at least 1;
+ * the outline keeps the roughness of the element. Solid fills are not
+ * affected. If a new roughjs version changes this place, the build stops.
+ */
+function sketchyHatching(): Plugin {
+  const file = /[\\/]roughjs[\\/]bin[\\/]renderer\.js$/;
+  return {
+    name: "xudw-sketchy-hatching",
+    transform(code, id) {
+      if (!file.test(id)) return null;
+      const polygons = "export function patternFillPolygons(polygonList, o) {\n    return getFiller(o, helper).fillPolygons(polygonList, o);";
+      if (!code.includes(polygons) || !code.includes("export function patternFillArc(x, y, width, height, start, stop, o) {")) {
+        this.error("Hatching: roughjs renderer has changed");
+      }
+      const out = code
+        .replace(polygons, "export function patternFillPolygons(polygonList, o) {\n    o = __xudwHatch(o);\n    return getFiller(o, helper).fillPolygons(polygonList, o);")
+        .replace("export function patternFillArc(x, y, width, height, start, stop, o) {", "export function patternFillArc(x, y, width, height, start, stop, o) {\n    o = __xudwHatch(o);")
+        + "\nfunction __xudwHatch(o) { return o.roughness < 1 ? Object.assign({}, o, { roughness: 1 }) : o; }\n";
+      return { code: out, map: null };
+    },
+  };
+}
+
+/**
  * Excalidraw shows the fill styles (hatched, cross-hatched, solid) only if
  * there is a background colour; the board shows them for every element that
  * can be filled (src/fillMenu.ts sets a colour when a style is chosen and
@@ -291,7 +319,7 @@ function boardDefaults(): Plugin {
 //   whiteboard.css  styles of Excalidraw
 //   chunks/         parts loaded on demand (languages, export, ...)
 export default defineConfig({
-  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), alwaysShowFill(), fineHatching(), react()],
+  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), alwaysShowFill(), fineHatching(), sketchyHatching(), react()],
   base: "./",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
