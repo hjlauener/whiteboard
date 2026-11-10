@@ -546,3 +546,73 @@
   width: 1rem;
   height: 1rem;
 }
+
+/* sticky notes in the side panel "Formen" (ShapesSidebar.tsx, NotesPanel) */
+.xudw-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 9.5rem;
+  padding: 0.6rem;
+  border-radius: 0.8rem;
+  background: var(--island-bg-color, #fff);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+.xudw-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+}
+.xudw-note-swatch {
+  aspect-ratio: 1;
+  width: 100%;
+  padding: 0;
+  border: 1px solid;
+  border-radius: 2px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
+  cursor: grab;
+}
+.xudw-note-swatch.xudw-note-round {
+  border-radius: 50%;
+}
+.xudw-note-swatch:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18);
+}
+.xudw-notes-shapes {
+  display: flex;
+  gap: 0.4rem;
+}
+.xudw-notes-toggle,
+.xudw-notes-stack {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex: 1;
+  height: 2.4rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--button-gray-1, #f1f3f5);
+  color: var(--text-primary-color, #1b1b1f);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.xudw-notes-toggle[aria-pressed="true"],
+.xudw-notes-stack[aria-pressed="true"] {
+  background: var(--color-surface-primary-container, #e0dfff);
+}
+.xudw-notes-icon {
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+}
+.xudw-notes-icon.xudw-note-round {
+  border-radius: 50%;
+}
+.xudw-notes-stack svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}

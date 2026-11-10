@@ -397,6 +397,8 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'notesPadSquare' => 'notes_pad_square',
             'notesPadRound' => 'notes_pad_round',
             'notesHint' => 'notes_hint',
+            'notesStack' => 'notes_stack',
+            'notesStackLabel' => 'notes_stack_label',
             'shapesLibPeople' => 'shapes_lib_people',
             'shapesLibCharts' => 'shapes_lib_charts',
             'aiOpen' => 'ai_open',

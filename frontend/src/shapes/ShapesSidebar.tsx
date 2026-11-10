@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { CaptureUpdateAction, exportToSvg, MIME_TYPES, restoreElements, restoreLibraryItems, Sidebar } from "@excalidraw/excalidraw";
 import type { ExcalidrawImperativeAPI, LibraryItem } from "@excalidraw/excalidraw/types";
 import type { BoardConfig } from "../types.ts";
-import { stickyNoteItems } from "../stickyNotes.ts";
+import { NOTE_COLORS, noteItem, type NoteShape } from "../stickyNotes.ts";
 
 export const SHAPES_SIDEBAR = "xudw-shapes";
 
@@ -131,6 +131,54 @@ function Preview({ item }: { item: LibraryItem }) {
   return <div className="xudw-shape-preview" ref={ref} />;
 }
 
+/** drag data for a library item (Excalidraw inserts dropped items itself, with new ids) */
+function dragItem(e: React.DragEvent, item: LibraryItem): void {
+  e.dataTransfer.setData(MIME_TYPES.excalidrawlib, JSON.stringify({ type: "excalidrawlib", version: 2, source: "udon-whiteboard", libraryItems: [item] }));
+}
+
+/**
+ * Sticky notes: colours in two columns (light / strong), the shape (square
+ * or round) and "Stapel": a click or drag gives a single note, or with
+ * "Stapel" a note pad from which notes are torn off (stickyNotes.ts).
+ */
+function NotesPanel({ config, onInsert }: { config: BoardConfig; onInsert: (item: LibraryItem) => void }) {
+  const t = config.texts;
+  const [shape, setShape] = useState<NoteShape>("square");
+  const [stack, setStack] = useState(false);
+  const item = (color: number) => noteItem(stack ? "pad" : "note", shape, color, t.notesStackLabel);
+  return (
+    <div className="xudw-notes">
+      <div className="xudw-notes-grid">
+        {NOTE_COLORS.map(([paper, edge], i) => (
+          <button
+            key={paper}
+            type="button"
+            className={`xudw-note-swatch${shape === "round" ? " xudw-note-round" : ""}`}
+            style={{ background: paper, borderColor: edge }}
+            title={stack ? t.notesPadSquare : shape === "round" ? t.notesRound : t.notesSquare}
+            disabled={!config.canEdit}
+            draggable={config.canEdit}
+            onClick={() => onInsert(item(i))}
+            onDragStart={(e) => dragItem(e, item(i))}
+          />
+        ))}
+      </div>
+      <div className="xudw-notes-shapes" role="group">
+        <button type="button" className="xudw-notes-toggle" aria-pressed={shape === "square"} title={t.notesSquare} onClick={() => setShape("square")}>
+          <span className="xudw-notes-icon" aria-hidden="true" />
+        </button>
+        <button type="button" className="xudw-notes-toggle" aria-pressed={shape === "round"} title={t.notesRound} onClick={() => setShape("round")}>
+          <span className="xudw-notes-icon xudw-note-round" aria-hidden="true" />
+        </button>
+      </div>
+      <button type="button" className="xudw-notes-stack" aria-pressed={stack} onClick={() => setStack(!stack)}>
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="3" y="3" width="11" height="11" rx="1.5" fill="none" stroke="currentColor" strokeWidth="1.5" /><path d="M6 17h10a1 1 0 0 0 1-1V6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+        {t.notesStack}
+      </button>
+    </div>
+  );
+}
+
 export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | null; config: BoardConfig }) {
   const t = config.texts;
   const [selected, setSelected] = useState(0);
@@ -143,9 +191,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
     setItems(null);
     setFailed(false);
     if (collection.generated) {
-      setItems(
-        stickyNoteItems({ square: t.notesSquare, round: t.notesRound, padSquare: t.notesPadSquare, padRound: t.notesPadRound }),
-      );
+      setItems([]);
       return;
     }
     Promise.all(collection.libraries.map((lib) => loadLibrary(config, lib)))
@@ -183,7 +229,8 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
         <p className="xudw-shapes-hint">{config.canEdit ? (collection.generated ? t.notesHint : t.shapesHint) : t.cmdViewOnly}</p>
         {failed && <p className="xudw-warning">{t.offline}</p>}
         {items === null && !failed && <p className="xudw-shapes-hint">{t.shapesLoading}</p>}
-        {items !== null && (
+        {collection.generated && <NotesPanel config={config} onInsert={insert} />}
+        {items !== null && !collection.generated && (
           <div className="xudw-shapes-grid">
             {items.map((item) => (
               <button
@@ -194,10 +241,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
                 disabled={!config.canEdit}
                 draggable={config.canEdit}
                 onClick={() => insert(item)}
-                onDragStart={(e) => {
-                  // Excalidraw inserts dropped library items itself (with new ids)
-                  e.dataTransfer.setData(MIME_TYPES.excalidrawlib, JSON.stringify({ type: "excalidrawlib", version: 2, source: "udon-whiteboard", libraryItems: [item] }));
-                }}
+                onDragStart={(e) => dragItem(e, item)}
               >
                 <Preview item={item} />
               </button>

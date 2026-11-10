@@ -61,6 +61,8 @@ export interface BoardConfig {
     notesPadSquare: string;
     notesPadRound: string;
     notesHint: string;
+    notesStack: string;
+    notesStackLabel: string;
     shapesLibPeople: string;
     shapesLibCharts: string;
     aiOpen: string;

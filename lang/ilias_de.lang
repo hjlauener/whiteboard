@@ -111,7 +111,9 @@ notes_square#:#Zettel eckig
 notes_round#:#Zettel rund
 notes_pad_square#:#Notizblock eckig
 notes_pad_round#:#Notizblock rund
-notes_hint#:#Ein Klick fügt den Zettel oder Block in der Mitte ein; Sie können ihn auch auf das Board ziehen. Ziehen Sie am Notizblock, reissen Sie den obersten Zettel ab. Mit gedrückter Umschalttaste verschieben Sie den ganzen Block.
+notes_hint#:#Ein Klick auf eine Farbe fügt einen Zettel in der Mitte ein; Sie können ihn auch auf das Board ziehen. Mit „Stapel“ erhalten Sie einen Notizblock: Ziehen Sie daran, reissen Sie den obersten Zettel ab. Mit gedrückter Umschalttaste verschieben Sie den ganzen Block.
+notes_stack#:#Stapel
+notes_stack_label#:#Notizblock
 shapes_lib_basic#:#Grundformen
 shapes_lib_people#:#Figuren und Sprechblasen
 shapes_lib_charts#:#Diagramme und Mathematik

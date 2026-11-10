@@ -111,7 +111,9 @@ notes_square#:#Square note
 notes_round#:#Round note
 notes_pad_square#:#Square note pad
 notes_pad_round#:#Round note pad
-notes_hint#:#A click inserts the note or pad in the middle; you can also drag it onto the board. Dragging a note pad tears off the top note. Hold Shift to move the whole pad.
+notes_hint#:#A click on a colour inserts a note in the middle; you can also drag it onto the board. With “Stack” you get a note pad: dragging it tears off the top note. Hold Shift to move the whole pad.
+notes_stack#:#Stack
+notes_stack_label#:#Note pad
 shapes_lib_basic#:#Basic shapes
 shapes_lib_people#:#Figures and speech bubbles
 shapes_lib_charts#:#Charts and mathematics

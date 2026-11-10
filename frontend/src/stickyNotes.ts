@@ -9,25 +9,33 @@
  * "Notizzettel", ShapesSidebar.tsx). A pad is a group of sheets marked with
  * customData.xudwPad; the tearing off is done here (installStickyPads).
  */
-import { CaptureUpdateAction, convertToExcalidrawElements, newElementWith } from "@excalidraw/excalidraw";
+import { CaptureUpdateAction, convertToExcalidrawElements, FONT_FAMILY, newElementWith } from "@excalidraw/excalidraw";
 import type { ExcalidrawImperativeAPI, LibraryItem } from "@excalidraw/excalidraw/types";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type El = Record<string, any>;
 
-/** classic sticky note colours: [paper, edge] */
-export const NOTE_COLORS: ReadonlyArray<readonly [string, string]> = [
-  ["#fff176", "#c9b52a"], // yellow
-  ["#ffcc80", "#d9984a"], // orange
-  ["#f8bbd0", "#d07a98"], // pink
-  ["#ccff90", "#8fbf55"], // green
-  ["#90caf9", "#5592c4"], // blue
-  ["#d1b3f5", "#9a78c8"], // purple
+/** sticky note colours, in pairs light / strong: [paper, edge, ink] */
+export const NOTE_COLORS: ReadonlyArray<readonly [string, string, string]> = [
+  ["#fff7a8", "#e3d77a", "#1e1e1e"], // light yellow
+  ["#ffe36e", "#dcbd3e", "#1e1e1e"], // yellow
+  ["#f6b47c", "#d58c50", "#1e1e1e"], // orange
+  ["#f2a09a", "#cf7770", "#1e1e1e"], // salmon
+  ["#f8cdef", "#d9a3cd", "#1e1e1e"], // light pink
+  ["#ef9ce3", "#cb71bd", "#1e1e1e"], // pink
+  ["#b9cdf7", "#8fa6d6", "#1e1e1e"], // light blue
+  ["#ad9ff0", "#8577cf", "#1e1e1e"], // violet
+  ["#a9e0fb", "#7bbad9", "#1e1e1e"], // sky blue
+  ["#86aef2", "#5f88cf", "#1e1e1e"], // blue
+  ["#98e4d6", "#6cc1b1", "#1e1e1e"], // teal
+  ["#7fd88f", "#58b569", "#1e1e1e"], // green
+  ["#d6eda6", "#afcb78", "#1e1e1e"], // light green
+  ["#bde26d", "#96bd45", "#1e1e1e"], // lime
+  ["#f3f4f6", "#c9ccd2", "#1e1e1e"], // white
+  ["#1e1e1e", "#000000", "#ffffff"], // black
 ];
 
 const SIZE = 160;
-/** offset of the sheets below the top one */
-const STACK = [10, 5];
 
 export type NoteShape = "square" | "round";
 
@@ -35,6 +43,14 @@ function randomId(): string {
   return Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 8);
 }
 
+/** a darker shade of a colour (the lower sheets of a pad) */
+function darker(hex: string, amount: number): string {
+  const n = parseInt(hex.slice(1), 16);
+  const c = (v: number) => Math.round(v * (1 - amount));
+  return "#" + ((1 << 24) | (c((n >> 16) & 255) << 16) | (c((n >> 8) & 255) << 8) | c(n & 255)).toString(16).slice(1);
+}
+
+/** flat sheet: sharp corners, thin edge a little darker than the paper */
 function sheet(x: number, y: number, shape: NoteShape, paper: string, edge: string, extra: Record<string, unknown>): Record<string, unknown> {
   return {
     type: shape === "round" ? "ellipse" : "rectangle",
@@ -46,43 +62,62 @@ function sheet(x: number, y: number, shape: NoteShape, paper: string, edge: stri
     backgroundColor: paper,
     strokeColor: edge,
     fillStyle: "solid",
-    strokeWidth: 2,
+    strokeWidth: 1,
     roughness: 0,
-    roundness: shape === "round" ? null : { type: 3 },
+    roundness: null,
     ...extra,
   };
 }
 
+const convert = (skeletons: Record<string, unknown>[]) =>
+  convertToExcalidrawElements(skeletons as never, { regenerateIds: false }) as unknown as El[];
+
 /** elements of a single note */
-export function noteElements(shape: NoteShape, paper: string, edge: string): El[] {
-  return convertToExcalidrawElements([sheet(0, 0, shape, paper, edge, {}) as never], { regenerateIds: false }) as unknown as El[];
+export function noteElements(shape: NoteShape, color: number): El[] {
+  const [paper, edge, ink] = NOTE_COLORS[color];
+  return convert([sheet(0, 0, shape, paper, edge, { customData: { xudwNote: { ink } } })]);
 }
 
-/** elements of a note pad: sheets below, the top sheet last */
-export function padElements(shape: NoteShape, paper: string, edge: string): El[] {
+/**
+ * Elements of a note pad: a light frame with the label, two lower sheets
+ * (seen as a darker band below the top sheet) and the top sheet.
+ */
+export function padElements(shape: NoteShape, color: number, label: string): El[] {
+  const [paper, edge, ink] = NOTE_COLORS[color];
   const group = randomId();
-  const mark = (top: boolean) => ({ groupIds: [group], customData: { xudwPad: { shape, top } } });
-  const skeletons = [
-    ...STACK.map((off) => sheet(off, off, shape, paper, edge, mark(false))),
-    sheet(0, 0, shape, paper, edge, mark(true)),
-  ];
-  return convertToExcalidrawElements(skeletons as never, { regenerateIds: false }) as unknown as El[];
+  const mark = (role: string) => ({ groupIds: [group], customData: { xudwPad: { shape, role, ink } } });
+  return convert([
+    {
+      type: "rectangle",
+      id: randomId(),
+      x: -14,
+      y: -38,
+      width: SIZE + 28,
+      height: SIZE + 62,
+      backgroundColor: "#f1f3f5",
+      strokeColor: "#dee2e6",
+      fillStyle: "solid",
+      strokeWidth: 1,
+      roughness: 0,
+      roundness: { type: 3 },
+      ...mark("frame"),
+    },
+    { type: "text", id: randomId(), x: -4, y: -30, text: label, fontSize: 16, fontFamily: FONT_FAMILY.Nunito, strokeColor: "#495057", ...mark("label") },
+    sheet(0, 10, shape, darker(paper, 0.18), darker(edge, 0.1), mark("sheet")),
+    sheet(0, 5, shape, darker(paper, 0.09), edge, mark("sheet")),
+    sheet(0, 0, shape, paper, edge, mark("top")),
+  ]);
 }
 
-/** the items of the collection "Notizzettel": per colour square and round note, then the pads */
-export function stickyNoteItems(names: { square: string; round: string; padSquare: string; padRound: string }): LibraryItem[] {
-  const items: LibraryItem[] = [];
-  const add = (name: string, elements: El[]) =>
-    items.push({ id: randomId(), status: "unpublished", created: Date.now(), name, elements: elements as never } as LibraryItem);
-  for (const [paper, edge] of NOTE_COLORS) {
-    add(names.square, noteElements("square", paper, edge));
-    add(names.round, noteElements("round", paper, edge));
-  }
-  for (const [paper, edge] of NOTE_COLORS) {
-    add(names.padSquare, padElements("square", paper, edge));
-    add(names.padRound, padElements("round", paper, edge));
-  }
-  return items;
+/** library item (for clicking and dragging onto the board) */
+export function noteItem(kind: "note" | "pad", shape: NoteShape, color: number, label: string): LibraryItem {
+  return {
+    id: randomId(),
+    status: "unpublished",
+    created: Date.now(),
+    name: label,
+    elements: (kind === "pad" ? padElements(shape, color, label) : noteElements(shape, color)) as never,
+  } as LibraryItem;
 }
 
 // ----------------------------------------------------------------------
@@ -131,6 +166,7 @@ export function installStickyPads(api: ExcalidrawImperativeAPI): () => void {
     } else {
       dragged = null;
     }
+    inkTexts(api, all, appState.editingTextElement?.id ?? null);
     // remember where the pads are
     const positions = new Map<string, { x: number; y: number }>();
     for (const el of all) if (isPad(el)) positions.set(el.id, { x: el.x, y: el.y });
@@ -146,12 +182,35 @@ export function installStickyPads(api: ExcalidrawImperativeAPI): () => void {
   };
 }
 
+/**
+ * Text written on a note gets the ink colour of the note once (white on the
+ * black note); afterwards it can be changed like any text.
+ */
+function inkTexts(api: ExcalidrawImperativeAPI, all: readonly El[], editing: string | null): void {
+  const byId = new Map(all.map((e) => [e.id, e]));
+  const fixes = new Map<string, Record<string, unknown>>();
+  for (const text of all) {
+    if (text.type !== "text" || text.isDeleted || !text.containerId || text.id === editing || text.customData?.xudwInked) continue;
+    const box = byId.get(text.containerId);
+    const ink = box?.customData?.xudwNote?.ink ?? (box?.customData?.xudwPad?.role === "top" ? box.customData.xudwPad.ink : undefined);
+    if (ink === undefined || text.text === "") continue;
+    fixes.set(text.id, { strokeColor: ink, customData: { ...(text.customData ?? {}), xudwInked: true } });
+  }
+  if (fixes.size === 0) return;
+  window.setTimeout(() => {
+    api.updateScene({
+      elements: api.getSceneElementsIncludingDeleted().map((e) => (fixes.has(e.id) ? newElementWith(e as never, fixes.get(e.id) as never) : e)) as never,
+      captureUpdate: CaptureUpdateAction.NEVER,
+    });
+  }, 0);
+}
+
 function tearOff(api: ExcalidrawImperativeAPI, all: readonly El[], groups: Set<string>, before: Map<string, { x: number; y: number }>): void {
   const notes: El[] = [];
   const back = new Map<string, { x: number; y: number }>();
   for (const group of groups) {
     const sheets = all.filter((e) => isPad(e) && padGroup(e) === group);
-    const top = sheets.find((e) => e.customData.xudwPad.top) ?? sheets[sheets.length - 1];
+    const top = sheets.find((e) => e.customData.xudwPad.role === "top") ?? sheets[sheets.length - 1];
     const start = top ? before.get(top.id) : undefined;
     if (!top || !start || Math.hypot(top.x - start.x, top.y - start.y) < 8) continue;
     for (const s of sheets) {
@@ -176,6 +235,7 @@ function tearOff(api: ExcalidrawImperativeAPI, all: readonly El[], groups: Set<s
           roughness: top.roughness,
           roundness: top.roundness,
           opacity: top.opacity,
+          customData: { xudwNote: { ink: top.customData.xudwPad.ink ?? "#1e1e1e" } },
         } as never,
       ],
       { regenerateIds: false },
