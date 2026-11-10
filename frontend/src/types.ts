@@ -44,6 +44,12 @@ export interface BoardConfig {
     shapesButton: string;
     templatesButton: string;
     fillRemove: string;
+    fullscreenTitle: string;
+    fullscreenWindow: string;
+    fullscreenWindowInfo: string;
+    fullscreenScreen: string;
+    fullscreenScreenInfo: string;
+    fullscreenExit: string;
     templatesTitle: string;
     templatesConfirmTitle: string;
     templatesConfirmText: string;

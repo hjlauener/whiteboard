@@ -119,6 +119,12 @@ shapes_lib_basic#:#Grundformen
 shapes_lib_people#:#Figuren und Sprechblasen
 shapes_lib_charts#:#Diagramme und Mathematik
 fill_remove#:#Füllung entfernen
+fullscreen_title#:#Vollbild
+fullscreen_window#:#Im Browserfenster
+fullscreen_window_info#:#Nur das Whiteboard, ohne Menüs von ILIAS
+fullscreen_screen#:#Ganzer Bildschirm
+fullscreen_screen_info#:#Bildschirmfüllend; mit Esc beenden
+fullscreen_exit#:#Vollbild beenden
 line_pattern#:#Linienform
 line_pattern_straight#:#Gerade
 line_pattern_straight_info#:#Ohne Muster

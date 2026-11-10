@@ -119,6 +119,12 @@ shapes_lib_basic#:#Basic shapes
 shapes_lib_people#:#Figures and speech bubbles
 shapes_lib_charts#:#Charts and mathematics
 fill_remove#:#Remove fill
+fullscreen_title#:#Full screen
+fullscreen_window#:#In the browser window
+fullscreen_window_info#:#Only the whiteboard, without the ILIAS menus
+fullscreen_screen#:#Whole screen
+fullscreen_screen_info#:#Fills the screen; end with Esc
+fullscreen_exit#:#Exit full screen
 line_pattern#:#Line shape
 line_pattern_straight#:#Straight
 line_pattern_straight_info#:#No pattern

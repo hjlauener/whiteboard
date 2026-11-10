@@ -16,6 +16,7 @@ import { installLinePatterns } from "./linePatterns";
 import { installLinePatternMenu } from "./linePatternMenu";
 import { installFillMenu } from "./fillMenu";
 import { installStickyPads } from "./stickyNotes";
+import { FullscreenButton } from "./fullscreen";
 import { insertTemplate, TemplatesButton } from "./templates/TemplatesMenu";
 import type { BoardConfig } from "./types";
 
@@ -176,6 +177,7 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
             {config.texts.cmdButton}
           </button>
           <TemplatesButton api={api} config={config} portal={boardEl} />
+          <FullscreenButton api={api} config={config} board={boardEl?.parentElement ?? null} portal={boardEl} />
         </div>
       )}
       UIOptions={{

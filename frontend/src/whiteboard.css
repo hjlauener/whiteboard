@@ -621,3 +621,39 @@
 .xudw-board .excalidraw .xudw-lp-fieldset .buttonList {
   display: flex;
 }
+
+/* button "Vollbild" (fullscreen.tsx) */
+.xudw-fullscreen-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.xudw-fullscreen-button svg {
+  width: 1rem;
+  height: 1rem;
+}
+.xudw-fullscreen-list {
+  width: 17rem;
+}
+/* a) in the browser window: the board covers the page */
+.xudw-board.xudw-maximized {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  height: auto;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: #ffffff;
+}
+html.xudw-page-maximized,
+html.xudw-page-maximized body {
+  overflow: hidden;
+}
+/* b) the whole screen */
+.xudw-board:fullscreen {
+  height: 100vh;
+  border: 0;
+  border-radius: 0;
+  background: #ffffff;
+}

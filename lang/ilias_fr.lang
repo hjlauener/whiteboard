@@ -119,6 +119,12 @@ shapes_lib_basic#:#Formes de base
 shapes_lib_people#:#Personnages et bulles
 shapes_lib_charts#:#Graphiques et mathématiques
 fill_remove#:#Supprimer le remplissage
+fullscreen_title#:#Plein écran
+fullscreen_window#:#Dans la fenêtre du navigateur
+fullscreen_window_info#:#Seulement le tableau blanc, sans les menus d'ILIAS
+fullscreen_screen#:#Écran entier
+fullscreen_screen_info#:#Occupe tout l'écran ; quitter avec Échap
+fullscreen_exit#:#Quitter le plein écran
 line_pattern#:#Forme de la ligne
 line_pattern_straight#:#Droite
 line_pattern_straight_info#:#Sans motif
