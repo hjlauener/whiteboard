@@ -2,8 +2,9 @@
  * "Füllung": Excalidraw shows the fill styles (hatched, cross-hatched,
  * solid) only when there is already a background colour. The build shows
  * them for every fillable element (alwaysShowFill() in vite.config.ts); here:
- * - choosing a fill style without background colour sets the first light
- *   background colour of the palette, so that the fill can be seen;
+ * - choosing a fill style without background colour sets a colour, so that
+ *   the fill can be seen: a middle grey for hatched and cross-hatched (the
+ *   lines need a stronger colour), the first light colour for solid;
  * - a button "Füllung entfernen" (bin) in the same row makes the background
  *   transparent again.
  * Excalidraw has no interface for this row, so the button is added when the
@@ -51,6 +52,7 @@ function setBackground(api: ExcalidrawImperativeAPI, color: string, onlyIfTransp
 export function installFillMenu(api: ExcalidrawImperativeAPI, container: HTMLElement, config: BoardConfig): () => void {
   const palette = PALETTES[config.palette] ?? PALETTES[DEFAULT_PALETTE];
   const light = palette.background.find((c) => !isTransparent(c)) ?? "#ffec99";
+  const middle = palette.families.greys?.[3] ?? palette.families.blacks?.[0] ?? "#868e96";
 
   const place = () => {
     if (!config.canEdit) return;
@@ -74,7 +76,8 @@ export function installFillMenu(api: ExcalidrawImperativeAPI, container: HTMLEle
   const onClick = (event: MouseEvent) => {
     const option = (event.target as HTMLElement).closest<HTMLElement>('[data-testid^="fill-"]');
     if (!option || !container.contains(option)) return;
-    window.setTimeout(() => setBackground(api, light, true), 0);
+    const hatched = option.dataset.testid !== "fill-solid";
+    window.setTimeout(() => setBackground(api, hatched ? middle : light, true), 0);
   };
 
   const observer = new MutationObserver(place);

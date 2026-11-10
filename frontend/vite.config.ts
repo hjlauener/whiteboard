@@ -117,6 +117,28 @@ function hugeFontSize(): Plugin {
 }
 
 /**
+ * Hatching as fine and dense as in Excalidraw with its thinnest line: the
+ * board's line widths are 2/4/6 instead of 1/2/4, and Excalidraw derives the
+ * hatching from the line width (gap = 4 x width, line = width / 2). Halved
+ * here, so that "thin" hatches like Excalidraw's thinnest line.
+ */
+function fineHatching(): Plugin {
+  const rule = /fillWeight:(\w+)\.strokeWidth\/2,hachureGap:\1\.strokeWidth\*4/;
+  let done = false;
+  return {
+    name: "xudw-fine-hatching",
+    transform(code, id) {
+      if (!/[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]/.test(id) || !rule.test(code)) return null;
+      done = true;
+      return { code: code.replace(rule, (_m, e) => `fillWeight:${e}.strokeWidth/4,hachureGap:${e}.strokeWidth*2`), map: null };
+    },
+    buildEnd() {
+      if (!done) this.error("Hatching: rule not found in Excalidraw");
+    },
+  };
+}
+
+/**
  * Excalidraw shows the fill styles (hatched, cross-hatched, solid) only if
  * there is a background colour; the board shows them for every element that
  * can be filled (src/fillMenu.ts sets a colour when a style is chosen and
@@ -269,7 +291,7 @@ function boardDefaults(): Plugin {
 //   whiteboard.css  styles of Excalidraw
 //   chunks/         parts loaded on demand (languages, export, ...)
 export default defineConfig({
-  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), alwaysShowFill(), react()],
+  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), alwaysShowFill(), fineHatching(), react()],
   base: "./",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),

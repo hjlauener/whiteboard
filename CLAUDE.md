@@ -135,6 +135,11 @@ diff <(cut -d'#' -f1 lang/ilias_de.lang) <(cut -d'#' -f1 lang/ilias_fr.lang)
 
 - Neue DB-Schritte in `sql/dbupdate.php` anhängen und die Version in
   `plugin.php` erhöhen, sonst führt ILIAS sie nicht aus.
+- Die Version nur bei DB-Schritten erhöhen: Beim Neuladen mit neuer Version
+  ist das Plugin für etwa eine Sekunde inaktiv; ein offenes Board fragt dann
+  ab und ILIAS zeigt beim nächsten Seitenaufruf „Entschuldigung, es ist ein
+  Fehler aufgetreten …“ (ilObjectNotFoundException, harmlos). Sprachtexte und
+  Code lädt `udw` auch ohne neue Version.
 - Tabellen mit Präfix `rep_robj_xudw_`.
 - Spaltennamen nicht aus der Liste reservierter Wörter (z.B. `status`).
 
