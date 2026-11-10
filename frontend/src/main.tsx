@@ -11,6 +11,8 @@ import { DEFAULT_PALETTE, PALETTES } from "../palettes.ts";
 import { installConvertMenu } from "./commands/convertMenu";
 import { SHAPES_SIDEBAR, ShapesSidebar } from "./shapes/ShapesSidebar";
 import { installSmoothing, setSmoothingEnabled, smoothingEnabled } from "./smoothing";
+import { installLinePatterns } from "./linePatterns";
+import { installLinePatternMenu } from "./linePatternMenu";
 import type { BoardConfig } from "./types";
 
 declare global {
@@ -79,9 +81,13 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
     if (api === null || boardRef.current === null) return;
     const removeMenu = installConvertMenu(api, boardRef.current, config);
     const removeSmoothing = installSmoothing(api);
+    const removePatterns = installLinePatterns(api);
+    const removePatternMenu = installLinePatternMenu(api, boardRef.current, config);
     return () => {
       removeMenu();
       removeSmoothing();
+      removePatterns();
+      removePatternMenu();
     };
   }, [api, config]);
   return (

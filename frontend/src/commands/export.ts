@@ -5,6 +5,7 @@
 import { FONT_FAMILY } from "@excalidraw/excalidraw";
 import { COLORS } from "../../../sdk/js/src/spec.ts";
 import { formatScript, type Command } from "../../../sdk/js/src/language.ts";
+import { basePoints, patternOf } from "../linePatterns.ts";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type El = Record<string, any>;
@@ -90,7 +91,8 @@ export function exportBoard(elements: readonly El[]): string {
         break;
       case "arrow":
       case "line": {
-        const pts = (el.points as number[][]).map(([px, py]) => [el.x + px, el.y + py] as [number, number]);
+        // patterned lines: their course, and the pattern as parameter
+        const pts = (basePoints(el) as number[][]).map(([px, py]) => [el.x + px, el.y + py] as [number, number]);
         const from = el.startBinding?.elementId && byId.has(el.startBinding.elementId) ? el.startBinding.elementId : undefined;
         const to = el.endBinding?.elementId && byId.has(el.endBinding.elementId) ? el.endBinding.elementId : undefined;
         c.cmd = el.type;
@@ -111,6 +113,7 @@ export function exportBoard(elements: readonly El[]): string {
         styleOf(el, c);
         delete c.fill;
         delete c.fillstyle;
+        if (patternOf(el) !== "straight") c.pattern = patternOf(el);
         break;
       }
       case "freedraw": {

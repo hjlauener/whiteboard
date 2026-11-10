@@ -109,6 +109,25 @@ shapes_loading#:#Chargement …
 shapes_lib_basic#:#Formes de base
 shapes_lib_people#:#Personnages et bulles
 shapes_lib_charts#:#Graphiques et mathématiques
+line_pattern#:#Forme de la ligne
+line_pattern_straight#:#Droite
+line_pattern_straight_info#:#Sans motif
+line_pattern_zigzag#:#Zigzag
+line_pattern_zigzag_info#:#Pointue et anguleuse
+line_pattern_wave#:#Ligne ondulée
+line_pattern_wave_info#:#Douce et fluide
+line_pattern_saw#:#Dents de scie
+line_pattern_saw_info#:#Nette et rythmée
+line_pattern_lightning#:#Éclair
+line_pattern_lightning_info#:#Dynamique et électrique
+line_pattern_curl#:#Ligne bouclée
+line_pattern_curl_info#:#Ludique et décorative
+line_pattern_organic#:#Irrégulière, organique
+line_pattern_organic_info#:#Comme une forme naturelle dessinée à la main
+line_pattern_mixed#:#Pointes et arrondis
+line_pattern_mixed_info#:#Alternance entre dur et doux
+line_pattern_loops#:#Ligne à boucles
+line_pattern_loops_info#:#Élégante et ornementale
 shapes_source#:#Source : %s, libraries.excalidraw.com, licence MIT
 ai_open#:#Ouvrir une IA
 ai_open_info#:#Copie le texte pour l’IA et ouvre une IA dans un nouvel onglet.

@@ -895,12 +895,29 @@
           "min": 0,
           "max": 100,
           "description": "Opacity in percent."
+        },
+        {
+          "name": "pattern",
+          "type": "enum",
+          "values": [
+            "straight",
+            "zigzag",
+            "wave",
+            "saw",
+            "lightning",
+            "curl",
+            "organic",
+            "mixed",
+            "loops"
+          ],
+          "description": "Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place."
         }
       ],
       "examples": [
         "arrow from=a to=b",
         "arrow from=a to=b text=\"leads to\" linestyle=dashed",
-        "arrow x1=0 y1=0 x2=200 y2=0 head=triangle"
+        "arrow x1=0 y1=0 x2=200 y2=0 head=triangle",
+        "arrow from=a to=b pattern=wave"
       ]
     },
     {
@@ -969,10 +986,27 @@
           "min": 0,
           "max": 100,
           "description": "Opacity in percent."
+        },
+        {
+          "name": "pattern",
+          "type": "enum",
+          "values": [
+            "straight",
+            "zigzag",
+            "wave",
+            "saw",
+            "lightning",
+            "curl",
+            "organic",
+            "mixed",
+            "loops"
+          ],
+          "description": "Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place."
         }
       ],
       "examples": [
-        "line points=\"0,300 600,300\" linestyle=dashed stroke=gray"
+        "line points=\"0,300 600,300\" linestyle=dashed stroke=gray",
+        "line points=\"0,0 400,0\" pattern=zigzag"
       ]
     },
     {
@@ -1202,7 +1236,7 @@
     {
       "name": "style",
       "category": "change",
-      "description": "Changes colours and line style of elements.",
+      "description": "Changes colours and line style of elements. pattern only changes lines and arrows.",
       "targets": {
         "min": 1,
         "description": "Elements to change."
@@ -1269,11 +1303,28 @@
           "name": "round",
           "type": "boolean",
           "description": "Rounded corners (yes/no)."
+        },
+        {
+          "name": "pattern",
+          "type": "enum",
+          "values": [
+            "straight",
+            "zigzag",
+            "wave",
+            "saw",
+            "lightning",
+            "curl",
+            "organic",
+            "mixed",
+            "loops"
+          ],
+          "description": "Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place."
         }
       ],
       "examples": [
         "style a b fill=light-red stroke=red",
-        "style c linestyle=dashed width=bold rough=0"
+        "style c linestyle=dashed width=bold rough=0",
+        "style arrow1 pattern=loops"
       ]
     },
     {

@@ -181,11 +181,13 @@ Creates an arrow. With from/to it is attached to both elements and follows them 
 - `linestyle`: Line style. (solid | dashed | dotted)
 - `rough`: Sloppiness: 0 clean, 1 sketchy, 2 very sketchy. (0 | 1 | 2)
 - `opacity`: Opacity in percent.
+- `pattern`: Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place. (straight | zigzag | wave | saw | lightning | curl | organic | mixed | loops)
 
 ```
 arrow from=a to=b
 arrow from=a to=b text="leads to" linestyle=dashed
 arrow x1=0 y1=0 x2=200 y2=0 head=triangle
+arrow from=a to=b pattern=wave
 ```
 
 ### line
@@ -200,9 +202,11 @@ Creates a line through points, or between two elements with from/to.
 - `linestyle`: Line style. (solid | dashed | dotted)
 - `rough`: Sloppiness: 0 clean, 1 sketchy, 2 very sketchy. (0 | 1 | 2)
 - `opacity`: Opacity in percent.
+- `pattern`: Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place. (straight | zigzag | wave | saw | lightning | curl | organic | mixed | loops)
 
 ```
 line points="0,300 600,300" linestyle=dashed stroke=gray
+line points="0,0 400,0" pattern=zigzag
 ```
 
 ### draw
@@ -279,7 +283,7 @@ rotate a angle=15
 ```
 
 ### style <id> …
-Changes colours and line style of elements.
+Changes colours and line style of elements. pattern only changes lines and arrows.
 
 - `stroke`: Line and text colour: a colour name or #rrggbb.
 - `fill`: Background colour: a colour name, #rrggbb or transparent.
@@ -289,10 +293,12 @@ Changes colours and line style of elements.
 - `rough`: Sloppiness: 0 clean, 1 sketchy, 2 very sketchy. (0 | 1 | 2)
 - `opacity`: Opacity in percent.
 - `round`: Rounded corners (yes/no).
+- `pattern`: Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place. (straight | zigzag | wave | saw | lightning | curl | organic | mixed | loops)
 
 ```
 style a b fill=light-red stroke=red
 style c linestyle=dashed width=bold rough=0
+style arrow1 pattern=loops
 ```
 
 ### settext <id>

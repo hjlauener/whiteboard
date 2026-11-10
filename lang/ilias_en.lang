@@ -109,6 +109,25 @@ shapes_loading#:#Loading …
 shapes_lib_basic#:#Basic shapes
 shapes_lib_people#:#Figures and speech bubbles
 shapes_lib_charts#:#Charts and mathematics
+line_pattern#:#Line shape
+line_pattern_straight#:#Straight
+line_pattern_straight_info#:#No pattern
+line_pattern_zigzag#:#Zigzag
+line_pattern_zigzag_info#:#Pointed and angular
+line_pattern_wave#:#Wavy line
+line_pattern_wave_info#:#Soft and flowing
+line_pattern_saw#:#Saw tooth
+line_pattern_saw_info#:#Sharp and rhythmic
+line_pattern_lightning#:#Lightning line
+line_pattern_lightning_info#:#Dynamic and electric
+line_pattern_curl#:#Curly line
+line_pattern_curl_info#:#Playful and decorative
+line_pattern_organic#:#Irregular, organic
+line_pattern_organic_info#:#Like a hand-drawn natural shape
+line_pattern_mixed#:#Teeth and curves
+line_pattern_mixed_info#:#Alternating between hard and soft
+line_pattern_loops#:#Looped line
+line_pattern_loops_info#:#Elegant and ornamental
 shapes_source#:#Source: %s, libraries.excalidraw.com, MIT licence
 ai_open#:#Open AI
 ai_open_info#:#Copies the text for the AI and opens an AI in a new tab.

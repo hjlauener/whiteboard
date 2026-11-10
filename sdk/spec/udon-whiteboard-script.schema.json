@@ -1128,6 +1128,20 @@
             "type": "number",
             "minimum": 0,
             "maximum": 100
+          },
+          "pattern": {
+            "description": "Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place.",
+            "enum": [
+              "straight",
+              "zigzag",
+              "wave",
+              "saw",
+              "lightning",
+              "curl",
+              "organic",
+              "mixed",
+              "loops"
+            ]
           }
         },
         "required": [
@@ -1244,6 +1258,20 @@
             "type": "number",
             "minimum": 0,
             "maximum": 100
+          },
+          "pattern": {
+            "description": "Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place.",
+            "enum": [
+              "straight",
+              "zigzag",
+              "wave",
+              "saw",
+              "lightning",
+              "curl",
+              "organic",
+              "mixed",
+              "loops"
+            ]
           }
         },
         "required": [
@@ -1546,7 +1574,7 @@
         "properties": {
           "cmd": {
             "const": "style",
-            "description": "Changes colours and line style of elements."
+            "description": "Changes colours and line style of elements. pattern only changes lines and arrows."
           },
           "targets": {
             "type": "array",
@@ -1679,6 +1707,20 @@
                   "no"
                 ]
               }
+            ]
+          },
+          "pattern": {
+            "description": "Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place.",
+            "enum": [
+              "straight",
+              "zigzag",
+              "wave",
+              "saw",
+              "lightning",
+              "curl",
+              "organic",
+              "mixed",
+              "loops"
             ]
           }
         },

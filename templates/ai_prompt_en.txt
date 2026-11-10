@@ -38,10 +38,12 @@ arrow:
   Optional: text=TEXT head=arrow|triangle|bar|dot|none
   tail=arrow|triangle|bar|dot|none stroke=COLOUR
   width=thin|bold|extra linestyle=solid|dashed|dotted rough=0|1|2
+  pattern=straight|zigzag|wave|saw|lightning|curl|organic|mixed|loops
 
 line:
   id=ID from=START_ID to=TARGET_ID
   or id=ID points="x,y x,y …"
+  Optional: stroke, width, linestyle, rough and pattern as for arrow
 
 draw:
   id=ID points="x,y x,y …" stroke=COLOUR width=thin|bold|extra
@@ -55,7 +57,7 @@ move ID x=NUMBER y=NUMBER
 move ID right=OTHER_ID|left=OTHER_ID|below=OTHER_ID|above=OTHER_ID [gap=NUMBER]
 resize ID w=WIDTH h=HEIGHT
 rotate ID angle=DEGREES
-style ID with stroke=COLOUR, fill=COLOUR, fillstyle=solid|hachure|cross-hatch, width=thin|bold|extra, linestyle=solid|dashed|dotted, rough=0|1|2, opacity=PERCENT or round=yes|no
+style ID with stroke=COLOUR, fill=COLOUR, fillstyle=solid|hachure|cross-hatch, width=thin|bold|extra, linestyle=solid|dashed|dotted, pattern=straight|zigzag|wave|saw|lightning|curl|organic|mixed|loops, rough=0|1|2, opacity=PERCENT or round=yes|no
 settext ID text=NEW_TEXT
 convert ID … to=rect|ellipse|diamond|note|arrow|line   (change the kind: shapes among each other, arrows and lines among each other)
 font ID with font=serif|sans|hand|code, size=S|M|L|XL|XXL or align=left|center|right

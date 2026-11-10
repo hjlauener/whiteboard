@@ -109,6 +109,25 @@ shapes_loading#:#Wird geladen …
 shapes_lib_basic#:#Grundformen
 shapes_lib_people#:#Figuren und Sprechblasen
 shapes_lib_charts#:#Diagramme und Mathematik
+line_pattern#:#Linienform
+line_pattern_straight#:#Gerade
+line_pattern_straight_info#:#Ohne Muster
+line_pattern_zigzag#:#Zickzack
+line_pattern_zigzag_info#:#Spitz und kantig
+line_pattern_wave#:#Wellenlinie
+line_pattern_wave_info#:#Weich und fliessend
+line_pattern_saw#:#Sägezahn
+line_pattern_saw_info#:#Scharf und rhythmisch
+line_pattern_lightning#:#Blitzlinie
+line_pattern_lightning_info#:#Dynamisch und elektrisch
+line_pattern_curl#:#Lockenlinie
+line_pattern_curl_info#:#Verspielt und dekorativ
+line_pattern_organic#:#Unregelmässig organisch
+line_pattern_organic_info#:#Wie eine handgezeichnete Naturform
+line_pattern_mixed#:#Zacken und Rundungen
+line_pattern_mixed_info#:#Wechselnd zwischen hart und weich
+line_pattern_loops#:#Schlingenlinie
+line_pattern_loops_info#:#Elegant und ornamental
 shapes_source#:#Quelle: %s, libraries.excalidraw.com, MIT-Lizenz
 ai_open#:#KI öffnen
 ai_open_info#:#Kopiert den Text für die KI und öffnet eine KI in einem neuen Tab.

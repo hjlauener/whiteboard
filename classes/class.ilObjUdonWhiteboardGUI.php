@@ -284,6 +284,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'palette' => ilUdwPalettes::resolve($this->object->getPalette()),
             'pollInterval' => self::POLL_INTERVAL,
             'aiPrompt' => $this->getAiPrompt(),
+            'linePatterns' => $this->getLinePatternTexts(),
             'texts' => [
                 'offline' => $this->txt('status_offline'),
                 'saving' => $this->txt('status_saving'),
@@ -312,6 +313,21 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         $lang = in_array($this->lng->getLangKey(), ['de', 'fr'], true) ? $this->lng->getLangKey() : 'en';
         $file = $this->getPlugin()->getDirectory() . '/templates/ai_prompt_' . $lang . '.txt';
         return is_file($file) ? (string) file_get_contents($file) : '';
+    }
+
+    /**
+     * Names of the line shapes for the dropdown "Linienform" (ids as in
+     * frontend/src/linePatterns.ts).
+     *
+     * @return array{title: string, items: array<string, array{0: string, 1: string}>}
+     */
+    private function getLinePatternTexts(): array
+    {
+        $items = [];
+        foreach (['straight', 'zigzag', 'wave', 'saw', 'lightning', 'curl', 'organic', 'mixed', 'loops'] as $id) {
+            $items[$id] = [$this->txt('line_pattern_' . $id), $this->txt('line_pattern_' . $id . '_info')];
+        }
+        return ['title' => $this->txt('line_pattern'), 'items' => $items];
     }
 
     /**

@@ -76,7 +76,8 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   Strichstärken 2/4/6), `hugeFontSize()` (Schriftgrösse XXL = 48). ILIAS-Bootstrap blendet `.dropdown-menu` aus: in
   `whiteboard.css` für Excalidraw zurückgesetzt. Rechtsklick-Einträge in
   `commands/convertMenu.ts`, Formen-Seitenleiste `shapes/`, Glätten
-  `smoothing.ts`. Texte aller neuen Knöpfe aus den Sprachdateien.
+  `smoothing.ts`, Linienformen `linePatterns.ts` + `linePatternMenu.tsx` (IDs
+  gleich in spec.ts `PATTERN` und `getLinePatternTexts()`). Texte aller neuen Knöpfe aus den Sprachdateien.
 - Fehlersuche im Browser: `localStorage.xudwDebug = "1"`, neu laden, dann
   `window.xudw.api` / `window.xudw.sync` in der Konsole. Menü ohne Links zu Excalidraw und ohne „Zeichenfläche
   löschen“ (würde das Board für alle leeren).

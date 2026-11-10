@@ -36703,6 +36703,12 @@ var STYLE = [
   { name: "opacity", type: "number", min: 0, max: 100, description: "Opacity in percent." },
   { name: "round", type: "boolean", description: "Rounded corners (yes/no)." }
 ];
+var PATTERN = {
+  name: "pattern",
+  type: "enum",
+  values: ["straight", "zigzag", "wave", "saw", "lightning", "curl", "organic", "mixed", "loops"],
+  description: "Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place."
+};
 var FONT = [
   { name: "font", type: "enum", values: ["serif", "sans", "hand", "code"], description: "Font family (default serif)." },
   { name: "size", type: "enum", values: ["S", "M", "L", "XL", "XXL"], description: "Font size." },
@@ -36750,9 +36756,10 @@ var COMMANDS = [
       { name: "text", type: "string", description: "Label on the arrow." },
       { name: "head", type: "enum", values: ARROW_HEADS, description: "Head at the end (default arrow)." },
       { name: "tail", type: "enum", values: ARROW_HEADS, description: "Head at the start (default none)." },
-      ...STYLE.filter((p) => p.name !== "fill" && p.name !== "fillstyle" && p.name !== "round")
+      ...STYLE.filter((p) => p.name !== "fill" && p.name !== "fillstyle" && p.name !== "round"),
+      PATTERN
     ],
-    examples: ["arrow from=a to=b", 'arrow from=a to=b text="leads to" linestyle=dashed', "arrow x1=0 y1=0 x2=200 y2=0 head=triangle"]
+    examples: ["arrow from=a to=b", 'arrow from=a to=b text="leads to" linestyle=dashed', "arrow x1=0 y1=0 x2=200 y2=0 head=triangle", "arrow from=a to=b pattern=wave"]
   },
   {
     name: "line",
@@ -36763,9 +36770,10 @@ var COMMANDS = [
       { name: "points", type: "points", description: 'Points as "x,y x,y \u2026" (at least two).' },
       { name: "from", type: "id", description: "Element where the line starts." },
       { name: "to", type: "id", description: "Element where the line ends." },
-      ...STYLE.filter((p) => p.name !== "fill" && p.name !== "fillstyle" && p.name !== "round")
+      ...STYLE.filter((p) => p.name !== "fill" && p.name !== "fillstyle" && p.name !== "round"),
+      PATTERN
     ],
-    examples: ['line points="0,300 600,300" linestyle=dashed stroke=gray']
+    examples: ['line points="0,300 600,300" linestyle=dashed stroke=gray', 'line points="0,0 400,0" pattern=zigzag']
   },
   {
     name: "draw",
@@ -36824,10 +36832,10 @@ var COMMANDS = [
   {
     name: "style",
     category: "change",
-    description: "Changes colours and line style of elements.",
+    description: "Changes colours and line style of elements. pattern only changes lines and arrows.",
     targets: { min: 1, description: "Elements to change." },
-    params: STYLE,
-    examples: ["style a b fill=light-red stroke=red", "style c linestyle=dashed width=bold rough=0"]
+    params: [...STYLE, PATTERN],
+    examples: ["style a b fill=light-red stroke=red", "style c linestyle=dashed width=bold rough=0", "style arrow1 pattern=loops"]
   },
   {
     name: "settext",

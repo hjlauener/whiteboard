@@ -18,6 +18,7 @@ import {
   ROUNDNESS,
 } from "@excalidraw/excalidraw";
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
+import { canHavePattern, isLinePattern, patternChanges, patternOf } from "../linePatterns.ts";
 import type { Command, Problem } from "../../../sdk/js/src/language.ts";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -421,6 +422,9 @@ class BoardState {
         this.update(current, { boundElements: [...bound, { id: arrow.id, type: "arrow" }] });
       }
     }
+    if (isLinePattern(c.pattern) && c.pattern !== "straight") {
+      this.update(arrow, patternChanges(arrow, c.pattern, arrow.points));
+    }
   }
 
   private single(id: string): El {
@@ -557,7 +561,13 @@ class BoardState {
         continue;
       }
       if (el.type === "arrow" || el.type === "line") delete props.roundness;
-      this.update(el, props);
+      let next = this.update(el, props);
+      if (isLinePattern(c.pattern) && canHavePattern(next)) {
+        // with a new line width the pattern is computed again (its size depends on it)
+        next = this.update(next, patternChanges(next, c.pattern));
+      } else if (props.strokeWidth !== undefined && patternOf(next) !== "straight") {
+        next = this.update(next, patternChanges(next, patternOf(next)));
+      }
       const text = this.boundText(el);
       if (text && props.strokeColor !== undefined) this.update(text, { strokeColor: props.strokeColor });
     }
@@ -824,7 +834,8 @@ class BoardState {
       const start = from ? clip(from, a, b, ARROW_GAP) : absStart;
       const end = to ? clip(to, b, a, ARROW_GAP) : absEnd;
       const rel: [number, number][] = [[0, 0], [end[0] - start[0], end[1] - start[1]]];
-      const next = this.update(arrow, { x: start[0], y: start[1], points: rel, width: Math.abs(rel[1][0]), height: Math.abs(rel[1][1]) });
+      let next = this.update(arrow, { x: start[0], y: start[1], points: rel, width: Math.abs(rel[1][0]), height: Math.abs(rel[1][1]) });
+      if (patternOf(next) !== "straight") next = this.update(next, patternChanges(next, patternOf(next), rel));
       const label = this.boundText(next);
       if (label) {
         this.update(label, { x: (start[0] + end[0]) / 2 - label.width / 2, y: (start[1] + end[1]) / 2 - label.height / 2 });

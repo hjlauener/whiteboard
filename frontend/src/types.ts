@@ -8,6 +8,8 @@ export interface BoardConfig {
   langCode: string;
   userId: number;
   canEdit: boolean;
+  /** names of the line shapes: [name, description] per id of linePatterns.ts */
+  linePatterns: { title: string; items: Record<string, [string, string]> };
   /** colour palette of the board (palettes.ts), from the settings */
   palette: string;
   /** text for an AI (templates/ai_prompt_*.txt) with [[BOARD …]] and [[TASK …]] blocks */
