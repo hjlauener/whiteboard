@@ -46,7 +46,7 @@ line :
   Optionnel : stroke, width, linestyle, rough et pattern comme pour arrow
 
 draw :
-  id=ID points="x,y x,y …" stroke=COULEUR width=thin|bold|extra
+  id=ID points="x,y x,y …" stroke=COULEUR width=thin|bold|extra pattern=straight|zigzag|wave|saw|lightning|curl|organic|mixed|loops
 
 frame :
   id=ID x=NOMBRE y=NOMBRE w=NOMBRE h=NOMBRE title=TEXTE contains="ID ID …"

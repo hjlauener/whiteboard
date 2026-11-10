@@ -179,11 +179,12 @@ function shape(pattern: LinePattern, length: number, amplitude: number): Point[]
 }
 
 /** Points of the line with the pattern (relative to the element), and its size. */
-export function patternPoints(base: readonly Point[], pattern: LinePattern, strokeWidth: number): Point[] {
+export function patternPoints(base: readonly Point[], pattern: LinePattern, strokeWidth: number, freehand = false): Point[] {
   if (pattern === "straight" || base.length < 2) return base.map((p) => [p[0], p[1]] as Point);
   const course = new Course(base);
   if (course.length < 1) return base.map((p) => [p[0], p[1]] as Point);
-  const amplitude = 6 + 1.5 * (strokeWidth || 2);
+  // freehand strokes are drawn about three times as wide as lines: a larger pattern
+  const amplitude = 6 + 1.5 * (strokeWidth || 2) * (freehand ? 3 : 1);
   const pts = shape(pattern, course.length, amplitude).map(([s, n]) => course.at(s, n));
   // exactly the original ends (arrows stay attached)
   pts[0] = [base[0][0], base[0][1]];
@@ -192,23 +193,58 @@ export function patternPoints(base: readonly Point[], pattern: LinePattern, stro
 }
 
 /**
- * Changes for an element (line or arrow) to get the pattern: points, size,
- * course kept in customData. With "straight" the original course comes back.
+ * Points every few units along the pattern: a freehand stroke is drawn
+ * smoothly through its points, so corners (zigzag, saw tooth) need points
+ * close to them to stay sharp.
+ */
+function densify(points: readonly Point[], step = 3): Point[] {
+  const out: Point[] = [points[0]];
+  for (let i = 1; i < points.length; i++) {
+    const [a, b] = [points[i - 1], points[i]];
+    const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / step));
+    for (let k = 1; k <= n; k++) out.push([a[0] + ((b[0] - a[0]) * k) / n, a[1] + ((b[1] - a[1]) * k) / n]);
+  }
+  return out;
+}
+
+/**
+ * Changes for an element (line, arrow or freehand stroke) to get the pattern:
+ * points, size, course kept in customData. With "straight" the original
+ * course comes back (freehand: also its pressures).
  */
 export function patternChanges(el: El, pattern: LinePattern, base: readonly Point[] = basePoints(el)): Record<string, unknown> {
-  const points = patternPoints(base, pattern, el.strokeWidth);
+  const freehand = el.type === "freedraw";
+  const shaped = patternPoints(base, pattern, el.strokeWidth, freehand);
+  const points = freehand && pattern !== "straight" ? densify(shaped) : shaped;
   const xs = points.map((p) => p[0]);
   const ys = points.map((p) => p[1]);
   const customData: Record<string, unknown> = { ...(el.customData ?? {}) };
   delete customData.xudwPattern;
   delete customData.xudwBase;
   delete customData.xudwRoundness;
+  delete customData.xudwPressures;
   const changes: Record<string, unknown> = {
     points,
     width: Math.max(...xs) - Math.min(...xs),
     height: Math.max(...ys) - Math.min(...ys),
   };
-  if (pattern === "straight") {
+  if (freehand) {
+    // the pressures belong to the original points: kept, and back with "straight"
+    const kept = el.customData?.xudwPressures as { pressures: number[]; simulate: boolean } | undefined;
+    const original = kept ?? { pressures: el.pressures ?? [], simulate: el.simulatePressure ?? true };
+    if (pattern === "straight") {
+      changes.pressures = original.pressures;
+      changes.simulatePressure = original.simulate;
+    } else {
+      customData.xudwPattern = pattern;
+      customData.xudwBase = base.map((p) => [p[0], p[1]]);
+      customData.xudwPressures = original;
+      // even pressure: simulated pressure would make the closely set pattern points thick
+      changes.pressures = points.map(() => 0.5);
+      changes.simulatePressure = false;
+    }
+    changes.lastCommittedPoint = points[points.length - 1];
+  } else if (pattern === "straight") {
     if (el.customData?.xudwRoundness !== undefined) changes.roundness = el.customData.xudwRoundness;
   } else {
     customData.xudwPattern = pattern;
@@ -221,7 +257,7 @@ export function patternChanges(el: El, pattern: LinePattern, base: readonly Poin
 }
 
 export function canHavePattern(el: El): boolean {
-  return (el.type === "line" || el.type === "arrow") && !el.elbowed && !el.isDeleted;
+  return (el.type === "line" || el.type === "arrow" || el.type === "freedraw") && !el.elbowed && !el.isDeleted;
 }
 
 /** Gives the selected lines and arrows the pattern (one undoable step). */

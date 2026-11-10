@@ -6,7 +6,9 @@
  *
  * Excalidraw has no interface to extend its properties panel, so the button
  * is added to the row when it appears (like the right-click entries in
- * commands/convertMenu.ts). Shown only for lines and arrows.
+ * commands/convertMenu.ts). Shown for lines, arrows and freehand strokes;
+ * freehand strokes have no row "Konturstil", so there the button gets a row
+ * "Linienform" of its own below "Strichstärke".
  */
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -80,7 +82,8 @@ function LinePatternButton({ api, config, portal }: { api: ExcalidrawImperativeA
   const name = (p: LinePattern) => t.items[p]?.[0] ?? p;
 
   const choose = (p: LinePattern) => {
-    setCurrentLinePattern(p);
+    // the choice for new lines and arrows (freehand strokes only get it here)
+    if (lines.length === 0 || lines.some((e) => e.type !== "freedraw")) setCurrentLinePattern(p);
     applyToSelection(api, p);
     setOpen(false);
     setTick((n) => n + 1);
@@ -144,6 +147,8 @@ function LinePatternButton({ api, config, portal }: { api: ExcalidrawImperativeA
 export function installLinePatternMenu(api: ExcalidrawImperativeAPI, container: HTMLElement, config: BoardConfig): () => void {
   let host: HTMLElement | null = null;
   let root: Root | null = null;
+  /** own row "Linienform" (freehand strokes) */
+  let ownRow: HTMLFieldSetElement | null = null;
 
   const applicable = (): boolean => {
     const app = api.getAppState();
@@ -154,7 +159,26 @@ export function installLinePatternMenu(api: ExcalidrawImperativeAPI, container: 
   const sync = () => {
     if (!config.canEdit) return;
     const input = container.querySelector<HTMLInputElement>('input[name="strokeStyle"]');
-    const row = input?.closest("fieldset")?.querySelector<HTMLElement>(".buttonList") ?? null;
+    let row = input?.closest("fieldset")?.querySelector<HTMLElement>(".buttonList") ?? null;
+    if (row !== null) {
+      ownRow?.remove();
+    } else {
+      // no "Konturstil" (freehand): an own row below "Strichstärke"
+      const width = container.querySelector('[data-testid="strokeWidth-thin"]')?.closest("fieldset");
+      if (width) {
+        if (ownRow === null) {
+          ownRow = document.createElement("fieldset");
+          ownRow.className = "xudw-lp-fieldset";
+          const legend = document.createElement("legend");
+          legend.textContent = config.linePatterns.title;
+          const list = document.createElement("div");
+          list.className = "buttonList";
+          ownRow.append(legend, list);
+        }
+        if (width.nextElementSibling !== ownRow) width.after(ownRow);
+        row = ownRow.querySelector<HTMLElement>(".buttonList");
+      }
+    }
     if (row === null) {
       if (root !== null && host !== null && !host.isConnected) {
         const old = root;
@@ -177,6 +201,7 @@ export function installLinePatternMenu(api: ExcalidrawImperativeAPI, container: 
       root.render(<LinePatternButton api={api} config={config} portal={portal} />);
     }
     host.style.display = applicable() ? "" : "none";
+    if (ownRow !== null) ownRow.style.display = applicable() ? "" : "none";
   };
 
   const observer = new MutationObserver(sync);
@@ -191,5 +216,6 @@ export function installLinePatternMenu(api: ExcalidrawImperativeAPI, container: 
       window.setTimeout(() => old.unmount(), 0);
     }
     host?.remove();
+    ownRow?.remove();
   };
 }

@@ -117,12 +117,14 @@ export function exportBoard(elements: readonly El[]): string {
         break;
       }
       case "freedraw": {
-        const pts = (el.points as number[][]).map(([px, py]) => [el.x + px, el.y + py] as [number, number]);
+        // patterned strokes: their course, and the pattern as parameter
+        const pts = (basePoints(el) as number[][]).map(([px, py]) => [el.x + px, el.y + py] as [number, number]);
         // every 4th point is enough to describe the stroke
         const thin = pts.filter((_, i) => i % 4 === 0 || i === pts.length - 1);
         Object.assign(c, { cmd: "draw", id: el.id, points: thin.length >= 2 ? thin : pts });
         if (el.strokeColor !== "#1e1e1e") c.stroke = color(el.strokeColor);
         if (width(el.strokeWidth) !== "thin") c.width = width(el.strokeWidth);
+        if (patternOf(el) !== "straight") c.pattern = patternOf(el);
         break;
       }
       case "frame": {

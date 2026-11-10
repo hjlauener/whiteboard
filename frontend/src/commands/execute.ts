@@ -458,6 +458,10 @@ class BoardState {
     const created = restoreElements([raw as never], null) as unknown as El[];
     this.add(created);
     this.lastCreated = created[0].id;
+    if (isLinePattern(c.pattern) && c.pattern !== "straight") {
+      const el = this.els.get(created[0].id)!;
+      this.update(el, patternChanges(el, c.pattern, el.points));
+    }
   }
 
   private createFrame(c: Command): void {

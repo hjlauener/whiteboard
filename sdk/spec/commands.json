@@ -1046,10 +1046,27 @@
           "min": 0,
           "max": 100,
           "description": "Opacity in percent."
+        },
+        {
+          "name": "pattern",
+          "type": "enum",
+          "values": [
+            "straight",
+            "zigzag",
+            "wave",
+            "saw",
+            "lightning",
+            "curl",
+            "organic",
+            "mixed",
+            "loops"
+          ],
+          "description": "Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place."
         }
       ],
       "examples": [
-        "draw points=\"0,0 10,5 20,0 30,5\" stroke=red"
+        "draw points=\"0,0 10,5 20,0 30,5\" stroke=red",
+        "draw points=\"0,0 120,40 240,0\" pattern=wave"
       ]
     },
     {
@@ -1236,7 +1253,7 @@
     {
       "name": "style",
       "category": "change",
-      "description": "Changes colours and line style of elements. pattern only changes lines and arrows.",
+      "description": "Changes colours and line style of elements. pattern only changes lines, arrows and freehand strokes.",
       "targets": {
         "min": 1,
         "description": "Elements to change."

@@ -146,8 +146,9 @@ export const COMMANDS = [
             { name: "stroke", type: "color", description: "Colour." },
             { name: "width", type: "enum", values: ["thin", "bold", "extra"], description: "Line width." },
             { name: "opacity", type: "number", min: 0, max: 100, description: "Opacity in percent." },
+            PATTERN,
         ],
-        examples: ['draw points="0,0 10,5 20,0 30,5" stroke=red'],
+        examples: ['draw points="0,0 10,5 20,0 30,5" stroke=red', 'draw points="0,0 120,40 240,0" pattern=wave'],
     },
     {
         name: "frame",
@@ -193,7 +194,7 @@ export const COMMANDS = [
     {
         name: "style",
         category: "change",
-        description: "Changes colours and line style of elements. pattern only changes lines and arrows.",
+        description: "Changes colours and line style of elements. pattern only changes lines, arrows and freehand strokes.",
         targets: { min: 1, description: "Elements to change." },
         params: [...STYLE, PATTERN],
         examples: ["style a b fill=light-red stroke=red", "style c linestyle=dashed width=bold rough=0", "style arrow1 pattern=loops"],

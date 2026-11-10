@@ -217,9 +217,11 @@ Creates a freehand stroke through the given points.
 - `stroke`: Colour.
 - `width`: Line width. (thin | bold | extra)
 - `opacity`: Opacity in percent.
+- `pattern`: Shape of the line along its course: straight (default), zigzag, wave, saw (saw tooth), lightning, curl (small curls), organic (irregular, hand-drawn), mixed (teeth and bumps), loops. Start and end stay in place. (straight | zigzag | wave | saw | lightning | curl | organic | mixed | loops)
 
 ```
 draw points="0,0 10,5 20,0 30,5" stroke=red
+draw points="0,0 120,40 240,0" pattern=wave
 ```
 
 ### frame
@@ -283,7 +285,7 @@ rotate a angle=15
 ```
 
 ### style <id> …
-Changes colours and line style of elements. pattern only changes lines and arrows.
+Changes colours and line style of elements. pattern only changes lines, arrows and freehand strokes.
 
 - `stroke`: Line and text colour: a colour name or #rrggbb.
 - `fill`: Background colour: a colour name, #rrggbb or transparent.
