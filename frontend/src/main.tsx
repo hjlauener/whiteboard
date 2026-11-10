@@ -170,8 +170,17 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
       onPointerUpdate={({ pointer, button }) => sync.handlePointer(pointer, button)}
       renderTopRightUI={() => (
         <div className="xudw-top-right">
-          <button type="button" className="xudw-cmd-button" onClick={() => apiRef.current?.toggleSidebar({ name: SHAPES_SIDEBAR })} title={config.texts.shapesTitle}>
-            {config.texts.shapesButton}
+          <button
+            type="button"
+            className="xudw-cmd-button xudw-icon-button"
+            onClick={() => apiRef.current?.toggleSidebar({ name: SHAPES_SIDEBAR })}
+            title={config.texts.shapesTitle}
+            aria-label={config.texts.shapesButton}
+          >
+            {/* star: side panel "Formen" */}
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 3.2l2.7 5.5 6 .9-4.35 4.25 1.03 6-5.38-2.83-5.38 2.83 1.03-6L3.3 9.6l6-.9z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+            </svg>
           </button>
           <button type="button" className="xudw-cmd-button" onClick={() => setPanelOpen(true)} title={config.texts.cmdTitle}>
             {config.texts.cmdButton}

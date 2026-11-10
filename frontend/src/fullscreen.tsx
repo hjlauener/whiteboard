@@ -98,7 +98,7 @@ export function FullscreenButton({ api, config, board, portal }: { api: Excalidr
       <button
         ref={buttonRef}
         type="button"
-        className={`xudw-cmd-button xudw-fullscreen-button${active ? " xudw-active" : ""}`}
+        className={`xudw-cmd-button xudw-icon-button xudw-fullscreen-button${active ? " xudw-active" : ""}`}
         title={active ? t.fullscreenExit : t.fullscreenTitle}
         aria-label={active ? t.fullscreenExit : t.fullscreenTitle}
         aria-haspopup={active ? undefined : "menu"}

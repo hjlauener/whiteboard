@@ -275,7 +275,6 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         $dist = $this->getPlugin()->getRelativeDirectory() . '/js/dist/';
         $version = $this->getAssetVersion();
 
-        $this->tpl->addCss($dist . 'whiteboard.css?v=' . $version);
 
         $config = [
             'syncUrl' => $this->ctrl->getFormAction($this, 'syncBoard', '', true),
@@ -296,7 +295,13 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             ] + $this->getCommandTexts(),
         ];
 
-        $html = '<div class="xudw-board" data-config="'
+        // stylesheet as <link> in the content, not via addCss(): ILIAS replaces the
+        // version parameter there with its own (?_v=11_0), so browsers would keep
+        // an old stylesheet after an update
+        $html = '<link rel="stylesheet" href="'
+            . htmlspecialchars($dist . 'whiteboard.css?v=' . $version, ENT_QUOTES)
+            . '">'
+            . '<div class="xudw-board" data-config="'
             . htmlspecialchars((string) json_encode($config), ENT_QUOTES)
             . '"></div>'
             . '<script type="module" src="'
