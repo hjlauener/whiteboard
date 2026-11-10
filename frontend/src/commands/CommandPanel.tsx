@@ -34,6 +34,37 @@ function fill(template: string, value: string | number): string {
   return template.replace("%s", String(value));
 }
 
+/**
+ * The three most used AIs. With prefill the text is passed in the address
+ * (?q=…) if it is short enough; long addresses are refused by the services,
+ * then the text is only in the clipboard and is pasted by hand.
+ */
+const AIS: readonly { name: string; url: string; prefill: ((text: string) => string) | null }[] = [
+  { name: "ChatGPT", url: "https://chatgpt.com/", prefill: (q) => `https://chatgpt.com/?q=${encodeURIComponent(q)}` },
+  { name: "Microsoft Copilot", url: "https://copilot.microsoft.com/", prefill: (q) => `https://copilot.microsoft.com/?q=${encodeURIComponent(q)}` },
+  { name: "Google Gemini", url: "https://gemini.google.com/app", prefill: null },
+];
+const MAX_URL_LENGTH = 8000;
+
+/** Copies synchronously (inside the click), so that a new tab can be opened in the same click. */
+function copyNow(text: string): boolean {
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.style.position = "fixed";
+  area.style.opacity = "0";
+  document.body.appendChild(area);
+  area.select();
+  let ok = false;
+  try {
+    ok = document.execCommand("copy");
+  } catch {
+    ok = false;
+  }
+  area.remove();
+  if (!ok) void navigator.clipboard?.writeText(text).catch(() => undefined);
+  return true;
+}
+
 async function copy(text: string): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(text);
@@ -59,6 +90,19 @@ export function CommandPanel({ api, config, onClose }: { api: ExcalidrawImperati
   const [message, setMessage] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [aiMenu, setAiMenu] = useState(false);
+
+  /** copy the text, open the AI in a new tab (with the text in the address if possible) */
+  const openAi = (ai: (typeof AIS)[number]) => {
+    const text = promptForAi();
+    copyNow(text);
+    const prefilled = ai.prefill ? ai.prefill(text) : null;
+    const usePrefill = prefilled !== null && prefilled.length <= MAX_URL_LENGTH;
+    window.open(usePrefill ? prefilled : ai.url, "_blank", "noopener");
+    setAiMenu(false);
+    setProblems([]);
+    setMessage(fill(usePrefill ? t.aiOpenedPrefilled : t.aiOpenedPaste, ai.name));
+  };
 
   /** text for an AI with the current board content */
   const promptForAi = () => {
@@ -141,6 +185,20 @@ export function CommandPanel({ api, config, onClose }: { api: ExcalidrawImperati
             >
               {copied === "ai" ? t.cmdCopied : t.cmdCopyForAi}
             </button>
+            <div className="xudw-ai-menu">
+              <button type="button" className="xudw-ai" aria-haspopup="menu" aria-expanded={aiMenu} title={t.aiOpenInfo} onClick={() => setAiMenu(!aiMenu)}>
+                {t.aiOpen} ▾
+              </button>
+              {aiMenu && (
+                <ul className="xudw-ai-list" role="menu">
+                  {AIS.map((ai) => (
+                    <li key={ai.name} role="none">
+                      <button type="button" role="menuitem" onClick={() => openAi(ai)}>{ai.name}</button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
           <details className="xudw-prompt" open={showPrompt} onToggle={(e) => setShowPrompt((e.target as HTMLDetailsElement).open)}>
             <summary>{t.cmdAiPreview}</summary>

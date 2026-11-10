@@ -1764,6 +1764,42 @@
         "additionalProperties": false
       },
       {
+        "title": "convert",
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "const": "convert",
+            "description": "Turns elements into another kind of shape; position, size, text, colours and attached arrows stay. Shapes (rect, ellipse, diamond, note) change among each other, arrows and lines among each other."
+          },
+          "targets": {
+            "type": "array",
+            "description": "Elements to convert.",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            }
+          },
+          "to": {
+            "description": "New kind of element.",
+            "enum": [
+              "rect",
+              "ellipse",
+              "diamond",
+              "note",
+              "arrow",
+              "line"
+            ]
+          }
+        },
+        "required": [
+          "cmd",
+          "targets",
+          "to"
+        ],
+        "additionalProperties": false
+      },
+      {
         "title": "delete",
         "type": "object",
         "properties": {

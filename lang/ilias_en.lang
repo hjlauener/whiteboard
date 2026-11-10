@@ -60,3 +60,23 @@ cmd_copy_for_ai_done#:#Copied. Paste the text into an AI of your choice (e.g. Ch
 cmd_copy_for_ai_info#:#Copies everything an AI needs: the command language and the current board content.
 cmd_ai_privacy#:#Privacy: with the board content, its texts are sent to the AI. Do not pass confidential or personal data to external AI services.
 cmd_ai_preview#:#Show the text for the AI
+
+# --- Right click, shapes, open AI ---
+ctx_convert_rect#:#Convert to rectangle
+ctx_convert_ellipse#:#Convert to ellipse
+ctx_convert_diamond#:#Convert to diamond
+ctx_convert_note#:#Convert to note
+ctx_convert_arrow#:#Convert to arrow
+ctx_convert_line#:#Convert to line
+shapes_button#:#Shapes
+shapes_title#:#Shapes from libraries
+shapes_library#:#Library
+shapes_hint#:#A click inserts the shape in the middle; you can also drag it onto the board.
+shapes_loading#:#Loading …
+shapes_source#:#Source: %s, libraries.excalidraw.com, MIT licence
+ai_open#:#Open AI
+ai_open_info#:#Copies the text for the AI and opens an AI in a new tab.
+ai_opened_prefilled#:#%s was opened in a new tab with the text. Describe your task there and paste the answer of the AI above.
+ai_opened_paste#:#%s was opened in a new tab and the text is copied. Paste it there with Cmd+V (Mac) or Ctrl+V (Windows), describe your task and paste the answer of the AI above.
+menu_zen#:#Zen mode (toolbar only)
+menu_smooth#:#Smooth freehand lines

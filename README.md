@@ -76,6 +76,11 @@ entfernt, unabhängig von der Rollenvorlage.
 Standardrechte wie beim ILIAS-Forum: Kursmitglieder dürfen zeichnen, Gäste
 nur sehen; wer ein Forum anlegen darf, darf auch ein Whiteboard anlegen.
 
+**Formen, Farben, Zeichnen:** Seitenleiste „Formen“ mit drei Excalidraw-
+Bibliotheken; Farbpalette nach Werners Nomenklatur der Farben; Rechtsklick
+wandelt eine Form in eine andere um; Freihandlinien werden geglättet; der
+Zen-Modus zeigt nur die Werkzeugleiste.
+
 **Befehle und KI:** Für jede Aktion gibt es einen Befehl (Udon Whiteboard
 Script). Im Board öffnet der Knopf **Befehle** ein Fenster, in dem man Befehle
 einfügt und ausführt, mit einer Anleitung und einem fertigen Prompt für eine

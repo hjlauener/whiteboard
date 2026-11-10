@@ -45,8 +45,11 @@ class CommandError extends Error {}
 const SERIF = ((FONT_FAMILY as Record<string, number>)["Source Serif"] ?? FONT_FAMILY.Nunito) as number;
 const FONTS: Record<string, number> = { serif: SERIF, sans: FONT_FAMILY.Nunito, hand: FONT_FAMILY.Excalifont, code: FONT_FAMILY["Comic Shanns"] };
 const SIZES: Record<string, number> = { S: 16, M: 20, L: 28, XL: 36 };
-const WIDTHS: Record<string, number> = { thin: 1, bold: 2, extra: 4 };
+/** line widths as in the board: 2 / 4 / 6 (see boardDefaults() in vite.config.ts) */
+const WIDTHS: Record<string, number> = { thin: 2, bold: 4, extra: 6 };
 const NOTE_FILL = "#ffec99";
+/** space between a shape and its text (Excalidraw's BOUND_TEXT_PADDING) */
+const BOUND_TEXT_PADDING = 5;
 const GAP_DEFAULT = 60;
 const ARROW_GAP = 6;
 
@@ -219,6 +222,8 @@ class BoardState {
         return this.setText(c);
       case "font":
         return this.font(c);
+      case "convert":
+        return this.convert(c);
       case "delete":
         return this.remove(c);
       case "link":
@@ -334,7 +339,7 @@ class BoardState {
       width: w,
       height: h,
       roughness: 0,
-      strokeWidth: 2,
+      strokeWidth: WIDTHS.thin,
       roundness: type === "rectangle" ? { type: ROUNDNESS.ADAPTIVE_RADIUS } : type === "diamond" ? { type: ROUNDNESS.PROPORTIONAL_RADIUS } : null,
       ...(note ? { backgroundColor: NOTE_FILL, fillStyle: "solid", strokeColor: "#f08c00", strokeWidth: 1 } : {}),
       ...style,
@@ -555,6 +560,61 @@ class BoardState {
       this.update(el, props);
       const text = this.boundText(el);
       if (text && props.strokeColor !== undefined) this.update(text, { strokeColor: props.strokeColor });
+    }
+  }
+
+  /** convert: another kind of shape (rect/ellipse/diamond/note) or linear element (arrow/line). */
+  private convert(c: Command): void {
+    const to = String(c.to);
+    const SHAPES = ["rectangle", "ellipse", "diamond"];
+    for (const el of this.resolveAll(c.targets)) {
+      if (to === "arrow" || to === "line") {
+        if (el.type !== "arrow" && el.type !== "line") {
+          throw new CommandError(`"${el.id}" is a ${el.type}; only arrows and lines can become an ${to}.`);
+        }
+        if (to === "arrow") {
+          this.update(el, { type: "arrow", endArrowhead: "arrow", startArrowhead: null });
+        } else {
+          // lines are not attached to shapes: detach both ends
+          for (const binding of [el.startBinding, el.endBinding]) {
+            const target = binding ? this.get(binding.elementId) : undefined;
+            if (target) {
+              this.update(target, { boundElements: (target.boundElements ?? []).filter((b: { id: string }) => b.id !== el.id) });
+            }
+          }
+          this.update(el, { type: "line", endArrowhead: null, startArrowhead: null, startBinding: null, endBinding: null });
+        }
+        continue;
+      }
+      if (!SHAPES.includes(el.type)) {
+        throw new CommandError(`"${el.id}" is a ${el.type}; only rectangles, ellipses and diamonds can become a ${to}.`);
+      }
+      const type = to === "rect" || to === "note" ? "rectangle" : to;
+      const changes: Record<string, unknown> = {
+        type,
+        roundness: type === "rectangle" ? { type: ROUNDNESS.ADAPTIVE_RADIUS } : type === "diamond" ? { type: ROUNDNESS.PROPORTIONAL_RADIUS } : null,
+      };
+      if (to === "note") {
+        Object.assign(changes, { backgroundColor: NOTE_FILL, fillStyle: "solid", strokeColor: "#f08c00", strokeWidth: 1 });
+      }
+      // the longest word of the text must fit into the new shape (ellipses and
+      // diamonds have less room than rectangles): widen it around its centre
+      const label = this.boundText(el);
+      if (label) {
+        const words = String(label.originalText ?? label.text).split(/\s+/).filter(Boolean);
+        const longest = words.reduce((a, b) => (b.length > a.length ? b : a), "");
+        if (longest !== "") {
+          const w = this.layoutFreeText(longest, label.fontFamily, label.fontSize, "left").width + 2 * BOUND_TEXT_PADDING;
+          const needed = Math.ceil(type === "ellipse" ? w * Math.SQRT2 : type === "diamond" ? w * 2 : w) + 4;
+          if (needed > el.width) {
+            Object.assign(changes, { width: needed, x: el.x - (needed - el.width) / 2 });
+          }
+        }
+      }
+      const next = this.update(el, changes);
+      this.moved.add(el.id); // attached arrows are led to the new outline
+      const text = this.boundText(next);
+      if (text) this.relayoutLabel(next, text.originalText ?? text.text, text);
     }
   }
 

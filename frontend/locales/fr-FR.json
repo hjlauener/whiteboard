@@ -142,5 +142,17 @@
   "clearReset": "L’intégralité du canevas va être effacée. Êtes-vous sûr·e ?",
   "confirmAddLibrary": "Cela va ajouter {{numShapes}} forme(s) à votre bibliothèque. Êtes-vous sûr·e ?",
   "resetLibrary": "Cela va effacer votre bibliothèque. Êtes-vous sûr·e ?"
+ },
+ "colors": {
+  "blacks": "Noirs",
+  "greys": "Gris",
+  "whites": "Blancs",
+  "reds": "Rouges",
+  "oranges": "Oranges",
+  "yellows": "Jaunes",
+  "greens": "Verts",
+  "blues": "Bleus",
+  "purples": "Pourpres",
+  "browns": "Bruns"
  }
 }

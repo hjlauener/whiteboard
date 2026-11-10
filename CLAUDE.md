@@ -71,6 +71,12 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
 - Tests der Befehlssprache:
   `docker run --rm -v "$PWD:/plugin" -w /plugin --entrypoint node ilias-slim-web:latest sdk/js/test/language.test.ts`
   und `python3 -m unittest discover -s sdk/python/tests`.
+- Anpassungen an Excalidraw beim Bauen (`vite.config.ts`): Sprachen,
+  Serifenschrift, `boardDefaults()` (Werner-Farben aus `werner-colors.ts`,
+  Strichstärken 2/4/6). ILIAS-Bootstrap blendet `.dropdown-menu` aus: in
+  `whiteboard.css` für Excalidraw zurückgesetzt. Rechtsklick-Einträge in
+  `commands/convertMenu.ts`, Formen-Seitenleiste `shapes/`, Glätten
+  `smoothing.ts`. Texte aller neuen Knöpfe aus den Sprachdateien.
 - Fehlersuche im Browser: `localStorage.xudwDebug = "1"`, neu laden, dann
   `window.xudw.api` / `window.xudw.sync` in der Konsole. Menü ohne Links zu Excalidraw und ohne „Zeichenfläche
   löschen“ (würde das Board für alle leeren).

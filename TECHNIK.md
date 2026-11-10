@@ -54,6 +54,8 @@ Neben ILIAS-Standard nur im Browser bzw. zum Bauen. Alle Versionen sind in
 | @modelcontextprotocol/sdk | 1.32.2 | MIT | nur MCP-Server (gebündelt) | MCP-Protokoll für `sdk/mcp/dist/server.mjs` |
 | zod | 4.6.7 | MIT | nur MCP-Server (gebündelt) | Eingaben der MCP-Werkzeuge beschreiben |
 | esbuild | 0.28.2 | MIT | Build | MCP-Server zu einer Datei bündeln |
+| 3 Excalidraw-Bibliotheken (Software Architecture, System Design Components, Architecture diagram components) | – | MIT | Laufzeit (Daten) | Seitenleiste „Formen“; Quellen in `frontend/libraries/README.md` |
+| Werners Nomenklatur der Farben | 1814/1821 | gemeinfrei (Buch); Farbwerte der Digitalisierung c82.net ohne ausdrückliche Lizenz | Laufzeit (Daten) | Farbpalette, `frontend/werner-colors.ts` |
 
 Das Board selbst und die JS/TS- und Python-Bibliothek der Befehlssprache haben
 keine Abhängigkeiten; die Python-Bibliothek braucht nur die Standardbibliothek.
@@ -91,9 +93,23 @@ Update nicht mehr, bricht der Build mit einer Meldung ab.
 `frontend/scripts/copy-fonts.mjs` kopiert die Schriften nach `js/dist/fonts/`;
 `window.EXCALIDRAW_ASSET_PATH` zeigt dorthin, damit nichts vom CDN kommt.
 
+## Anpassungen an Excalidraw im Board
+
+| Was | Wie |
+|---|---|
+| Farbpalette und Schnellwahl | Werners Nomenklatur der Farben: 10 Familien × 5 Abstufungen (`werner-colors.ts`), im Build eingesetzt (`boardDefaults()` in `vite.config.ts`) |
+| Strichstärken | 2 / 4 / 6 statt 1 / 2 / 4 (beginnt bei der früheren mittleren), ebenfalls `boardDefaults()` |
+| Eigenschaften-Leiste | 15rem statt 12,5rem breit |
+| Bootstrap von ILIAS | blendet `.dropdown-menu` aus; für Excalidraws Menüs (Hamburger, „Weitere Werkzeuge“) zurückgesetzt |
+| Rechtsklick | „In Rechteck/Ellipse/Raute/Notiz/Pfeil/Linie umwandeln“ (`commands/convertMenu.ts`, Befehl `convert`; Formen werden verbreitert, damit das längste Wort passt) |
+| Seitenleiste „Formen“ | Dropdown mit drei Bibliotheken, Klick fügt in der Mitte ein, Ziehen legt ab (`shapes/ShapesSidebar.tsx`) |
+| Freihand glätten | fertige Freihandlinien: Ramer–Douglas–Peucker, dann Chaikin (`smoothing.ts`); im Hamburger-Menü abschaltbar |
+| Zen-Modus | nur Werkzeugleiste und „Zen-Modus verlassen“; Eintrag im Hamburger-Menü |
+| KI öffnen | Dropdown: ChatGPT, Microsoft Copilot, Google Gemini im neuen Tab; Text immer in der Zwischenablage, bei ChatGPT/Copilot zusätzlich in der Adresse (`?q=`), wenn sie höchstens 8000 Zeichen lang ist |
+
 ## Befehlssprache für KIs („Udon Whiteboard Script“)
 
-Für jede Aktion auf dem Board gibt es einen Befehl (29 Befehle: erstellen,
+Für jede Aktion auf dem Board gibt es einen Befehl (30 Befehle: erstellen,
 ändern, anordnen, Ansicht/Rückgängig), ein Befehl pro Zeile oder als JSON.
 Ausgeführt wird **nur im Board** (Knopf „Befehle“): ein Fenster zum Einfügen,
 Prüfen und Ausführen der Befehle. Der Knopf „Für eine KI kopieren“ kopiert den

@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { WERNER_BACKGROUND_PICKS, WERNER_PALETTE, WERNER_STROKE_PICKS } from "./werner-colors.ts";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -27,7 +28,7 @@ function excalidrawLocales(): Plugin {
     },
     transform(code, id) {
       const m = locale.exec(id);
-      if (!m || !LOCALES.includes(m[1]) || m[1] === "en") {
+      if (!m || !LOCALES.includes(m[1]) || !existsSync(new URL(`./locales/${m[1]}.json`, import.meta.url))) {
         return null;
       }
       const lang = m[1];
@@ -130,12 +131,64 @@ function serifFont(): Plugin {
   };
 }
 
+/**
+ * Defaults of the board that Excalidraw does not let configure:
+ * - colour palette and quick picks: Werner's Nomenclature of Colours
+ *   (werner-colors.ts) instead of Open Color
+ * - line widths: 2 / 4 / 6 instead of 1 / 2 / 4 (start with the former
+ *   middle one, then thicker)
+ * If a new Excalidraw version changes these places, the build stops.
+ */
+function boardDefaults(): Plugin {
+  const chunk = /[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]chunk-[A-Z0-9]+\.js$/;
+  const palette = JSON.stringify({ transparent: "transparent", white: "#ffffff", ...WERNER_PALETTE });
+  return {
+    name: "xudw-board-defaults",
+    transform(code, id) {
+      if (!chunk.test(id) || !code.includes("extraBold:4}")) {
+        return null;
+      }
+      const replace = (out: string, pattern: RegExp, replacer: (...m: string[]) => string, what: string, times: number): string => {
+        const count = (out.match(new RegExp(pattern.source, "g")) ?? []).length;
+        if (count !== times) {
+          this.error(`Board defaults: ${what} found ${count} times instead of ${times}`);
+        }
+        return out.replace(new RegExp(pattern.source, "g"), replacer as never);
+      };
+      let out = code;
+      out = replace(out, /(\w+)=\{thin:1,bold:2,extraBold:4\}/, (_m, v) => `${v}={thin:2,bold:4,extraBold:6}`, "line widths", 1);
+      out = replace(
+        out,
+        /(\w+)=\[(\w+)\.black,\2\.red\[\w+\],\2\.green\[\w+\],\2\.blue\[\w+\],\2\.yellow\[\w+\]\]/,
+        (_m, v) => `${v}=${JSON.stringify(WERNER_STROKE_PICKS)}`,
+        "stroke picks",
+        1,
+      );
+      out = replace(
+        out,
+        /(\w+)=\[(\w+)\.transparent,\2\.red\[\w+\],\2\.green\[\w+\],\2\.blue\[\w+\],\2\.yellow\[\w+\]\]/,
+        (_m, v) => `${v}=${JSON.stringify(WERNER_BACKGROUND_PICKS)}`,
+        "background picks",
+        1,
+      );
+      out = replace(
+        out,
+        /(\w+)=\{transparent:(\w+)\.transparent,white:\2\.white,gray:\2\.gray,black:\2\.black,bronze:\2\.bronze,\.\.\.\w+\}/,
+        (_m, v) => `${v}=${palette}`,
+        "element palettes",
+        2,
+      );
+      return { code: out, map: null };
+    },
+  };
+}
+
 // Builds the whiteboard as ES module into ../js/dist:
 //   whiteboard.js   entry, loaded by ILIAS with <script type="module">
 //   whiteboard.css  styles of Excalidraw
 //   chunks/         parts loaded on demand (languages, export, ...)
 export default defineConfig({
-  plugins: [excalidrawLocales(), serifFont(), react()],
+  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), react()],
   base: "./",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),

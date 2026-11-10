@@ -21,3 +21,10 @@ for (const file of ["source-serif-4-latin-400-normal.woff2", "source-serif-4-lat
 }
 cpSync(join(serif, "LICENSE"), join(dst, "SourceSerif", "LICENSE.txt"));
 console.log("Source Serif copied");
+
+// shape libraries (libraries.excalidraw.com, MIT), see src/shapes/ShapesSidebar.tsx
+mkdirSync("../js/dist/libraries", { recursive: true });
+for (const file of readdirSync("libraries")) {
+  cpSync(join("libraries", file), join("../js/dist/libraries", file));
+}
+console.log("shape libraries copied");

@@ -221,5 +221,17 @@
   },
   "itemNotAvailable": "Befehl ist nicht verfügbar …",
   "shortcutHint": "Befehlspalette mit {{shortcut}}"
+ },
+ "colors": {
+  "blacks": "Schwarz",
+  "greys": "Grau",
+  "whites": "Weiss",
+  "reds": "Rot",
+  "oranges": "Orange",
+  "yellows": "Gelb",
+  "greens": "Grün",
+  "blues": "Blau",
+  "purples": "Purpur",
+  "browns": "Braun"
  }
 }

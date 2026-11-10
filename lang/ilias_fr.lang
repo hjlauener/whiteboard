@@ -60,3 +60,23 @@ cmd_copy_for_ai_done#:#Copié. Collez le texte dans une IA de votre choix (p.ex.
 cmd_copy_for_ai_info#:#Copie tout ce dont une IA a besoin : le langage de commandes et le contenu actuel du tableau.
 cmd_ai_privacy#:#Protection des données : avec le contenu du tableau, ses textes sont transmis à l’IA. Ne transmettez pas de données confidentielles ou personnelles à des services d’IA externes.
 cmd_ai_preview#:#Afficher le texte pour l’IA
+
+# --- Clic droit, formes, ouvrir une IA ---
+ctx_convert_rect#:#Convertir en rectangle
+ctx_convert_ellipse#:#Convertir en ellipse
+ctx_convert_diamond#:#Convertir en losange
+ctx_convert_note#:#Convertir en note
+ctx_convert_arrow#:#Convertir en flèche
+ctx_convert_line#:#Convertir en ligne
+shapes_button#:#Formes
+shapes_title#:#Formes des bibliothèques
+shapes_library#:#Bibliothèque
+shapes_hint#:#Un clic insère la forme au milieu ; vous pouvez aussi la faire glisser sur le tableau.
+shapes_loading#:#Chargement …
+shapes_source#:#Source : %s, libraries.excalidraw.com, licence MIT
+ai_open#:#Ouvrir une IA
+ai_open_info#:#Copie le texte pour l’IA et ouvre une IA dans un nouvel onglet.
+ai_opened_prefilled#:#%s a été ouvert dans un nouvel onglet avec le texte. Décrivez-y votre tâche et collez la réponse de l’IA ci-dessus.
+ai_opened_paste#:#%s a été ouvert dans un nouvel onglet et le texte est copié. Collez-le avec Cmd+V (Mac) ou Ctrl+V (Windows), décrivez votre tâche et collez la réponse de l’IA ci-dessus.
+menu_zen#:#Mode zen (barre d’outils seulement)
+menu_smooth#:#Lisser le dessin à main levée

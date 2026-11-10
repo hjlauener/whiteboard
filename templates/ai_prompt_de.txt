@@ -57,6 +57,7 @@ resize ID w=BREITE h=HÖHE
 rotate ID angle=GRADZAHL
 style ID mit stroke=FARBE, fill=FARBE, fillstyle=solid|hachure|cross-hatch, width=thin|bold|extra, linestyle=solid|dashed|dotted, rough=0|1|2, opacity=PROZENT oder round=yes|no
 settext ID text=NEUER_TEXT
+convert ID … to=rect|ellipse|diamond|note|arrow|line   (Form ändern: Formen untereinander, Pfeile und Linien untereinander)
 font ID mit font=serif|sans|hand|code, size=S|M|L|XL oder align=left|center|right
 delete ID …
 link ID url=WEBADRESSE

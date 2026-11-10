@@ -225,7 +225,7 @@ function check(command, line, problems) {
         }
     }
     for (const param of spec.params) {
-        if (param.required && out[param.name] === undefined) {
+        if (param.required && out[param.name] === undefined && command[param.name] === undefined) {
             problems.push({ line, message: `${spec.name}: parameter "${param.name}" is required.` });
             ok = false;
         }

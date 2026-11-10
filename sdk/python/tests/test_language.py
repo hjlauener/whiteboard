@@ -60,6 +60,8 @@ class LanguageTest(unittest.TestCase):
         self.assertIn("## Current board", p)
         self.assertTrue(p.endswith("Mindmap"))
         self.assertEqual(validate("view all"), [])
+        self.assertEqual(validate("convert a b to=ellipse"), [])
+        self.assertEqual(len(validate("convert a to=circle")), 1)
         waiting = build_prompt(board="rect id=x")
         self.assertIn("OK – describe your task.", waiting)
         self.assertTrue(waiting.endswith("answer with the complete corrected script."))

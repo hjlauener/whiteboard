@@ -60,3 +60,23 @@ cmd_copy_for_ai_done#:#Kopiert. Fügen Sie den Text in eine KI Ihrer Wahl ein (z
 cmd_copy_for_ai_info#:#Kopiert alles, was eine KI braucht: die Befehlssprache und den aktuellen Inhalt des Boards.
 cmd_ai_privacy#:#Datenschutz: Mit dem Inhalt des Boards gehen dessen Texte an die KI. Geben Sie keine vertraulichen oder personenbezogenen Daten an externe KI-Dienste weiter.
 cmd_ai_preview#:#Text für die KI ansehen
+
+# --- Rechtsklick, Formen, KI öffnen ---
+ctx_convert_rect#:#In Rechteck umwandeln
+ctx_convert_ellipse#:#In Ellipse umwandeln
+ctx_convert_diamond#:#In Raute umwandeln
+ctx_convert_note#:#In Notiz umwandeln
+ctx_convert_arrow#:#In Pfeil umwandeln
+ctx_convert_line#:#In Linie umwandeln
+shapes_button#:#Formen
+shapes_title#:#Formen aus Bibliotheken
+shapes_library#:#Bibliothek
+shapes_hint#:#Ein Klick fügt die Form in der Mitte ein; Sie können sie auch auf das Board ziehen.
+shapes_loading#:#Wird geladen …
+shapes_source#:#Quelle: %s, libraries.excalidraw.com, MIT-Lizenz
+ai_open#:#KI öffnen
+ai_open_info#:#Kopiert den Text für die KI und öffnet eine KI in einem neuen Tab.
+ai_opened_prefilled#:#%s wurde in einem neuen Tab mit dem Text geöffnet. Beschreiben Sie dort Ihre Aufgabe und fügen Sie die Antwort der KI hier oben ein.
+ai_opened_paste#:#%s wurde in einem neuen Tab geöffnet, der Text ist kopiert. Fügen Sie ihn dort mit Cmd+V (Mac) bzw. Ctrl+V (Windows) ein, beschreiben Sie Ihre Aufgabe und fügen Sie die Antwort der KI hier oben ein.
+menu_zen#:#Zen-Modus (nur Werkzeugleiste)
+menu_smooth#:#Freihand glätten

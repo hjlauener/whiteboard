@@ -53,6 +53,7 @@
   gap: 0.5rem;
 }
 .xudw-cmd-button {
+  white-space: nowrap;
   font: inherit;
   font-size: 0.8rem;
   padding: 0.3rem 0.7rem;
@@ -236,4 +237,121 @@
   cursor: pointer;
   color: #d9480f;
   margin-bottom: 0.4rem;
+}
+
+/* --- KI öffnen (Dropdown) --- */
+.xudw-ai-menu {
+  position: relative;
+}
+.xudw-ai-list {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 4px);
+  z-index: 2;
+  list-style: none;
+  margin: 0;
+  padding: 0.3rem;
+  background: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  min-width: 12rem;
+}
+.xudw-ai-list button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none !important;
+  background: none !important;
+  padding: 0.45rem 0.7rem !important;
+  border-radius: 4px !important;
+}
+.xudw-ai-list button:hover {
+  background: #fff4e6 !important;
+}
+
+/* --- Formen (Seitenleiste) --- */
+.xudw-board-inner {
+  height: 100%;
+}
+.xudw-shapes-body {
+  padding: 0 0.8rem 0.8rem;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.xudw-shapes-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.xudw-shapes-select {
+  width: 100%;
+  padding: 0.35rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font: inherit;
+}
+.xudw-shapes-hint,
+.xudw-shapes-source {
+  font-size: 0.75rem;
+  color: #495057;
+  margin: 0;
+}
+.xudw-shapes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+.xudw-shape {
+  aspect-ratio: 1;
+  padding: 0.3rem;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  background: #fff;
+  cursor: grab;
+}
+.xudw-shape:hover {
+  border-color: #e8590c;
+}
+.xudw-shape-preview,
+.xudw-shape-preview svg {
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * ILIAS uses Bootstrap, which hides every .dropdown-menu (display: none) and
+ * gives it left/padding/margin/border. Excalidraw uses the same class name for
+ * its main menu (hamburger) and the "more tools" menu: reset Bootstrap there.
+ */
+.xudw-board .excalidraw .dropdown-menu {
+  display: block;
+  float: none;
+  left: auto;
+  min-width: 0;
+  padding: 0;
+  margin-bottom: 0;
+  font-size: inherit;
+  text-align: inherit;
+  list-style: none;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* properties panel: wide enough for all buttons (4 font buttons + scroll bar) and some space */
+.xudw-board .excalidraw .App-menu__left {
+  width: 15rem;
+}
+
+/* zen mode: everything except the toolbar on top and "Zen-Modus verlassen" */
+.xudw-zen .excalidraw .main-menu-trigger,
+.xudw-zen .excalidraw .layer-ui__wrapper__top-right,
+.xudw-zen .excalidraw .layer-ui__wrapper__footer-left,
+.xudw-zen .excalidraw .App-menu__left,
+.xudw-zen .excalidraw .HintViewer,
+.xudw-zen .excalidraw .help-icon {
+  display: none !important;
 }

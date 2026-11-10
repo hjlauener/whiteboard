@@ -47,5 +47,6 @@ ok(threw, "Builder wirft bei ungültiger id");
 ok(validate("view all").length === 0, "view all");
 ok(reference().includes("### arrow") && buildPrompt({ task: "Mindmap", board: "rect id=x" }).includes("## Current board"), "Referenz und Prompt");
 ok(buildPrompt({ board: "rect id=x" }).endsWith("answer with the complete corrected script.") && buildPrompt({ board: "rect id=x" }).includes("## Current board"), "ohne Aufgabe: KI wartet auf die Aufgabe");
+ok(validate("convert a b to=ellipse").length === 0 && validate("convert a to=circle").length === 1, "convert");
 console.log(failed === 0 ? "ALLE OK" : failed + " FEHLGESCHLAGEN");
 process.exit(failed === 0 ? 0 : 1);

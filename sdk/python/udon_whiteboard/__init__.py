@@ -263,7 +263,7 @@ def _check(command: dict[str, Any], line: int, problems: list[Problem]) -> dict[
         else:
             out[key] = value
     for p in spec["params"]:
-        if p.get("required") and p["name"] not in out:
+        if p.get("required") and p["name"] not in out and p["name"] not in command:
             problems.append(Problem(line, f'{name}: parameter "{p["name"]}" is required.'))
             ok = False
     if ok:

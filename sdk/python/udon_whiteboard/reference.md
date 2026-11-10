@@ -306,6 +306,17 @@ font title size=XL font=serif
 font a b align=left
 ```
 
+### convert <id> …
+Turns elements into another kind of shape; position, size, text, colours and attached arrows stay. Shapes (rect, ellipse, diamond, note) change among each other, arrows and lines among each other.
+
+- `to` (required): New kind of element. (rect | ellipse | diamond | note | arrow | line)
+
+```
+convert a to=ellipse
+convert b c to=note
+convert link1 to=line
+```
+
 ### delete <id> …
 Deletes elements (and their text). Arrows attached to them stay but are detached.
 

@@ -36846,6 +36846,14 @@ var COMMANDS = [
     examples: ["font title size=XL font=serif", "font a b align=left"]
   },
   {
+    name: "convert",
+    category: "change",
+    description: "Turns elements into another kind of shape; position, size, text, colours and attached arrows stay. Shapes (rect, ellipse, diamond, note) change among each other, arrows and lines among each other.",
+    targets: { min: 1, description: "Elements to convert." },
+    params: [{ name: "to", type: "enum", required: true, values: ["rect", "ellipse", "diamond", "note", "arrow", "line"], description: "New kind of element." }],
+    examples: ["convert a to=ellipse", "convert b c to=note", "convert link1 to=line"]
+  },
+  {
     name: "delete",
     category: "change",
     description: "Deletes elements (and their text). Arrows attached to them stay but are detached.",
@@ -37148,7 +37156,7 @@ function check2(command, line, problems) {
     }
   }
   for (const param of spec.params) {
-    if (param.required && out[param.name] === void 0) {
+    if (param.required && out[param.name] === void 0 && command[param.name] === void 0) {
       problems.push({ line, message: `${spec.name}: parameter "${param.name}" is required.` });
       ok = false;
     }

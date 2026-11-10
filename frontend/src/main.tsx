@@ -1,4 +1,4 @@
-import { StrictMode, useEffect, useState } from "react";
+import { StrictMode, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Excalidraw, FONT_FAMILY, MainMenu } from "@excalidraw/excalidraw";
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
@@ -7,6 +7,10 @@ import "@excalidraw/excalidraw/index.css";
 import "./whiteboard.css";
 import { BoardSync, type SyncStatus } from "./sync";
 import { CommandPanel } from "./commands/CommandPanel";
+import { WERNER_STROKE_PICKS } from "../werner-colors.ts";
+import { installConvertMenu } from "./commands/convertMenu";
+import { SHAPES_SIDEBAR, ShapesSidebar } from "./shapes/ShapesSidebar";
+import { installSmoothing, setSmoothingEnabled, smoothingEnabled } from "./smoothing";
 import type { BoardConfig } from "./types";
 
 declare global {
@@ -66,15 +70,30 @@ function exposeForDebugging(api: ExcalidrawImperativeAPI, sync: BoardSync): void
 function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync; initial: OrderedExcalidrawElement[] }) {
   const [api, setApi] = useState<ExcalidrawImperativeAPI | null>(null);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [smooth, setSmooth] = useState(smoothingEnabled());
+  const [zen, setZen] = useState(false);
+  const boardRef = useRef<HTMLDivElement>(null);
+  // the buttons in the top right are rendered by Excalidraw: they use the current API through a ref
+  const apiRef = useRef<ExcalidrawImperativeAPI | null>(null);
+  useEffect(() => {
+    if (api === null || boardRef.current === null) return;
+    const removeMenu = installConvertMenu(api, boardRef.current, config);
+    const removeSmoothing = installSmoothing(api);
+    return () => {
+      removeMenu();
+      removeSmoothing();
+    };
+  }, [api, config]);
   return (
-    <>
+    // zen mode: only the toolbar on top (and "Zen-Modus verlassen") stays visible
+    <div ref={boardRef} className={zen ? "xudw-board-inner xudw-zen" : "xudw-board-inner"}>
     <Excalidraw
       langCode={config.langCode}
       initialData={{
         elements: initial,
         scrollToContent: true,
         // sober defaults for teaching: serif font, clean lines (each person can change them)
-        appState: { currentItemFontFamily: SERIF_FONT_ID, currentItemRoughness: 0 },
+        appState: { currentItemFontFamily: SERIF_FONT_ID, currentItemRoughness: 0, currentItemStrokeColor: WERNER_STROKE_PICKS[0] },
       }}
       isCollaborating={true}
       // shortcuts (Cmd+Z, Delete, ...) also work when the focus has left the
@@ -84,14 +103,21 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
       viewModeEnabled={!config.canEdit}
       excalidrawAPI={(api: ExcalidrawImperativeAPI) => {
         sync.attach(api);
+        apiRef.current = api;
         setApi(api);
         exposeForDebugging(api, sync);
         void preloadFonts();
       }}
-      onChange={(elements, appState) => sync.handleChange(elements, appState)}
+      onChange={(elements, appState) => {
+        sync.handleChange(elements, appState);
+        if (appState.zenModeEnabled !== zen) setZen(appState.zenModeEnabled);
+      }}
       onPointerUpdate={({ pointer }) => sync.handlePointer(pointer)}
       renderTopRightUI={() => (
         <div className="xudw-top-right">
+          <button type="button" className="xudw-cmd-button" onClick={() => apiRef.current?.toggleSidebar({ name: SHAPES_SIDEBAR })} title={config.texts.shapesTitle}>
+            {config.texts.shapesButton}
+          </button>
           <button type="button" className="xudw-cmd-button" onClick={() => setPanelOpen(true)} title={config.texts.cmdTitle}>
             {config.texts.cmdButton}
           </button>
@@ -115,12 +141,25 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
         <MainMenu.DefaultItems.SearchMenu />
         <MainMenu.DefaultItems.Help />
         <MainMenu.Separator />
+        <MainMenu.Item onSelect={() => apiRef.current?.updateScene({ appState: { zenModeEnabled: true } as never })}>
+          {config.texts.menuZen}
+        </MainMenu.Item>
+        <MainMenu.Item
+          onSelect={() => {
+            setSmoothingEnabled(!smooth);
+            setSmooth(!smooth);
+          }}
+        >
+          {smooth ? "✓ " : ""}
+          {config.texts.menuSmooth}
+        </MainMenu.Item>
         <MainMenu.DefaultItems.ToggleTheme />
         <MainMenu.DefaultItems.ChangeCanvasBackground />
       </MainMenu>
+      <ShapesSidebar api={api} config={config} />
     </Excalidraw>
     {panelOpen && api !== null && <CommandPanel api={api} config={config} onClose={() => setPanelOpen(false)} />}
-    </>
+    </div>
   );
 }
 

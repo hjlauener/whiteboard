@@ -30,9 +30,10 @@ function size(fontSize: number): string {
   return "XL";
 }
 
+/** line widths of the board: 2 / 4 / 6 */
 function width(strokeWidth: number): string {
-  if (strokeWidth <= 1) return "thin";
-  if (strokeWidth <= 2.5) return "bold";
+  if (strokeWidth <= 3) return "thin";
+  if (strokeWidth <= 5) return "bold";
   return "extra";
 }
 
@@ -40,7 +41,7 @@ function styleOf(el: El, c: Command): void {
   if (el.strokeColor && el.strokeColor !== "#1e1e1e") c.stroke = color(el.strokeColor);
   if (el.backgroundColor && el.backgroundColor !== "transparent" && "fill" in c === false) c.fill = color(el.backgroundColor);
   if (el.fillStyle && el.fillStyle !== "solid" && el.backgroundColor !== "transparent") c.fillstyle = el.fillStyle;
-  if (el.strokeWidth !== undefined && el.strokeWidth !== 2) c.width = width(el.strokeWidth);
+  if (el.strokeWidth !== undefined && width(el.strokeWidth) !== "thin") c.width = width(el.strokeWidth);
   if (el.strokeStyle && el.strokeStyle !== "solid") c.linestyle = el.strokeStyle;
   if (el.roughness) c.rough = String(el.roughness);
   if (el.opacity !== undefined && el.opacity !== 100) c.opacity = el.opacity;
@@ -117,7 +118,7 @@ export function exportBoard(elements: readonly El[]): string {
         const thin = pts.filter((_, i) => i % 4 === 0 || i === pts.length - 1);
         Object.assign(c, { cmd: "draw", id: el.id, points: thin.length >= 2 ? thin : pts });
         if (el.strokeColor !== "#1e1e1e") c.stroke = color(el.strokeColor);
-        if (el.strokeWidth !== 2) c.width = width(el.strokeWidth);
+        if (width(el.strokeWidth) !== "thin") c.width = width(el.strokeWidth);
         break;
       }
       case "frame": {
