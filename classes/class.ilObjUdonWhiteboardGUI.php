@@ -56,6 +56,8 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
     private const MAX_REQUEST_BYTES = 8 * 1024 * 1024;
     private const MAX_ELEMENTS = 500;
     private const MAX_ELEMENT_BYTES = 1024 * 1024;
+    /** laser pointer: points per request (about 6 seconds at 50 points per second) */
+    private const MAX_LASER_POINTS = 300;
 
     /** element types of Excalidraw that may be stored */
     private const ELEMENT_TYPES = [
@@ -417,7 +419,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
 
         if (!$this->isAnonymous()) {
             [$x, $y] = $this->readPointer($data['pointer'] ?? null);
-            $this->xudw_repo->touchPresence($board_id, $user_id, $x, $y);
+            $this->xudw_repo->touchPresence($board_id, $user_id, $x, $y, $this->readLaser($data['laser'] ?? null));
         }
 
         $changes = $this->xudw_repo->getChanges($board_id, $since);
@@ -429,6 +431,9 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
                 'name' => ilObjUser::_lookupFullname($user['id']),
                 'pointer' => $user['x'] === null || $user['y'] === null ? null : ['x' => $user['x'], 'y' => $user['y']],
             ];
+            if ($user['laser'] !== []) {
+                $users[count($users) - 1]['laser'] = $user['laser'];
+            }
         }
 
         // the elements are stored as JSON already
@@ -471,6 +476,32 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'deleted' => ($element['isDeleted'] ?? false) === true,
             'json' => $json,
         ];
+    }
+
+    /**
+     * Points of the laser pointer sent by the board: [time in ms, x, y, end of
+     * stroke (0/1)], at most MAX_LASER_POINTS.
+     *
+     * @return array<int, array{0: float, 1: float, 2: float, 3: int}>
+     */
+    private function readLaser(mixed $laser): array
+    {
+        if (!is_array($laser)) {
+            return [];
+        }
+        $points = [];
+        foreach (array_slice($laser, 0, self::MAX_LASER_POINTS) as $point) {
+            if (!is_array($point) || count($point) < 3) {
+                continue;
+            }
+            [$t, $x, $y] = [$point[0], $point[1], $point[2]];
+            if (!is_int($t) && !is_float($t) || !is_int($x) && !is_float($x) || !is_int($y) && !is_float($y)
+                || abs($x) > 1e7 || abs($y) > 1e7) {
+                continue;
+            }
+            $points[] = [(float) $t, round((float) $x, 1), round((float) $y, 1), ($point[3] ?? 0) === 1 ? 1 : 0];
+        }
+        return $points;
     }
 
     /**

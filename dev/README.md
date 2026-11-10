@@ -83,7 +83,7 @@ udw --watch
 | --- | --- |
 | Code kopieren (nur ohne Mount) | Code in einen Nebenordner kopieren und in einem Schritt austauschen (`mv -T --exchange`): offene Boards finden nie einen halben Plugin-Ordner |
 | `php -l` auf alle Plugin-Dateien | Syntaxfehler sofort sehen statt weisser Seite |
-| `composer dump-autoload` (als Besitzer der ILIAS-Dateien) – nur wenn sich PHP-Klassen (Dateinamen, `@ilCtrl`-Angaben) geändert haben | neue Klassen werden gefunden; ab ILIAS 10 werden dabei auch die Artifacts (Plugin-Infos, ilCtrl-Struktur) neu erzeugt. Dabei ist ILIAS kurz nicht erreichbar, darum nur bei Bedarf |
+| `composer dump-autoload` (als Besitzer der ILIAS-Dateien) – nur wenn sich PHP-Klassen (Dateinamen, `@ilCtrl`-Angaben) oder die Version in `plugin.php` geändert haben (ILIAS liest die Version aus den Artifacts; sonst laufen neue DB-Schritte nicht) | neue Klassen werden gefunden; ab ILIAS 10 werden dabei auch die Artifacts (Plugin-Infos, ilCtrl-Struktur) neu erzeugt. Dabei ist ILIAS kurz nicht erreichbar, darum nur bei Bedarf |
 | nur ILIAS 9: `php setup/setup.php build-artifacts` | Plugin-Infos und ilCtrl-Struktur |
 | `php cli/setup.php update --legacy-plugin UdonWhiteboard` (ILIAS 9: `setup/setup.php … --plugin`) | DB-Updates (bei neuer Version in `plugin.php`), Sprachdateien neu laden, Plugin aktiv halten |
 

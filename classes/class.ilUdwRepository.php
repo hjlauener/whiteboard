@@ -24,6 +24,9 @@ class ilUdwRepository
     /** a person counts as "on the board" if seen within this many seconds */
     public const PRESENCE_TIMEOUT = 15;
 
+    /** laser pointer: points are kept this many seconds (the others fetch them in this time) */
+    public const LASER_KEEP = 3.0;
+
     public function __construct(private readonly ilDBInterface $db)
     {
     }
@@ -174,28 +177,72 @@ class ilUdwRepository
     /**
      * Remembers that the user is on the board and where the pointer is.
      */
-    public function touchPresence(int $board_id, int $user_id, ?float $x, ?float $y): void
+    /**
+     * Pointer position and sign of life; with laser points (laser pointer of
+     * this person) they are added to the points of the last seconds, as one
+     * numbered batch.
+     *
+     * @param array<int, array{0: float, 1: float, 2: float, 3: int}> $laser [time in ms (clock of the sender), x, y, end of stroke]
+     */
+    public function touchPresence(int $board_id, int $user_id, ?float $x, ?float $y, array $laser = []): void
     {
-        $this->db->replace(
-            self::TABLE_PRESENCE,
-            ['board_id' => ['integer', $board_id], 'user_id' => ['integer', $user_id]],
-            [
-                'pointer_x' => ['float', $x],
-                'pointer_y' => ['float', $y],
-                'last_seen' => ['integer', time()],
-            ]
-        );
+        $where = ['board_id' => ['integer', $board_id], 'user_id' => ['integer', $user_id]];
+        $set = $this->db->query('SELECT laser FROM ' . self::TABLE_PRESENCE
+            . ' WHERE board_id = ' . $this->db->quote($board_id, 'integer')
+            . ' AND user_id = ' . $this->db->quote($user_id, 'integer'));
+        $row = $this->db->fetchAssoc($set);
+
+        $values = [
+            'pointer_x' => ['float', $x],
+            'pointer_y' => ['float', $y],
+            'last_seen' => ['integer', time()],
+        ];
+        if ($laser !== []) {
+            $batches = $this->recentLaser(is_array($row) ? $row['laser'] : null);
+            $last = end($batches);
+            $batches[] = ['s' => is_array($last) ? $last['s'] + 1 : 1, 'a' => microtime(true), 'p' => $laser];
+            $values['laser'] = ['clob', (string) json_encode($batches)];
+        }
+
+        if (is_array($row)) {
+            $this->db->update(self::TABLE_PRESENCE, $values, $where);
+        } else {
+            try {
+                $this->db->insert(self::TABLE_PRESENCE, $where + $values);
+            } catch (Throwable) {
+                // inserted at the same moment by another tab of the same person
+                $this->db->update(self::TABLE_PRESENCE, $values, $where);
+            }
+        }
+    }
+
+    /**
+     * Laser batches of the last seconds.
+     *
+     * @return array<int, array{s: int, a: float, p: array<mixed>}>
+     */
+    private function recentLaser(mixed $json): array
+    {
+        $batches = is_string($json) && $json !== '' ? json_decode($json, true) : null;
+        if (!is_array($batches)) {
+            return [];
+        }
+        $limit = microtime(true) - self::LASER_KEEP;
+        return array_values(array_filter(
+            $batches,
+            static fn($b): bool => is_array($b) && is_int($b['s'] ?? null) && (float) ($b['a'] ?? 0) >= $limit && is_array($b['p'] ?? null)
+        ));
     }
 
     /**
      * People currently on the board.
      *
-     * @return array<int, array{id: int, x: ?float, y: ?float}>
+     * @return array<int, array{id: int, x: ?float, y: ?float, laser: array<int, array{s: int, p: array<mixed>}>}>
      */
     public function getPresentUsers(int $board_id): array
     {
         $set = $this->db->query(
-            'SELECT user_id, pointer_x, pointer_y FROM ' . self::TABLE_PRESENCE .
+            'SELECT user_id, pointer_x, pointer_y, laser FROM ' . self::TABLE_PRESENCE .
             ' WHERE board_id = ' . $this->db->quote($board_id, 'integer') .
             ' AND last_seen >= ' . $this->db->quote(time() - self::PRESENCE_TIMEOUT, 'integer')
         );
@@ -205,6 +252,10 @@ class ilUdwRepository
                 'id' => (int) $rec['user_id'],
                 'x' => $rec['pointer_x'] === null ? null : (float) $rec['pointer_x'],
                 'y' => $rec['pointer_y'] === null ? null : (float) $rec['pointer_y'],
+                'laser' => array_map(
+                    static fn(array $b): array => ['s' => $b['s'], 'p' => $b['p']],
+                    $this->recentLaser($rec['laser'])
+                ),
             ];
         }
         return $users;

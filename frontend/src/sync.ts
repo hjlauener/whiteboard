@@ -14,6 +14,7 @@ import type {
   OrderedExcalidrawElement,
 } from "@excalidraw/excalidraw/element/types";
 import type { BoardConfig, RemotePointer, RemoteUser, SyncResponse } from "./types";
+import { LaserOutbox, LaserPlayer, type LaserPoint } from "./laser";
 
 type RemoteElements = Parameters<typeof reconcileElements>[1];
 
@@ -26,6 +27,8 @@ const COLORS = ["#e8590c", "#1971c2", "#2f9e44", "#9c36b5", "#c2255c", "#0c8599"
 const MAX_BATCH = 200;
 /** wait this long after a change before sending (collects quick changes) */
 const FLUSH_DELAY = 120;
+/** while the laser pointer is used (own or of others): poll this often */
+const LASER_INTERVAL = 200;
 
 /**
  * Keeps the board in sync with the server (ILIAS) by polling.
@@ -45,6 +48,8 @@ export class BoardSync {
   /** element id => element waiting to be sent */
   private readonly pending = new Map<string, ExcalidrawElement>();
   private pointer: RemotePointer | null = null;
+  private readonly laserOut = new LaserOutbox();
+  private laserIn: LaserPlayer | null = null;
   private busy = false;
   private timer: number | undefined;
   private failures = 0;
@@ -67,6 +72,7 @@ export class BoardSync {
   attach(api: ExcalidrawImperativeAPI): void {
     const first = this.api === null;
     this.api = api;
+    this.laserIn ??= new LaserPlayer(api);
     if (!first) {
       return; // Excalidraw may hand over the API more than once
     }
@@ -138,10 +144,14 @@ export class BoardSync {
     }
   }
 
-  handlePointer(pointer: { x: number; y: number }): void {
+  handlePointer(pointer: { x: number; y: number; tool?: string }, button?: string): void {
     const x = Math.round(pointer.x);
     const y = Math.round(pointer.y);
     this.pointer = { x, y };
+    const wasActive = this.laserOut.active;
+    if (this.laserOut.add(pointer, button) && !wasActive) {
+      this.schedule(LASER_INTERVAL); // the others should see the trail soon
+    }
   }
 
   // ------------------------------------------------------------------
@@ -161,6 +171,9 @@ export class BoardSync {
     if (this.pending.size > 0) {
       return FLUSH_DELAY;
     }
+    if (this.laserOut.active || this.laserIn?.busy) {
+      return LASER_INTERVAL;
+    }
     return document.hidden ? this.config.pollInterval * 5 : this.config.pollInterval;
   }
 
@@ -174,9 +187,10 @@ export class BoardSync {
     const batch = Array.from(this.pending.values()).slice(0, MAX_BATCH);
     const sent = new Map(batch.map((el) => [el.id, el.version] as const));
     const pointer = this.pointer;
+    const laser = this.laserOut.take();
 
     try {
-      const data = await this.request({ since: this.rev, elements: batch, pointer });
+      const data = await this.request({ since: this.rev, elements: batch, pointer, ...(laser.length > 0 ? { laser } : {}) });
       this.failures = 0;
 
       // the server has the sent versions now (or a newer one, which comes back in data.elements)
@@ -249,11 +263,12 @@ export class BoardSync {
         color: { background: color, stroke: color },
         pointer: user.pointer ? { x: user.pointer.x, y: user.pointer.y, tool: "pointer" } : undefined,
       });
+      this.laserIn?.receive(user.id, user.laser);
     }
-    this.api.updateScene({ collaborators });
+    this.api.updateScene({ collaborators: this.laserIn ? this.laserIn.setBase(collaborators) : collaborators });
   }
 
-  private async request(body: { since: number; elements: readonly unknown[]; pointer?: RemotePointer | null }): Promise<SyncResponse> {
+  private async request(body: { since: number; elements: readonly unknown[]; pointer?: RemotePointer | null; laser?: LaserPoint[] }): Promise<SyncResponse> {
     const response = await fetch(this.config.syncUrl, {
       method: "POST",
       credentials: "same-origin",

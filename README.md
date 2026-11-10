@@ -49,7 +49,7 @@ udw
 
 Version 0.2.0: Mehrere Personen zeichnen gleichzeitig auf demselben Board
 (Formen, Pfeile, Text, Freihand, Rahmen). Änderungen der anderen erscheinen
-nach etwa einer Sekunde, ihre Mauszeiger werden mit Namen angezeigt. Bilder
+nach etwa einer Sekunde, ihre Mauszeiger werden mit Namen angezeigt, ebenso ihr Laserpointer (Taste K). Bilder
 einfügen folgt später.
 
 Auswählen, Verschieben, Grösse ändern, Farbe, Löschen, Rückgängig/Wiederholen,

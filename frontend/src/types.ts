@@ -1,3 +1,4 @@
+import type { LaserBatch } from "./laser.ts";
 /** Configuration written by ilObjUdonWhiteboardGUI into data-config. */
 export interface BoardConfig {
   /** URL of the command syncBoard (POST, JSON) */
@@ -73,6 +74,8 @@ export interface RemoteUser {
   id: number;
   name: string;
   pointer: RemotePointer | null;
+  /** laser pointer: batches of the last seconds (laser.ts) */
+  laser?: LaserBatch[];
 }
 
 /** Answer of syncBoard */

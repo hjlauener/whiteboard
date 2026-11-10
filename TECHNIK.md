@@ -157,6 +157,14 @@ Antwort:  {"rev": 44, "elements": [ …Elemente mit Revision > 41… ], "users":
   Schritte). Texte werden erst nach dem Schreiben gesendet. Offene Änderungen
   beim Schliessen: Nachfrage (`beforeunload`) und Versand per
   `navigator.sendBeacon`.
+- **Laserpointer** (`frontend/src/laser.ts`): Excalidraw zeichnet die Spur
+  anderer Personen Bild für Bild aus deren Zeiger (`tool: "laser"`,
+  `button: "down"`). Das Board sammelt die eigenen Laserpunkte mit Zeit
+  (höchstens alle 16 ms) und sendet sie beim nächsten Abgleich; solange
+  jemand den Laser benutzt, fragt das Board alle 200 ms. Der Server hält die
+  Punkte der letzten 3 s als nummerierte Pakete (`rep_robj_xudw_pres.laser`,
+  JSON); die anderen spielen neue Pakete im ursprünglichen Takt ab (etwa
+  150 ms Vorlauf, insgesamt rund eine halbe Sekunde Verzögerung).
 - **Server** (`ilUdwRepository`): Schreiben unter Tabellensperre
   (`ilAtomQuery`), eine Revision pro Board; höhere `version` gewinnt, bei
   Gleichstand die kleinere `versionNonce` (wie Excalidraw). Lesen: erst die
@@ -174,7 +182,7 @@ Antwort:  {"rev": 44, "elements": [ …Elemente mit Revision > 41… ], "users":
 
 Plugin-Konfiguration (Administration › Plugins › UdonWhiteboard › Konfigurieren, `ilUdonWhiteboardConfigGUI`): zugeschaltete Zusatzpaletten in `ilSetting` (Modul `xudw`, Schlüssel `extra_palettes`). Boards mit einer abgewählten Palette verwenden „Ruhig und natürlich“.
 | `rep_robj_xudw_el` | `board_id`, `el_id`, `el_version`, `el_nonce`, `rev`, `is_deleted`, `el_json` (CLOB, Excalidraw-JSON), `last_user`, `last_update`; Index (`board_id`, `rev`) |
-| `rep_robj_xudw_pres` | `board_id`, `user_id`, `pointer_x`, `pointer_y`, `last_seen` (anwesend = letzte 15 s) |
+| `rep_robj_xudw_pres` | `board_id`, `user_id`, `pointer_x`, `pointer_y`, `last_seen` (anwesend = letzte 15 s), `laser` (Laserpunkte der letzten 3 s, JSON) |
 
 Gelöschte Elemente bleiben als `is_deleted = 1` stehen (damit andere die
 Löschung erfahren); alles wird beim endgültigen Löschen des Boards entfernt.

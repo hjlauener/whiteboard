@@ -311,8 +311,12 @@ open_browser() {
 # ändert, braucht es composer dump-autoload (Autoloader, ilCtrl-Struktur).
 # Dieser Schritt macht ILIAS für einen Moment unerreichbar; offene Boards
 # bekämen sonst bei jedem Neuladen eine Fehlermeldung.
+# Autoloader and artifacts must be built again when classes are added or
+# removed, ilCtrl annotations change, or the version in plugin.php changes
+# (ILIAS reads the plugin version from the artifacts; without a new build it
+# would not run new DB steps).
 class_signature() {
-    (cd "$PLUGIN_DIR" && { ls classes/*.php; grep -h "@ilCtrl" classes/*.php; } 2>/dev/null) | cksum | cut -d' ' -f1
+    (cd "$PLUGIN_DIR" && { ls classes/*.php; grep -h "@ilCtrl" classes/*.php; grep -h "^\$version" plugin.php; } 2>/dev/null) | cksum | cut -d' ' -f1
 }
 
 SIGNATURE_FILE="/tmp/udw-${PLUGIN_NAME}-classes"

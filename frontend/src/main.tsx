@@ -118,7 +118,7 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
         sync.handleChange(elements, appState);
         if (appState.zenModeEnabled !== zen) setZen(appState.zenModeEnabled);
       }}
-      onPointerUpdate={({ pointer }) => sync.handlePointer(pointer)}
+      onPointerUpdate={({ pointer, button }) => sync.handlePointer(pointer, button)}
       renderTopRightUI={() => (
         <div className="xudw-top-right">
           <button type="button" className="xudw-cmd-button" onClick={() => apiRef.current?.toggleSidebar({ name: SHAPES_SIDEBAR })} title={config.texts.shapesTitle}>

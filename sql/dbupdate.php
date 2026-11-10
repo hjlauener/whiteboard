@@ -51,3 +51,10 @@ if (!$ilDB->tableColumnExists('rep_robj_xudw_board', 'palette')) {
     ]);
 }
 ?>
+<#4>
+<?php
+// laser pointer: the points of the last seconds (JSON), so that the others see the trail
+if (!$ilDB->tableColumnExists('rep_robj_xudw_pres', 'laser')) {
+    $ilDB->addTableColumn('rep_robj_xudw_pres', 'laser', ['type' => 'clob', 'notnull' => false]);
+}
+?>
