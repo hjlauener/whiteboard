@@ -23,7 +23,6 @@ export const NOTE_COLORS: ReadonlyArray<readonly [string, string, string]> = [
   ["#f2a09a", "#cf7770", "#1e1e1e"], // salmon
   ["#f8cdef", "#d9a3cd", "#1e1e1e"], // light pink
   ["#ef9ce3", "#cb71bd", "#1e1e1e"], // pink
-  ["#b9cdf7", "#8fa6d6", "#1e1e1e"], // light blue
   ["#a9e0fb", "#7bbad9", "#1e1e1e"], // sky blue
   ["#86aef2", "#5f88cf", "#1e1e1e"], // blue
   ["#98e4d6", "#6cc1b1", "#1e1e1e"], // teal
