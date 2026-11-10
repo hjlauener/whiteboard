@@ -285,6 +285,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'palette' => ilUdwPalettes::resolve($this->object->getPalette()),
             'pollInterval' => self::POLL_INTERVAL,
             'aiPrompt' => $this->getAiPrompt(),
+            'mermaidExamples' => $this->getMermaidExamples(),
             'linePatterns' => $this->getLinePatternTexts(),
             'templates' => $this->getTemplates(),
             'texts' => [
@@ -321,6 +322,36 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
         $lang = in_array($this->lng->getLangKey(), ['de', 'fr'], true) ? $this->lng->getLangKey() : 'en';
         $file = $this->getPlugin()->getDirectory() . '/templates/ai_prompt_' . $lang . '.txt';
         return is_file($file) ? (string) file_get_contents($file) : '';
+    }
+
+    /**
+     * Examples for the dialog "Mermaid zu Excalidraw" (button "Neu laden"):
+     * didactic diagrams from templates/mermaid_examples_<de|en|fr>.txt; each
+     * example starts with a line "# title", followed by the Mermaid code.
+     * Sent as base64 JSON: Mermaid needs {…}, which the ILIAS page template
+     * would remove.
+     */
+    private function getMermaidExamples(): string
+    {
+        $lang = in_array($this->lng->getLangKey(), ['de', 'fr'], true) ? $this->lng->getLangKey() : 'en';
+        $file = $this->getPlugin()->getDirectory() . '/templates/mermaid_examples_' . $lang . '.txt';
+        $examples = [];
+        $current = null;
+        foreach (is_file($file) ? (array) file($file, FILE_IGNORE_NEW_LINES) : [] as $line) {
+            if (str_starts_with((string) $line, '# ')) {
+                if ($current !== null) {
+                    $examples[] = $current;
+                }
+                $current = ['title' => trim(substr((string) $line, 2)), 'code' => ''];
+            } elseif ($current !== null) {
+                $current['code'] .= $line . "\n";
+            }
+        }
+        if ($current !== null) {
+            $examples[] = $current;
+        }
+        $examples = array_map(static fn(array $e): array => ['title' => $e['title'], 'code' => trim($e['code'])], $examples);
+        return base64_encode((string) json_encode($examples, JSON_UNESCAPED_UNICODE));
     }
 
     /**
@@ -411,6 +442,10 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'notesStackLabel' => 'notes_stack_label',
             'shapesLibPeople' => 'shapes_lib_people',
             'shapesLibCharts' => 'shapes_lib_charts',
+            'mermaidNext' => 'mermaid_next',
+            'mermaidNextTitle' => 'mermaid_next_title',
+            'mermaidExample' => 'mermaid_example',
+            'mermaidPlaceholder' => 'mermaid_placeholder',
             'aiOpen' => 'ai_open',
             'aiOpenInfo' => 'ai_open_info',
             'aiOpenedPrefilled' => 'ai_opened_prefilled',

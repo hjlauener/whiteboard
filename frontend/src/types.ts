@@ -20,6 +20,8 @@ export interface BoardConfig {
   palette: string;
   /** text for an AI (templates/ai_prompt_*.txt) with [[BOARD …]] and [[TASK …]] blocks */
   aiPrompt: string;
+  /** examples for the dialog "Mermaid zu Excalidraw": base64 of JSON [{title, code}] (mermaidExamples.ts) */
+  mermaidExamples: string;
   /** poll interval in milliseconds */
   pollInterval: number;
   texts: {
@@ -70,6 +72,10 @@ export interface BoardConfig {
     notesStackLabel: string;
     shapesLibPeople: string;
     shapesLibCharts: string;
+    mermaidNext: string;
+    mermaidNextTitle: string;
+    mermaidExample: string;
+    mermaidPlaceholder: string;
     aiOpen: string;
     aiOpenInfo: string;
     aiOpenedPrefilled: string;

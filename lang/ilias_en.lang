@@ -116,6 +116,10 @@ notes_stack_label#:#Note pad
 shapes_lib_basic#:#Basic shapes
 shapes_lib_people#:#Figures and speech bubbles
 shapes_lib_charts#:#Charts and mathematics
+mermaid_next#:#Reload
+mermaid_next_title#:#Load another example (diagrams for teaching)
+mermaid_example#:#Example %s of %s: %s
+mermaid_placeholder#:#Enter Mermaid syntax here …
 fill_remove#:#Remove fill
 fullscreen_title#:#Full screen
 fullscreen_window#:#In the browser window

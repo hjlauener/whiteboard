@@ -116,6 +116,10 @@ notes_stack_label#:#Notizblock
 shapes_lib_basic#:#Grundformen
 shapes_lib_people#:#Figuren und Sprechblasen
 shapes_lib_charts#:#Diagramme und Mathematik
+mermaid_next#:#Neu laden
+mermaid_next_title#:#Ein anderes Beispiel laden (didaktische Diagramme)
+mermaid_example#:#Beispiel %s von %s: %s
+mermaid_placeholder#:#Mermaid-Syntax hier eingeben …
 fill_remove#:#Füllung entfernen
 fullscreen_title#:#Vollbild
 fullscreen_window#:#Im Browserfenster

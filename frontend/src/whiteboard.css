@@ -667,3 +667,51 @@ html.xudw-page-maximized body {
   border-radius: 0;
   background: #ffffff;
 }
+
+/* dialog "Mermaid zu Excalidraw": button "Neu laden" with the title of the example (mermaidExamples.ts) */
+.xudw-board .excalidraw .ttd-dialog-panel__header,
+.excalidraw .ttd-dialog-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.excalidraw .ttd-dialog-panel__header label {
+  white-space: nowrap;
+}
+.xudw-mermaid-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: auto;
+  min-width: 0;
+}
+.xudw-mermaid-example {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: var(--color-gray-60, #6c757d);
+}
+.xudw-mermaid-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: none;
+  height: 1.9rem;
+  padding: 0 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e8590c;
+  background: #fff4e6;
+  color: #d9480f;
+  font: inherit;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.xudw-mermaid-next:hover {
+  background: #ffe8cc;
+}
+.xudw-mermaid-next svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}

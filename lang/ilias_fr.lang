@@ -116,6 +116,10 @@ notes_stack_label#:#Bloc-notes
 shapes_lib_basic#:#Formes de base
 shapes_lib_people#:#Personnages et bulles
 shapes_lib_charts#:#Graphiques et mathématiques
+mermaid_next#:#Recharger
+mermaid_next_title#:#Charger un autre exemple (diagrammes pédagogiques)
+mermaid_example#:#Exemple %s sur %s : %s
+mermaid_placeholder#:#Saisissez ici la syntaxe Mermaid…
 fill_remove#:#Supprimer le remplissage
 fullscreen_title#:#Plein écran
 fullscreen_window#:#Dans la fenêtre du navigateur

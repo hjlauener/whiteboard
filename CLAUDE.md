@@ -79,7 +79,7 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   und `python3 -m unittest discover -s sdk/python/tests`.
 - Anpassungen an Excalidraw beim Bauen (`vite.config.ts`): Sprachen,
   Serifenschrift, `boardDefaults()` (Farbpaletten aus `palettes.ts`, zur Laufzeit gewählt über `data-config.palette`; PHP-Seite `ilUdwPalettes`, Konfiguration `ilUdonWhiteboardConfigGUI`; Listen BASE/EXTRA in beiden gleich halten,
-  Strichstärken 2/4/6), `hugeFontSize()` (Schriftgrösse XXL = 48), `alwaysShowFill()` (Füllung immer sichtbar, dazu `fillMenu.ts`). ILIAS-Bootstrap blendet `.dropdown-menu` aus: in
+  Strichstärken 2/4/6), `hugeFontSize()` (Schriftgrösse XXL = 48), `alwaysShowFill()` (Füllung immer sichtbar, dazu `fillMenu.ts`), `slimExtraTools()` (Menü „Weitere Werkzeuge“ ohne Web-Einbettung, Laserpointer, „Generate“). Beispiele für „Mermaid zu Excalidraw“: `templates/mermaid_examples_{de,en,fr}.txt` (`mermaidExamples.ts`); neues Beispiel in allen drei Dateien an derselben Stelle und im Dialog prüfen (Vorschau ohne Fehler). ILIAS-Bootstrap blendet `.dropdown-menu` aus: in
   `whiteboard.css` für Excalidraw zurückgesetzt. Rechtsklick-Einträge in
   `commands/convertMenu.ts`, Formen-Seitenleiste `shapes/`, Glätten
   `smoothing.ts`, Notizzettel und Abreissblöcke `stickyNotes.ts`, Linienformen `linePatterns.ts` + `linePatternMenu.tsx` (IDs

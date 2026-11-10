@@ -1,0 +1,141 @@
+# Problemlösen in vier Schritten
+flowchart TD
+  A[Aufgabe verstehen] --> B[Plan machen]
+  B --> C[Plan ausführen]
+  C --> D{Ergebnis sinnvoll?}
+  D -->|Ja| E[Rückblick: Was habe ich gelernt?]
+  D -->|Nein| B
+
+# Photosynthese
+flowchart LR
+  L[Licht] --> P((Pflanze))
+  W[Wasser] --> P
+  K[Kohlendioxid] --> P
+  P --> G[Traubenzucker]
+  P --> S[Sauerstoff]
+
+# Wasserkreislauf
+flowchart LR
+  A[Verdunstung] --> B[Kondensation: Wolken]
+  B --> C[Niederschlag]
+  C --> D[Versickern und Abfliessen]
+  D --> E[Seen und Meere]
+  E --> A
+
+# Nahrungskette
+flowchart LR
+  S[Sonne] --> P[Pflanze]
+  P --> H[Pflanzenfresser]
+  H --> F[Fleischfresser]
+  F --> Z[Zersetzer]
+  P --> Z
+  H --> Z
+  Z -->|Nährstoffe| P
+
+# Forschendes Lernen
+flowchart TD
+  A[Frage stellen] --> B[Vermutung aufstellen]
+  B --> C[Versuch planen]
+  C --> D[Versuch durchführen]
+  D --> E[Beobachtungen auswerten]
+  E --> F{Vermutung bestätigt?}
+  F -->|Ja| G[Ergebnis darstellen]
+  F -->|Nein| B
+
+# Lernzyklus nach Kolb
+flowchart LR
+  A[Konkrete Erfahrung] --> B[Reflektierende Beobachtung]
+  B --> C[Begriffe und Regeln bilden]
+  C --> D[Aktives Ausprobieren]
+  D --> A
+
+# Quelle prüfen
+flowchart TD
+  A[Neue Information] --> B{Autorin oder Autor bekannt?}
+  B -->|Nein| X[Vorsicht: weitere Quellen suchen]
+  B -->|Ja| C{Aktuell?}
+  C -->|Nein| X
+  C -->|Ja| D{Von anderen Quellen bestätigt?}
+  D -->|Nein| X
+  D -->|Ja| E[Quelle verwenden und angeben]
+
+# Schreibprozess
+flowchart LR
+  A[Planen] --> B[Entwurf schreiben]
+  B --> C[Feedback einholen]
+  C --> D[Überarbeiten]
+  D --> E{Fertig?}
+  E -->|Nein| C
+  E -->|Ja| F[Veröffentlichen]
+
+# Gewaltenteilung
+flowchart TD
+  V((Volk)) -->|wählt| L[Parlament: Gesetze beschliessen]
+  L -->|wählt oder kontrolliert| E[Regierung: Gesetze umsetzen]
+  L -->|wählt| J[Gerichte: Recht sprechen]
+  J -->|prüft| E
+
+# Peer-Feedback
+sequenceDiagram
+  participant A as Lernende A
+  participant B as Lernende B
+  A->>B: Zeigt den Entwurf
+  B-->>A: Das gelingt gut
+  B-->>A: Ein Vorschlag zum Verbessern
+  A->>A: Überarbeitet den Entwurf
+  A->>B: Zeigt die neue Fassung
+
+# Sender und Empfänger
+sequenceDiagram
+  participant S as Sender
+  participant E as Empfänger
+  S->>E: Nachricht (verschlüsselt in Worte und Gesten)
+  Note right of E: entschlüsselt und deutet
+  E-->>S: Rückmeldung
+  S->>E: Klärt Missverständnisse
+
+# Wirbeltiere
+classDiagram
+  class Wirbeltier {
+    Wirbelsäule
+    Inneres Skelett
+  }
+  class Saeugetier["Säugetier"] {
+    Fell oder Haare
+    Säugt die Jungen
+  }
+  class Vogel {
+    Federn
+    Legt Eier
+  }
+  class Fisch {
+    Kiemen
+    Schuppen
+  }
+  Wirbeltier <|-- Saeugetier
+  Wirbeltier <|-- Vogel
+  Wirbeltier <|-- Fisch
+
+# Mindmap Nachhaltigkeit (wird als Bild eingefügt)
+mindmap
+  root((Nachhaltigkeit))
+    Umwelt
+      Klima
+      Artenvielfalt
+      Ressourcen
+    Gesellschaft
+      Bildung
+      Gesundheit
+      Gerechtigkeit
+    Wirtschaft
+      Arbeit
+      Kreislaufwirtschaft
+
+# Zeitstrahl: Geschichte des Internets (wird als Bild eingefügt)
+timeline
+  title Geschichte des Internets
+  1969 : ARPANET verbindet vier Universitäten
+  1989 : Tim Berners-Lee erfindet das World Wide Web
+  1998 : Google wird gegründet
+  2004 : Soziale Netzwerke verbreiten sich
+  2007 : Erstes Smartphone mit Touchscreen für alle

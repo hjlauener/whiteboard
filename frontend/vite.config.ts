@@ -173,6 +173,36 @@ function sketchyHatching(): Plugin {
  * adds the button "Füllung entfernen"). If a new Excalidraw version changes
  * this place, the build stops.
  */
+/**
+ * Menu "Weitere Werkzeuge" (wish of the client): without "Web-Einbettung"
+ * (embedding web pages) and "Laserpointer" (the board has its own laser
+ * button; the key K still works), and without the English heading
+ * "Generate" above "Mermaid zu Excalidraw". (Excalidraw gives the embedding
+ * and the Mermaid entry the same data-testid, so CSS cannot tell them apart.)
+ * If a new Excalidraw version changes these places, the build stops.
+ */
+function slimExtraTools(): Plugin {
+  const index = /[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]index\.js$/;
+  const remove: [string, RegExp][] = [
+    ["Web-Einbettung", /\w+\(\w+\.Item,\{onSelect:\(\)=>\w+\.setActiveTool\(\{type:"embeddable"\}\),icon:\w+,"data-testid":"toolbar-embeddable",selected:\w+,children:\w+\("toolBar\.embeddable"\)\}\),/],
+    ["Laserpointer", /\w+\(\w+\.Item,\{onSelect:\(\)=>\w+\.setActiveTool\(\{type:"laser"\}\),icon:\w+,"data-testid":"toolbar-laser",selected:\w+,shortcut:\w+\.K\.toLocaleUpperCase\(\),children:\w+\("toolBar\.laser"\)\}\),/],
+    ["Generate", /\w+\("div",\{style:\{margin:"6px 0",fontSize:14,fontWeight:600\},children:"Generate"\}\),/],
+  ];
+  return {
+    name: "xudw-slim-extra-tools",
+    transform(code, id) {
+      if (!index.test(id)) return null;
+      let out = code;
+      for (const [what, pattern] of remove) {
+        const found = (out.match(new RegExp(pattern.source, "g")) ?? []).length;
+        if (found !== 1) this.error(`Extra tools: "${what}" found ${found} times instead of once`);
+        out = out.replace(pattern, "");
+      }
+      return { code: out, map: null };
+    },
+  };
+}
+
 function alwaysShowFill(): Plugin {
   const index = /[\\/]@excalidraw[\\/]excalidraw[\\/]dist[\\/]prod[\\/]index\.js$/;
   const rule = /(\w+)=(\w+)\((\w+)\.activeTool\.type\)&&!(\w+)\(\3\.currentItemBackgroundColor\)\|\|(\w+)\.some\((\w+)=>\2\(\6\.type\)&&!\4\(\6\.backgroundColor\)\)/;
@@ -319,7 +349,7 @@ function boardDefaults(): Plugin {
 //   whiteboard.css  styles of Excalidraw
 //   chunks/         parts loaded on demand (languages, export, ...)
 export default defineConfig({
-  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), alwaysShowFill(), fineHatching(), sketchyHatching(), react()],
+  plugins: [excalidrawLocales(), serifFont(), boardDefaults(), hugeFontSize(), alwaysShowFill(), slimExtraTools(), fineHatching(), sketchyHatching(), react()],
   base: "./",
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),

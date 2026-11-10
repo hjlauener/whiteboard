@@ -1,0 +1,141 @@
+# Résoudre un problème en quatre étapes
+flowchart TD
+  A[Comprendre la tâche] --> B[Faire un plan]
+  B --> C[Exécuter le plan]
+  C --> D{Le résultat a-t-il du sens ?}
+  D -->|Oui| E[Bilan : qu’ai-je appris ?]
+  D -->|Non| B
+
+# Photosynthèse
+flowchart LR
+  L[Lumière] --> P((Plante))
+  W[Eau] --> P
+  K[Dioxyde de carbone] --> P
+  P --> G[Glucose]
+  P --> S[Oxygène]
+
+# Cycle de l’eau
+flowchart LR
+  A[Évaporation] --> B[Condensation : nuages]
+  B --> C[Précipitations]
+  C --> D[Infiltration et ruissellement]
+  D --> E[Lacs et mers]
+  E --> A
+
+# Chaîne alimentaire
+flowchart LR
+  S[Soleil] --> P[Plante]
+  P --> H[Herbivore]
+  H --> F[Carnivore]
+  F --> Z[Décomposeurs]
+  P --> Z
+  H --> Z
+  Z -->|Nutriments| P
+
+# Démarche d’investigation
+flowchart TD
+  A[Poser une question] --> B[Formuler une hypothèse]
+  B --> C[Planifier une expérience]
+  C --> D[Réaliser l’expérience]
+  D --> E[Analyser les observations]
+  E --> F{Hypothèse confirmée ?}
+  F -->|Oui| G[Présenter le résultat]
+  F -->|Non| B
+
+# Cycle d’apprentissage de Kolb
+flowchart LR
+  A[Expérience concrète] --> B[Observation réfléchie]
+  B --> C[Former des concepts et des règles]
+  C --> D[Expérimentation active]
+  D --> A
+
+# Vérifier une source
+flowchart TD
+  A[Nouvelle information] --> B{Auteur connu ?}
+  B -->|Non| X[Prudence : chercher d’autres sources]
+  B -->|Oui| C{Information récente ?}
+  C -->|Non| X
+  C -->|Oui| D{Confirmée par d’autres sources ?}
+  D -->|Non| X
+  D -->|Oui| E[Utiliser et citer la source]
+
+# Processus d’écriture
+flowchart LR
+  A[Planifier] --> B[Écrire un brouillon]
+  B --> C[Demander un retour]
+  C --> D[Réviser]
+  D --> E{Terminé ?}
+  E -->|Non| C
+  E -->|Oui| F[Publier]
+
+# Séparation des pouvoirs
+flowchart TD
+  V((Peuple)) -->|élit| L[Parlement : vote les lois]
+  L -->|élit ou contrôle| E[Gouvernement : applique les lois]
+  L -->|élit| J[Tribunaux : rendent la justice]
+  J -->|contrôlent| E
+
+# Retour entre pairs
+sequenceDiagram
+  participant A as Élève A
+  participant B as Élève B
+  A->>B: Montre le brouillon
+  B-->>A: Ce qui fonctionne bien
+  B-->>A: Une proposition d’amélioration
+  A->>A: Révise le brouillon
+  A->>B: Montre la nouvelle version
+
+# Émetteur et récepteur
+sequenceDiagram
+  participant S as Émetteur
+  participant E as Récepteur
+  S->>E: Message (codé en mots et en gestes)
+  Note right of E: décode et interprète
+  E-->>S: Rétroaction
+  S->>E: Lève les malentendus
+
+# Vertébrés
+classDiagram
+  class Vertebre["Vertébré"] {
+    Colonne vertébrale
+    Squelette interne
+  }
+  class Mammifere["Mammifère"] {
+    Pelage ou poils
+    Allaite ses petits
+  }
+  class Oiseau {
+    Plumes
+    Pond des œufs
+  }
+  class Poisson {
+    Branchies
+    Écailles
+  }
+  Vertebre <|-- Mammifere
+  Vertebre <|-- Oiseau
+  Vertebre <|-- Poisson
+
+# Carte mentale développement durable (insérée comme image)
+mindmap
+  root((Développement durable))
+    Environnement
+      Climat
+      Biodiversité
+      Ressources
+    Société
+      Éducation
+      Santé
+      Équité
+    Économie
+      Travail
+      Économie circulaire
+
+# Frise chronologique : histoire d’Internet (insérée comme image)
+timeline
+  title Histoire d’Internet
+  1969 : ARPANET relie quatre universités
+  1989 : Tim Berners-Lee invente le World Wide Web
+  1998 : Fondation de Google
+  2004 : Les réseaux sociaux se répandent
+  2007 : Premier smartphone tactile pour tous

@@ -1,0 +1,141 @@
+# Problem solving in four steps
+flowchart TD
+  A[Understand the task] --> B[Make a plan]
+  B --> C[Carry out the plan]
+  C --> D{Does the result make sense?}
+  D -->|Yes| E[Look back: what have I learnt?]
+  D -->|No| B
+
+# Photosynthesis
+flowchart LR
+  L[Light] --> P((Plant))
+  W[Water] --> P
+  K[Carbon dioxide] --> P
+  P --> G[Glucose]
+  P --> S[Oxygen]
+
+# Water cycle
+flowchart LR
+  A[Evaporation] --> B[Condensation: clouds]
+  B --> C[Precipitation]
+  C --> D[Infiltration and run-off]
+  D --> E[Lakes and seas]
+  E --> A
+
+# Food chain
+flowchart LR
+  S[Sun] --> P[Plant]
+  P --> H[Herbivore]
+  H --> F[Carnivore]
+  F --> Z[Decomposers]
+  P --> Z
+  H --> Z
+  Z -->|Nutrients| P
+
+# Inquiry-based learning
+flowchart TD
+  A[Ask a question] --> B[Make a hypothesis]
+  B --> C[Plan an experiment]
+  C --> D[Carry out the experiment]
+  D --> E[Analyse the observations]
+  E --> F{Hypothesis confirmed?}
+  F -->|Yes| G[Present the result]
+  F -->|No| B
+
+# Kolb's learning cycle
+flowchart LR
+  A[Concrete experience] --> B[Reflective observation]
+  B --> C[Forming concepts and rules]
+  C --> D[Active experimentation]
+  D --> A
+
+# Checking a source
+flowchart TD
+  A[New information] --> B{Is the author known?}
+  B -->|No| X[Careful: look for further sources]
+  B -->|Yes| C{Up to date?}
+  C -->|No| X
+  C -->|Yes| D{Confirmed by other sources?}
+  D -->|No| X
+  D -->|Yes| E[Use and cite the source]
+
+# Writing process
+flowchart LR
+  A[Plan] --> B[Write a draft]
+  B --> C[Get feedback]
+  C --> D[Revise]
+  D --> E{Finished?}
+  E -->|No| C
+  E -->|Yes| F[Publish]
+
+# Separation of powers
+flowchart TD
+  V((People)) -->|elect| L[Parliament: passes laws]
+  L -->|elects or controls| E[Government: implements laws]
+  L -->|elects| J[Courts: administer justice]
+  J -->|review| E
+
+# Peer feedback
+sequenceDiagram
+  participant A as Learner A
+  participant B as Learner B
+  A->>B: Shows the draft
+  B-->>A: This works well
+  B-->>A: One suggestion for improvement
+  A->>A: Revises the draft
+  A->>B: Shows the new version
+
+# Sender and receiver
+sequenceDiagram
+  participant S as Sender
+  participant E as Receiver
+  S->>E: Message (encoded in words and gestures)
+  Note right of E: decodes and interprets
+  E-->>S: Feedback
+  S->>E: Clears up misunderstandings
+
+# Vertebrates
+classDiagram
+  class Vertebrate {
+    Backbone
+    Internal skeleton
+  }
+  class Mammal {
+    Fur or hair
+    Suckles its young
+  }
+  class Bird {
+    Feathers
+    Lays eggs
+  }
+  class Fish {
+    Gills
+    Scales
+  }
+  Vertebrate <|-- Mammal
+  Vertebrate <|-- Bird
+  Vertebrate <|-- Fish
+
+# Mind map sustainability (inserted as an image)
+mindmap
+  root((Sustainability))
+    Environment
+      Climate
+      Biodiversity
+      Resources
+    Society
+      Education
+      Health
+      Fairness
+    Economy
+      Work
+      Circular economy
+
+# Timeline: history of the internet (inserted as an image)
+timeline
+  title History of the internet
+  1969 : ARPANET connects four universities
+  1989 : Tim Berners-Lee invents the World Wide Web
+  1998 : Google is founded
+  2004 : Social networks spread
+  2007 : First touchscreen smartphone for everyone
