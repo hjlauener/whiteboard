@@ -178,6 +178,82 @@ function shape(pattern: LinePattern, length: number, amplitude: number): Point[]
   }
 }
 
+/**
+ * Anchor points of a pattern for lines and arrows: few points, about one or
+ * two per change of direction. Round patterns are drawn by Excalidraw as a
+ * curve through them (curved), the others with sharp corners. The points
+ * can be moved by hand, and more can be added (right click).
+ */
+function anchors(pattern: LinePattern, length: number, amplitude: number): { pts: Point[]; curved: boolean } {
+  const A = amplitude;
+  switch (pattern) {
+    case "wave": {
+      const p = periods(length, 5 * A);
+      const pts: Point[] = [[0, 0]];
+      for (let k = 0; k < 2 * p; k++) pts.push([((k + 0.5) / (2 * p)) * length, k % 2 === 0 ? A : -A]);
+      pts.push([length, 0]);
+      return { pts, curved: true };
+    }
+    case "organic": {
+      const p = periods(length, 6 * A);
+      const dense = shape("organic", length, A);
+      // every fourth point of a period (dense has 18 per period)
+      const step = Math.max(1, Math.round(18 / 4));
+      const pts = dense.filter((_, i) => i % step === 0);
+      if (pts[pts.length - 1] !== dense[dense.length - 1]) pts.push(dense[dense.length - 1]);
+      return { pts: p > 0 ? pts : dense, curved: true };
+    }
+    case "curl":
+    case "loops": {
+      const p = periods(length, (pattern === "curl" ? 3.2 : 4.5) * A);
+      const a = length / (2 * Math.PI * p);
+      const b = pattern === "curl" ? Math.max(a * 1.8, 0.9 * A) : Math.max(a * 2.6, 1.8 * A);
+      return {
+        pts: sample(p * 8, (t) => {
+          const theta = 2 * Math.PI * p * t;
+          return [a * theta - b * Math.sin(theta), b * (Math.cos(theta) - 1)];
+        }),
+        curved: true,
+      };
+    }
+    case "mixed": {
+      const p = periods(length, 3.5 * A);
+      const w = length / p;
+      const pts: Point[] = [[0, 0]];
+      for (let k = 0; k < p; k++) {
+        if (k % 2 === 0) {
+          // tooth: points close to the tip keep it nearly sharp in the curve
+          pts.push([(k + 0.44) * w, -0.88 * A], [(k + 0.5) * w, -A], [(k + 0.56) * w, -0.88 * A], [(k + 1) * w, 0]);
+        } else {
+          pts.push([(k + 0.25) * w, 0.7 * A], [(k + 0.5) * w, A], [(k + 0.75) * w, 0.7 * A], [(k + 1) * w, 0]);
+        }
+      }
+      return { pts, curved: true };
+    }
+    case "lightning": {
+      // without points that lie on a straight piece of the line
+      const dense = shape("lightning", length, A);
+      const pts = dense.filter((pt, i) => i === 0 || i === dense.length - 1 || pt[1] !== 0 || dense[i - 1][1] !== 0 || dense[i + 1][1] !== 0);
+      return { pts, curved: false };
+    }
+    default:
+      return { pts: shape(pattern, length, A), curved: false };
+  }
+}
+
+/** drawn as a curve through the anchor points (lines and arrows) */
+export function isCurved(pattern: LinePattern): boolean {
+  return pattern === "wave" || pattern === "organic" || pattern === "curl" || pattern === "loops" || pattern === "mixed";
+}
+
+/** short signature of the points of an element (to notice changes) */
+export function pointsSignature(points: readonly Point[]): string {
+  return points.map((p) => `${Math.round(p[0])},${Math.round(p[1])}`).join(" ");
+}
+
+/** points this browser has computed for a pattern (so they do not count as moved by hand) */
+const generated = new Map<string, string>();
+
 /** Points of the line with the pattern (relative to the element), and its size. */
 export function patternPoints(base: readonly Point[], pattern: LinePattern, strokeWidth: number, freehand = false): Point[] {
   if (pattern === "straight" || base.length < 2) return base.map((p) => [p[0], p[1]] as Point);
@@ -185,7 +261,8 @@ export function patternPoints(base: readonly Point[], pattern: LinePattern, stro
   if (course.length < 1) return base.map((p) => [p[0], p[1]] as Point);
   // freehand strokes are drawn about three times as wide as lines: a larger pattern
   const amplitude = 6 + 1.5 * (strokeWidth || 2) * (freehand ? 3 : 1);
-  const pts = shape(pattern, course.length, amplitude).map(([s, n]) => course.at(s, n));
+  const form = freehand ? shape(pattern, course.length, amplitude) : anchors(pattern, course.length, amplitude).pts;
+  const pts = form.map(([s, n]) => course.at(s, n));
   // exactly the original ends (arrows stay attached)
   pts[0] = [base[0][0], base[0][1]];
   pts[pts.length - 1] = [base[base.length - 1][0], base[base.length - 1][1]];
@@ -223,6 +300,8 @@ export function patternChanges(el: El, pattern: LinePattern, base: readonly Poin
   delete customData.xudwBase;
   delete customData.xudwRoundness;
   delete customData.xudwPressures;
+  delete customData.xudwEdited;
+  generated.set(el.id, pointsSignature(points));
   const changes: Record<string, unknown> = {
     points,
     width: Math.max(...xs) - Math.min(...xs),
@@ -250,7 +329,8 @@ export function patternChanges(el: El, pattern: LinePattern, base: readonly Poin
     customData.xudwPattern = pattern;
     customData.xudwBase = base.map((p) => [p[0], p[1]]);
     customData.xudwRoundness = el.customData?.xudwRoundness !== undefined ? el.customData.xudwRoundness : (el.roundness ?? null);
-    changes.roundness = null; // sharp corners: the pattern decides the shape
+    // round patterns: a curve through the anchor points; the others with sharp corners
+    changes.roundness = isCurved(pattern) ? { type: 2 } : null;
   }
   changes.customData = Object.keys(customData).length > 0 ? customData : undefined;
   return changes;
@@ -277,12 +357,14 @@ export function applyToSelection(api: ExcalidrawImperativeAPI, pattern: LinePatt
 /**
  * Watches the board:
  * - a line or arrow that has just been drawn gets the current pattern;
- * - when Excalidraw moved the end of a patterned arrow (its shape was moved),
- *   the pattern is computed again along the new course.
+ * - points of a patterned line moved by hand (or added): kept from then on
+ *   (customData.xudwEdited), the pattern is not computed again;
+ * - when Excalidraw moved the end of a patterned arrow attached to a shape
+ *   (the shape was moved), the pattern is computed again along the new course.
  */
 export function installLinePatterns(api: ExcalidrawImperativeAPI): () => void {
   let drawing: string | null = null;
-  const ends = new Map<string, string>();
+  const seen = new Map<string, string>();
   return api.onChange((elements, appState) => {
     const current = appState.newElement ?? appState.multiElement;
     if (current && (current.type === "line" || current.type === "arrow")) {
@@ -305,12 +387,19 @@ export function installLinePatterns(api: ExcalidrawImperativeAPI): () => void {
     }
     for (const e of elements) {
       const el = e as El;
-      if (el.isDeleted || patternOf(el) === "straight" || fixes.has(el.id)) continue;
+      if (el.isDeleted || el.type === "freedraw" || patternOf(el) === "straight" || fixes.has(el.id)) continue;
       const pts = el.points as Point[];
-      const key = `${el.x},${el.y},${pts[0]},${pts[pts.length - 1]}`;
-      const known = ends.get(el.id);
-      ends.set(el.id, key);
-      if (known === undefined || known === key) continue;
+      const signature = pointsSignature(pts);
+      const known = seen.get(el.id);
+      seen.set(el.id, signature);
+      if (known === undefined || known === signature || generated.get(el.id) === signature) continue;
+      if (el.customData?.xudwEdited) continue;
+      if (appState.selectedElementIds[el.id]) {
+        // the points were changed by hand: keep them
+        fixes.set(el.id, { customData: { ...(el.customData ?? {}), xudwEdited: true } });
+        continue;
+      }
+      if (!el.startBinding && !el.endBinding) continue;
       // ends moved by Excalidraw: course with the new ends, pattern again
       const base = basePoints(el).map((p) => [p[0], p[1]] as Point);
       const expected = patternPoints(base, patternOf(el), el.strokeWidth);
@@ -331,4 +420,43 @@ export function installLinePatterns(api: ExcalidrawImperativeAPI): () => void {
       });
     }, 0);
   });
+}
+
+/**
+ * Adds an anchor point to a line or arrow at a point of the board (right
+ * click "Ankerpunkt hinzufügen"): on the nearest piece of the line.
+ */
+export function addAnchor(api: ExcalidrawImperativeAPI, id: string, sceneX: number, sceneY: number): boolean {
+  const el = api.getSceneElements().find((e) => e.id === id) as El | undefined;
+  if (!el || (el.type !== "line" && el.type !== "arrow") || el.elbowed) return false;
+  const pts = el.points as Point[];
+  const p: Point = [sceneX - el.x, sceneY - el.y];
+  let best = 0;
+  let bestDistance = Infinity;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [a, b] = [pts[i], pts[i + 1]];
+    const dx = b[0] - a[0];
+    const dy = b[1] - a[1];
+    const len2 = dx * dx + dy * dy || 1;
+    const t = Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / len2));
+    const d = Math.hypot(a[0] + t * dx - p[0], a[1] + t * dy - p[1]);
+    if (d < bestDistance) {
+      bestDistance = d;
+      best = i;
+    }
+  }
+  const points = [...pts.slice(0, best + 1), p, ...pts.slice(best + 1)];
+  const xs = points.map((q) => q[0]);
+  const ys = points.map((q) => q[1]);
+  const changes: Record<string, unknown> = {
+    points,
+    width: Math.max(...xs) - Math.min(...xs),
+    height: Math.max(...ys) - Math.min(...ys),
+  };
+  if (patternOf(el) !== "straight") changes.customData = { ...(el.customData ?? {}), xudwEdited: true };
+  api.updateScene({
+    elements: api.getSceneElementsIncludingDeleted().map((e) => (e.id === id ? newElementWith(e as never, changes as never) : e)) as never,
+    captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+  });
+  return true;
 }

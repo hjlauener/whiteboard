@@ -28,7 +28,8 @@ import {
 
 /** the line shape drawn small, fitted into its box */
 export function PatternPreview({ pattern, width = 84 }: { pattern: LinePattern; width?: number }) {
-  const pts = patternPoints([[0, 0], [width, 0]], pattern, 0);
+  // the smooth form (as drawn), not the anchor points
+  const pts = patternPoints([[0, 0], [width, 0]], pattern, 0, true);
   const xs = pts.map((p) => p[0]);
   const ys = pts.map((p) => p[1]);
   const pad = 2;

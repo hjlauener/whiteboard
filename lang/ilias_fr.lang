@@ -101,6 +101,7 @@ ctx_convert_diamond#:#Convertir en losange
 ctx_convert_note#:#Convertir en note
 ctx_convert_arrow#:#Convertir en flèche
 ctx_convert_line#:#Convertir en ligne
+ctx_add_point#:#Ajouter un point d'ancrage
 shapes_button#:#Formes
 shapes_title#:#Formes des bibliothèques
 shapes_library#:#Bibliothèque

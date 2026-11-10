@@ -101,6 +101,7 @@ ctx_convert_diamond#:#In Raute umwandeln
 ctx_convert_note#:#In Notiz umwandeln
 ctx_convert_arrow#:#In Pfeil umwandeln
 ctx_convert_line#:#In Linie umwandeln
+ctx_add_point#:#Ankerpunkt hinzufügen
 shapes_button#:#Formen
 shapes_title#:#Formen aus Bibliotheken
 shapes_library#:#Bibliothek

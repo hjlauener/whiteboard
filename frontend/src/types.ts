@@ -40,6 +40,7 @@ export interface BoardConfig {
     ctxConvertNote: string;
     ctxConvertArrow: string;
     ctxConvertLine: string;
+    ctxAddPoint: string;
     shapesButton: string;
     templatesButton: string;
     fillRemove: string;

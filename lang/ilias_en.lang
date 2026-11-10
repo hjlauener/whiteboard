@@ -101,6 +101,7 @@ ctx_convert_diamond#:#Convert to diamond
 ctx_convert_note#:#Convert to note
 ctx_convert_arrow#:#Convert to arrow
 ctx_convert_line#:#Convert to line
+ctx_add_point#:#Add anchor point
 shapes_button#:#Shapes
 shapes_title#:#Shapes from libraries
 shapes_library#:#Library

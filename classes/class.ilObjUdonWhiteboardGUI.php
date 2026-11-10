@@ -384,6 +384,7 @@ class ilObjUdonWhiteboardGUI extends ilObjectPluginGUI
             'ctxConvertNote' => 'ctx_convert_note',
             'ctxConvertArrow' => 'ctx_convert_arrow',
             'ctxConvertLine' => 'ctx_convert_line',
+            'ctxAddPoint' => 'ctx_add_point',
             'shapesButton' => 'shapes_button',
             'shapesTitle' => 'shapes_title',
             'shapesLibrary' => 'shapes_library',
