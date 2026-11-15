@@ -730,3 +730,9 @@ html.xudw-page-maximized body {
   pointer-events: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
+
+/* tool 4 "Notizzettel": the sticky notes below the toolbar (notesTool.tsx) */
+.xudw-notes-popover {
+  position: fixed;
+  z-index: 50;
+}

@@ -23,15 +23,12 @@ interface ShapeLibrary {
 
 interface ShapeCollection {
   /** key of the name in config.texts */
-  text: "shapesLibNotes" | "shapesLibBasic" | "shapesLibPeople" | "shapesLibCharts";
+  text: "shapesLibBasic" | "shapesLibPeople" | "shapesLibCharts";
   libraries: readonly ShapeLibrary[];
-  /** made by the board instead of loaded from libraries */
-  generated?: boolean;
 }
 
+// the sticky notes are tool 4 of the toolbar (notesTool.tsx)
 export const COLLECTIONS: readonly ShapeCollection[] = [
-  // sticky notes and note pads in six colours (stickyNotes.ts)
-  { text: "shapesLibNotes", libraries: [], generated: true },
   {
     text: "shapesLibBasic",
     libraries: [
@@ -141,7 +138,7 @@ function dragItem(e: React.DragEvent, item: LibraryItem): void {
  * or round) and "Stapel": a click or drag gives a single note, or with
  * "Stapel" a note pad from which notes are torn off (stickyNotes.ts).
  */
-function NotesPanel({ config, onInsert }: { config: BoardConfig; onInsert: (item: LibraryItem) => void }) {
+export function NotesPanel({ config, onInsert }: { config: BoardConfig; onInsert: (item: LibraryItem) => void }) {
   const t = config.texts;
   const [shape, setShape] = useState<NoteShape>("square");
   const [stack, setStack] = useState(false);
@@ -179,6 +176,20 @@ function NotesPanel({ config, onInsert }: { config: BoardConfig; onInsert: (item
   );
 }
 
+/** inserts a library item in the middle of the view, selected */
+export function insertItem(api: ExcalidrawImperativeAPI, item: LibraryItem): void {
+  const app = api.getAppState();
+  const zoom = app.zoom.value;
+  const cx = -app.scrollX + app.width / 2 / zoom;
+  const cy = -app.scrollY + app.height / 2 / zoom;
+  const created = instantiate(item, cx, cy);
+  api.updateScene({
+    elements: [...api.getSceneElementsIncludingDeleted(), ...(restoreElements(created as never, null) as never[])] as never,
+    appState: { selectedElementIds: Object.fromEntries(created.filter((e) => !e.containerId).map((e) => [e.id, true])) } as never,
+    captureUpdate: CaptureUpdateAction.IMMEDIATELY,
+  });
+}
+
 export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | null; config: BoardConfig }) {
   const t = config.texts;
   const [selected, setSelected] = useState(0);
@@ -190,10 +201,6 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
     let cancelled = false;
     setItems(null);
     setFailed(false);
-    if (collection.generated) {
-      setItems([]);
-      return;
-    }
     Promise.all(collection.libraries.map((lib) => loadLibrary(config, lib)))
       .then((loaded) => !cancelled && setItems(loaded.flat()))
       .catch(() => !cancelled && setFailed(true));
@@ -203,17 +210,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
   }, [collection, config, t]);
 
   const insert = (item: LibraryItem) => {
-    if (!api || !config.canEdit) return;
-    const app = api.getAppState();
-    const zoom = app.zoom.value;
-    const cx = -app.scrollX + app.width / 2 / zoom;
-    const cy = -app.scrollY + app.height / 2 / zoom;
-    const created = instantiate(item, cx, cy);
-    api.updateScene({
-      elements: [...api.getSceneElementsIncludingDeleted(), ...(restoreElements(created as never, null) as never[])] as never,
-      appState: { selectedElementIds: Object.fromEntries(created.filter((e) => !e.containerId).map((e) => [e.id, true])) } as never,
-      captureUpdate: CaptureUpdateAction.IMMEDIATELY,
-    });
+    if (api && config.canEdit) insertItem(api, item);
   };
 
   return (
@@ -229,8 +226,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
         {!config.canEdit && <p className="xudw-shapes-hint">{t.cmdViewOnly}</p>}
         {failed && <p className="xudw-warning">{t.offline}</p>}
         {items === null && !failed && <p className="xudw-shapes-hint">{t.shapesLoading}</p>}
-        {collection.generated && <NotesPanel config={config} onInsert={insert} />}
-        {items !== null && !collection.generated && (
+        {items !== null && (
           <div className="xudw-shapes-grid">
             {items.map((item) => (
               <button
@@ -248,9 +244,7 @@ export function ShapesSidebar({ api, config }: { api: ExcalidrawImperativeAPI | 
             ))}
           </div>
         )}
-        {!collection.generated && (
-          <p className="xudw-shapes-source">{t.shapesSource.replace("%s", collection.libraries.map((l) => `«${l.name}» – ${l.author}`).join(", "))}</p>
-        )}
+        <p className="xudw-shapes-source">{t.shapesSource.replace("%s", collection.libraries.map((l) => `«${l.name}» – ${l.author}`).join(", "))}</p>
       </div>
     </Sidebar>
   );
