@@ -715,3 +715,18 @@ html.xudw-page-maximized body {
   width: 0.95rem;
   height: 0.95rem;
 }
+
+/* hints of the toolbar, about 100 px right of the tool (toolbarTips.ts) */
+.xudw-tooltip {
+  position: fixed;
+  z-index: 10001;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid #8f8f8f;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1b1b1f;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
