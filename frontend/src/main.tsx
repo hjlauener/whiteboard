@@ -16,7 +16,7 @@ import { installLinePatterns } from "./linePatterns";
 import { installLinePatternMenu } from "./linePatternMenu";
 import { installFillMenu } from "./fillMenu";
 import { installStickyPads } from "./stickyNotes";
-import { installToolbarTips } from "./toolbarTips";
+import { installToolbarHint, installToolbarTips } from "./toolbarTips";
 import { installNotesTool } from "./notesTool";
 import { installMermaidExamples } from "./mermaidExamples";
 import { FullscreenButton } from "./fullscreen";
@@ -131,6 +131,7 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
     const removePatternMenu = installLinePatternMenu(api, boardRef.current, config);
     const removeFillMenu = installFillMenu(api, boardRef.current, config);
     const removeTips = installToolbarTips(boardRef.current);
+    const removeHint = installToolbarHint(boardRef.current);
     const removeNotesTool = installNotesTool(api, boardRef.current, config);
     const removePads = installStickyPads(api);
     const removeMermaid = installMermaidExamples(config);
@@ -139,6 +140,7 @@ function Board({ config, sync, initial }: { config: BoardConfig; sync: BoardSync
       removePads();
       removeFillMenu();
       removeTips();
+      removeHint();
       removeNotesTool();
       removeMenu();
       removeSmoothing();

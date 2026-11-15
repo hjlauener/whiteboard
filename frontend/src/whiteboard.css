@@ -751,3 +751,79 @@ html.xudw-page-maximized body {
   width: 2.6rem;
   flex: none;
 }
+
+/* --- layout: toolbar upright on the left, zoom / undo / help on top in the middle --- */
+/* toolbar: below the hamburger menu and the status, upright */
+.xudw-board .excalidraw .App-menu_top .shapes-section {
+  position: absolute;
+  left: 0;
+  top: 104px;
+  z-index: 3;
+}
+/* the buttons top right keep their column (the toolbar left the grid) */
+.xudw-board .excalidraw .App-menu_top .layer-ui__wrapper__top-right {
+  grid-column: 3;
+  grid-row: 1;
+}
+/* a low board: the toolbar in two columns, so that it is not cut off */
+.xudw-board {
+  container-type: size;
+}
+@container (max-height: 640px) {
+  .xudw-board .excalidraw .App-toolbar > .Stack_horizontal {
+    grid-template-columns: repeat(2, auto);
+  }
+  .xudw-board .excalidraw .App-toolbar__divider {
+    display: none;
+  }
+  .xudw-board .excalidraw .App-menu_top .App-menu__left {
+    margin-left: 6.25rem;
+  }
+}
+.xudw-board .excalidraw .App-toolbar-container,
+.xudw-board .excalidraw .App-toolbar > .Stack_horizontal {
+  grid-auto-flow: row;
+  justify-items: center;
+}
+.xudw-board .excalidraw .App-toolbar__divider {
+  width: 1.5rem;
+  height: 1px;
+  margin: 0.25rem 0;
+}
+/* the hint of the toolbar is shown on top (toolbarHint, main.tsx) */
+.xudw-board .excalidraw .App-toolbar .HintViewer {
+  visibility: hidden;
+}
+/* "Weitere Werkzeuge" opens to the right of the toolbar */
+.xudw-board .excalidraw .App-toolbar__extra-tools-dropdown {
+  top: 0;
+  left: calc(100% + 0.5rem);
+  right: auto;
+}
+/* properties panel: to the right of the toolbar */
+.xudw-board .excalidraw .App-menu__left {
+  margin-left: 4rem;
+}
+/* zoom, undo/redo and help: on top in the middle, where the toolbar was */
+.xudw-board .excalidraw .layer-ui__wrapper__footer.App-menu_bottom {
+  top: 1rem;
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  width: auto;
+  transform: translateX(-50%);
+  gap: 0.75rem;
+}
+/* the hint text below them */
+.xudw-toolbar-hint {
+  position: absolute;
+  top: 3.6rem;
+  left: 50%;
+  z-index: 3;
+  max-width: 60%;
+  transform: translateX(-50%);
+  color: var(--color-gray-40, #999);
+  font-size: 0.75rem;
+  text-align: center;
+  pointer-events: none;
+}

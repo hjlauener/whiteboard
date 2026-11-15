@@ -39,10 +39,17 @@ export function installNotesTool(api: ExcalidrawImperativeAPI, container: HTMLEl
     if (!tool) return;
     close();
     const rect = tool.getBoundingClientRect();
+    const bar = tool.closest(".App-toolbar-container")?.getBoundingClientRect();
     popover = document.createElement("div");
     popover.className = "xudw-notes-popover";
-    popover.style.left = `${rect.left}px`;
-    popover.style.top = `${rect.bottom + 8}px`;
+    if (bar && bar.height > bar.width) {
+      // upright toolbar: to the right of it, at the height of the tool
+      popover.style.left = `${bar.right + 8}px`;
+      popover.style.top = `${rect.top}px`;
+    } else {
+      popover.style.left = `${rect.left}px`;
+      popover.style.top = `${rect.bottom + 8}px`;
+    }
     container.appendChild(popover);
     root = createRoot(popover);
     root.render(
