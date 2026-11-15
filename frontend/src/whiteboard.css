@@ -736,3 +736,18 @@ html.xudw-page-maximized body {
   position: fixed;
   z-index: 50;
 }
+
+/* tool 4: four notes side by side, shape and "Stapel" in one row below */
+.xudw-notes-popover .xudw-notes {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: auto;
+}
+.xudw-notes-popover .xudw-notes-grid {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(4, 3.2rem);
+}
+.xudw-notes-popover .xudw-notes-toggle {
+  width: 2.6rem;
+  flex: none;
+}
