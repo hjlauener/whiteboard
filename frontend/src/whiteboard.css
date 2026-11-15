@@ -827,3 +827,26 @@ html.xudw-page-maximized body {
   text-align: center;
   pointer-events: none;
 }
+
+/* anchor points for connecting objects (connectorAnchors.ts) */
+.xudw-anchors {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+.xudw-anchor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #6965db;
+  border-radius: 50%;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+}
+.xudw-anchor.xudw-anchor-hot {
+  width: 14px;
+  height: 14px;
+  background: #6965db;
+}

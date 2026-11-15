@@ -82,7 +82,7 @@ gespeichert; ILIAS-Rechte steuern Sehen und Bearbeiten; Reiter „Info“,
   Strichstärken 2/4/6), `hugeFontSize()` (Schriftgrösse XXL = 48), `alwaysShowFill()` (Füllung immer sichtbar, dazu `fillMenu.ts`), `slimExtraTools()` (Menü „Weitere Werkzeuge“ ohne Web-Einbettung, Laserpointer, „Generate“). Beispiele für „Mermaid zu Excalidraw“: `templates/mermaid_examples_{de,en,fr}.txt` (`mermaidExamples.ts`); neues Beispiel in allen drei Dateien an derselben Stelle und im Dialog prüfen (Vorschau ohne Fehler). ILIAS-Bootstrap blendet `.dropdown-menu` aus: in
   `whiteboard.css` für Excalidraw zurückgesetzt. Rechtsklick-Einträge in
   `commands/convertMenu.ts`, Formen-Seitenleiste `shapes/`, Glätten
-  `smoothing.ts`, Notizzettel und Abreissblöcke `stickyNotes.ts` (Werkzeug 4 statt Ellipse: `notesTool.tsx`), Hinweise der Werkzeugleiste `toolbarTips.ts`, Linienformen `linePatterns.ts` + `linePatternMenu.tsx` (IDs
+  `smoothing.ts`, Notizzettel und Abreissblöcke `stickyNotes.ts` (Werkzeug 4 statt Ellipse: `notesTool.tsx`), Hinweise der Werkzeugleiste `toolbarTips.ts`, Ankerpunkte zum Verbinden `connectorAnchors.ts`, Linienformen `linePatterns.ts` + `linePatternMenu.tsx` (IDs
   gleich in spec.ts `PATTERN` und `getLinePatternTexts()`). Texte aller neuen Knöpfe aus den Sprachdateien.
 - Fehlersuche im Browser: `localStorage.xudwDebug = "1"`, neu laden, dann
   `window.xudw.api` / `window.xudw.sync` in der Konsole. Menü ohne Links zu Excalidraw und ohne „Zeichenfläche
